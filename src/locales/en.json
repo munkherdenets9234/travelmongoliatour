@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "destinations": "Destinations",
+    "tours": "Tours",
+    "experiences": "Experiences",
+    "about": "About Us",
+    "journal": "Journal",
+    "contact": "Contact"
+  },
+  "hero": {
+    "eyebrow": "Experience the Last True Wilderness",
+    "title": "Mongolia Beyond the Ordinary",
+    "subtitle": "Curated private journeys through endless steppes, ancient traditions and breathtaking landscapes.",
+    "cta_explore": "Explore Journeys",
+    "cta_film": "Watch Film",
+    "scroll": "Scroll to Discover"
+  },
+  "search": {
+    "destination_label": "Where do you want to explore?",
+    "destination_placeholder": "Select destination",
+    "duration_label": "Duration",
+    "duration_placeholder": "Any duration",
+    "style_label": "Travel Style",
+    "style_placeholder": "Any style",
+    "cta": "Explore",
+    "destinations": ["Terelj National Park", "Gobi Desert", "Khuvsgul Lake", "Altai Mountains", "Khustain Nuruu"],
+    "durations": ["3–5 days", "6–9 days", "10–14 days", "15+ days"],
+    "styles": ["Private Tour", "Luxury Camp", "Cultural Journey", "Adventure", "Photography"]
+  },
+  "journeys": {
+    "eyebrow": "Featured Journeys",
+    "title": "Handcrafted Experiences",
+    "view_all": "View All Journeys",
+    "days_label": "Days",
+    "items": [
+      {
+        "id": "terelj",
+        "days": 2,
+        "title": "Terelj National Park",
+        "description": "Granite mountains, nomadic families and serene nature.",
+        "badge": "Private Tour",
+        "rating": 5.0,
+        "image": "/images/terelj.jpg"
+      },
+      {
+        "id": "gobi",
+        "days": 7,
+        "title": "Gobi Expedition",
+        "description": "Vast deserts, dramatic canyons and starlit nights.",
+        "badge": "Luxury Camp",
+        "rating": 5.0,
+        "image": "/images/gobi.jpg"
+      },
+      {
+        "id": "nomadic",
+        "days": 5,
+        "title": "Nomadic Heritage",
+        "description": "Live with nomad families and discover ancient traditions.",
+        "badge": "Cultural Journey",
+        "rating": 5.0,
+        "image": "/images/nomadic.jpg"
+      },
+      {
+        "id": "khuvsgul",
+        "days": 6,
+        "title": "Khuvsgul Lake",
+        "description": "Crystal-clear sacred lake surrounded by ancient taiga forest.",
+        "badge": "Adventure",
+        "rating": 5.0,
+        "image": "/images/khuvsgul.jpg"
+      }
+    ]
+  },
+  "map": {
+    "eyebrow": "Mongolia is Different",
+    "title_line1": "Not Every Journey",
+    "title_line2": "Changes You.",
+    "title_italic": "This One Will.",
+    "description": "From the moment you arrive, we take care of everything. You just show up — and we handle the rest with heart and precision.",
+    "cta": "About Us",
+    "hover_hint": "Hover a Destination",
+    "destinations": [
+      { "id": "khuvsgul", "name": "Khuvsgul", "subtitle": "Northern Lakes", "x": 52, "y": 18 },
+      { "id": "khustain", "name": "Khustain", "subtitle": "Wild Horses", "x": 28, "y": 44 },
+      { "id": "terelj", "name": "Terelj", "subtitle": "Mountains & Nature", "x": 72, "y": 42 },
+      { "id": "gobi", "name": "Gobi", "subtitle": "Desert & Dunes", "x": 58, "y": 65 },
+      { "id": "altai", "name": "Altai", "subtitle": "Western Mongolia", "x": 22, "y": 68 }
+    ]
+  },
+  "why": {
+    "eyebrow": "Why Travel With Us",
+    "items": [
+      {
+        "icon": "compass",
+        "title": "Tailor-made Journeys",
+        "description": "Every itinerary is custom-designed around you."
+      },
+      {
+        "icon": "users",
+        "title": "Local Experts",
+        "description": "Born and raised in Mongolia. We know it best."
+      },
+      {
+        "icon": "mountain",
+        "title": "Private Experiences",
+        "description": "No crowded buses. Just you and the wilderness."
+      },
+      {
+        "icon": "leaf",
+        "title": "Sustainable Tourism",
+        "description": "Supporting local communities and preserving our land."
+      }
+    ]
+  },
+  "quote": {
+    "line1": "Silence",
+    "line2": "has",
+    "line3": "a sound.",
+    "cta": "Discover Mongolia"
+  },
+  "journal": {
+    "eyebrow": "Journey Inspiration",
+    "view_all": "View All Articles",
+    "items": [
+      {
+        "id": "best-time",
+        "category": "Travel Guide",
+        "title": "When is the Best Time to Visit Mongolia?",
+        "read_time": 6,
+        "image": "/images/article-1.jpg"
+      },
+      {
+        "id": "10-things",
+        "category": "Culture",
+        "title": "10 Things You Didn't Know About Mongolia",
+        "read_time": 7,
+        "image": "/images/article-2.jpg"
+      },
+      {
+        "id": "horse-trekking",
+        "category": "Adventure",
+        "title": "Horse Trekking Guide: Tips for Your Journey",
+        "read_time": 5,
+        "image": "/images/article-3.jpg"
+      }
+    ],
+    "read_label": "min read"
+  },
+  "footer": {
+    "tagline": "Curated private journeys through the last true wilderness.",
+    "links": {
+      "company": "Company",
+      "destinations": "Destinations",
+      "tours": "Tours",
+      "about": "About Us",
+      "contact": "Contact",
+      "journal": "Journal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    },
+    "copyright": "© 2024 Terelj Journeys. All rights reserved."
+  }
+}
