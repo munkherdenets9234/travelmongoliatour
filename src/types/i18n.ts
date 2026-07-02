@@ -1,12 +1,15 @@
 export type Locale = 'en' | 'mn'
 
 export interface NavT {
-  destinations: string
   tours: string
-  experiences: string
-  about: string
+  aboutMongolia: string
+  airport: string
+  carRental: string
   journal: string
+  about: string
+  share: string
   contact: string
+  bookCta: string
 }
 
 export interface JourneyItem {
@@ -42,6 +45,10 @@ export interface ArticleItem {
 }
 
 export interface Translation {
+  meta: {
+    title: string
+    description: string
+  }
   nav: NavT
   hero: {
     eyebrow: string
@@ -69,6 +76,9 @@ export interface Translation {
     view_all: string
     days_label: string
     items: JourneyItem[]
+  }
+  tripadvisor: {
+    description: string
   }
   map: {
     eyebrow: string
@@ -98,7 +108,14 @@ export interface Translation {
   }
   footer: {
     tagline: string
+    exploreHeading: string
+    companyHeading: string
     links: Record<string, string>
+    newsletter: {
+      heading: string
+      text: string
+      placeholder: string
+    }
     copyright: string
   }
 }

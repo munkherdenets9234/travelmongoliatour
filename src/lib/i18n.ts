@@ -9,6 +9,7 @@ const translations: Record<Locale, Translation> = {
 
 export const locales: Locale[] = ['en', 'mn']
 export const defaultLocale: Locale = 'en'
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.tereljjourneys.com'
 
 export function getTranslation(locale: Locale): Translation {
   return translations[locale] ?? translations[defaultLocale]

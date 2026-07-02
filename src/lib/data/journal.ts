@@ -1,0 +1,153 @@
+// Placeholder/mock data seeded from the hi-fi design. Swap for a real backend later.
+
+export interface JournalArticle {
+  slug: string
+  title: string
+  category: 'guides' | 'culture' | 'tips' | 'stories' | 'food' | 'adventure'
+  readTime: number
+  image: string
+  featured?: boolean
+  excerpt: string
+  author: { name: string; role: string }
+  date: string
+  body: { heading: string; text: string }[]
+  quote?: string
+  tags: string[]
+}
+
+export const articles: JournalArticle[] = [
+  {
+    slug: 'best-time-to-visit-mongolia',
+    title: 'When is the best time to visit Mongolia?',
+    category: 'guides',
+    readTime: 8,
+    image: '/images/nomadic.jpg',
+    featured: true,
+    excerpt:
+      'From the green of early summer to the golden light of autumn and the drama of the Naadam season — a month-by-month guide to timing your journey.',
+    author: { name: 'Saraa B.', role: 'Lead guide' },
+    date: '2026-06-12',
+    body: [
+      { heading: 'Spring · May to June', text: "As the snow retreats the steppe turns green and newborn foals appear at every camp. Days are mild, crowds are thin, and the light is soft and long — ideal for photography and quiet, unhurried travel before the summer peak." },
+      { heading: 'Summer & Naadam · July', text: 'July brings the warmest weather and the national Naadam festival — the busiest and most vivid time to visit. Book early: our festival departures fill months ahead. This is peak season for a reason.' },
+      { heading: 'Autumn · September', text: 'Arguably the finest month: golden light, crisp air, fewer travellers and the eagle-hunting season opening in the west. A quiet, cinematic close to the year.' },
+    ],
+    quote: "Come in early summer and you'll have the green steppe almost to yourself.",
+    tags: ['seasons', 'planning', 'naadam'],
+  },
+  {
+    slug: 'inside-the-naadam-festival',
+    title: 'Inside the Naadam festival',
+    category: 'culture',
+    readTime: 5,
+    image: '/images/naadam-2.jpg',
+    excerpt: "Wrestling, archery and the thunder of the horse race — a first-timer's guide.",
+    author: { name: 'Otgonbayar D.', role: 'Guide' },
+    date: '2026-05-20',
+    body: [
+      { heading: 'The three manly games', text: 'Naadam centres on wrestling, archery and horse racing — traditions that stretch back to the era of Chinggis Khaan.' },
+      { heading: 'Getting the best seats', text: 'The National Stadium fills fast; our departures reserve seating for the opening ceremony and wrestling finals.' },
+    ],
+    tags: ['naadam', 'culture'],
+  },
+  {
+    slug: 'packing-for-the-gobi',
+    title: 'Packing for the Gobi',
+    category: 'tips',
+    readTime: 4,
+    image: '/images/gobi.jpg',
+    excerpt: 'What to bring for scorching days and freezing desert nights.',
+    author: { name: 'Bat-Erdene', role: 'Lead guide, Gobi' },
+    date: '2026-05-02',
+    body: [
+      { heading: 'Layer for a 40° swing', text: 'Gobi days can hit 35°C while nights drop below freezing in spring and autumn — layering is essential.' },
+      { heading: 'Dust and sand', text: 'A buff or scarf and eye protection make the dune crossings far more comfortable.' },
+    ],
+    tags: ['packing', 'gobi'],
+  },
+  {
+    slug: 'a-week-with-eagle-hunters',
+    title: 'A week with eagle hunters',
+    category: 'stories',
+    readTime: 7,
+    image: '/images/kazakh-eagle-hunter.jpg',
+    excerpt: 'Living with a Kazakh family in the Altai during hunting season.',
+    author: { name: 'Nurlan K.', role: 'Cultural guide' },
+    date: '2026-04-15',
+    body: [
+      { heading: 'Arriving in Bayan-Ölgii', text: "The far west feels like a different country — Kazakh, Muslim, and mountainous, a world away from the central steppe." },
+      { heading: 'The hunt', text: 'Golden eagles are trained over years; watching one launch from a rider\'s arm across a snow-dusted valley is unforgettable.' },
+    ],
+    tags: ['altai', 'eagle-hunters'],
+  },
+  {
+    slug: 'what-nomads-eat',
+    title: 'What nomads eat',
+    category: 'food',
+    readTime: 6,
+    image: '/images/khuvsgul.jpg',
+    excerpt: 'Airag, aaruul and the art of the dairy year on the steppe.',
+    author: { name: 'Saraa B.', role: 'Lead guide' },
+    date: '2026-03-28',
+    body: [
+      { heading: 'The dairy year', text: 'Summer is dairy season — airag (fermented mare\'s milk), aaruul (dried curd) and clotted cream all follow the herding calendar.' },
+    ],
+    tags: ['food', 'culture'],
+  },
+  {
+    slug: 'horse-trekking-first-timers-guide',
+    title: "A first-timer's guide to horse trekking",
+    category: 'adventure',
+    readTime: 5,
+    image: '/images/terelj.jpg',
+    excerpt: "How to ride, what to expect, and why it's the best way to see the land.",
+    author: { name: 'Bat-Erdene', role: 'Lead guide, Gobi' },
+    date: '2026-03-10',
+    body: [
+      { heading: 'No experience needed', text: 'Mongolian horses are small, sturdy and calm — most riders are comfortable within a day.' },
+    ],
+    tags: ['horse-trekking', 'adventure'],
+  },
+  {
+    slug: '10-things-about-nomads',
+    title: "10 things you didn't know about the nomads",
+    category: 'culture',
+    readTime: 6,
+    image: '/images/nomadic.jpg',
+    excerpt: 'Small customs and big traditions that shape daily life.',
+    author: { name: 'Otgonbayar D.', role: 'Guide' },
+    date: '2026-02-18',
+    body: [
+      { heading: 'Hospitality is sacred', text: 'A traveller is always welcomed into the ger with hot salted milk tea, no matter the hour.' },
+    ],
+    tags: ['culture', 'nomads'],
+  },
+]
+
+export interface JournalFilters {
+  category?: string
+  page?: number
+  pageSize?: number
+}
+
+export function getArticles(filters: JournalFilters = {}) {
+  let results = articles.filter((a) => !a.featured)
+  if (filters.category && filters.category !== 'all') {
+    results = results.filter((a) => a.category === filters.category)
+  }
+  const featured = articles.find((a) => a.featured)
+
+  const pageSize = filters.pageSize ?? 6
+  const page = filters.page ?? 1
+  const items = results.slice(0, page * pageSize)
+
+  return { featured, items, total: results.length, hasMore: items.length < results.length }
+}
+
+export function getArticleBySlug(slug: string) {
+  return articles.find((a) => a.slug === slug)
+}
+
+export function getRelatedArticles(slug: string, count = 3) {
+  return articles.filter((a) => a.slug !== slug).slice(0, count)
+}

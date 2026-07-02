@@ -1,16 +1,23 @@
 {
+  "meta": {
+    "title": "E & S Discovery Mongolia — Private Mongolia Travel & Tours",
+    "description": "Curated private journeys and small group tours through Mongolia's nomadic culture, endless steppes and remote landscapes — crafted by trusted local experts."
+  },
   "nav": {
-    "destinations": "Destinations",
     "tours": "Tours",
-    "experiences": "Experiences",
-    "about": "About Us",
+    "aboutMongolia": "About Mongolia",
+    "airport": "Airport",
+    "carRental": "Car Rental",
     "journal": "Journal",
-    "contact": "Contact"
+    "about": "About",
+    "contact": "Contact",
+    "bookCta": "Book a Trip",
+    "share": "Share a Tour"
   },
   "hero": {
     "eyebrow": "Experience the Last True Wilderness",
-    "title": "Mongolia Beyond the Ordinary",
-    "subtitle": "Curated private journeys through endless steppes, ancient traditions and breathtaking landscapes.",
+    "title": "Experience Mongolia with Trusted Local Experts Since 2004",
+    "subtitle": "Private journeys & small group tours through Mongolia’s nomadic culture and remote landscapes — crafted by trusted local experts since 2004.",
     "cta_explore": "Explore Journeys",
     "cta_film": "Watch Film",
     "scroll": "Scroll to Discover"
@@ -70,6 +77,9 @@
         "image": "/images/khuvsgul.jpg"
       }
     ]
+  },
+  "tripadvisor": {
+    "description": "We have been helping people the world over to enjoy unforgettable adventures to our homeland, and we do it all with expertise and passion."
   },
   "map": {
     "eyebrow": "Mongolia is Different",
@@ -147,17 +157,23 @@
     "read_label": "min read"
   },
   "footer": {
-    "tagline": "Curated private journeys through the last true wilderness.",
+    "tagline": "Private, tailor-made journeys across the last great wilderness. Ulaanbaatar, Mongolia.",
+    "exploreHeading": "Explore",
+    "companyHeading": "Company",
     "links": {
-      "company": "Company",
-      "destinations": "Destinations",
       "tours": "Tours",
-      "about": "About Us",
-      "contact": "Contact",
+      "aboutMongolia": "About Mongolia",
+      "airportTransfer": "Airport transfer",
+      "carRental": "Car rental",
+      "aboutUs": "About us",
       "journal": "Journal",
-      "privacy": "Privacy Policy",
-      "terms": "Terms of Service"
+      "contact": "Contact"
     },
-    "copyright": "© 2024 Terelj Journeys. All rights reserved."
+    "newsletter": {
+      "heading": "Newsletter",
+      "text": "Stories from the steppe, a few times a year.",
+      "placeholder": "Email address"
+    },
+    "copyright": "© 2026 E and S Discovery Mongolia. All rights reserved."
   }
 }

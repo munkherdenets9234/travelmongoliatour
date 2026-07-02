@@ -9,10 +9,10 @@ export default function JournalSection() {
 
   return (
     <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="container mx-auto px-6">
         <div className="flex items-center justify-between mb-12">
-          <p className="text-stone-900 text-[10px] tracking-[0.3em] uppercase font-semibold">{j.eyebrow}</p>
-          <button className="text-[10px] tracking-widest uppercase text-stone-400 hover:text-stone-900 underline underline-offset-4 transition-colors">
+          <p className="text-ink text-[10px] tracking-[0.3em] uppercase font-semibold">{j.eyebrow}</p>
+          <button className="text-[10px] tracking-widest uppercase text-warm-gray hover:text-ink underline underline-offset-4 transition-colors">
             {j.view_all}
           </button>
         </div>

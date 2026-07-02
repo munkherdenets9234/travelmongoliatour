@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
-import { Inter, Cormorant_Garamond } from 'next/font/google'
+import { Manrope, Cormorant_Garamond } from 'next/font/google'
 import { notFound } from 'next/navigation'
-import { isValidLocale } from '@/lib/i18n'
+import { isValidLocale, getTranslation, locales, siteUrl } from '@/lib/i18n'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import '../globals.css'
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ['latin'],
-  variable: '--font-inter',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-manrope',
   display: 'swap',
 })
 
@@ -20,18 +21,8 @@ const cormorant = Cormorant_Garamond({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  title: 'Terelj Journeys — Mongolia Beyond the Ordinary',
-  description: 'Curated private journeys through endless steppes, ancient traditions and breathtaking landscapes of Mongolia.',
-  openGraph: {
-    title: 'Terelj Journeys',
-    description: 'Mongolia Beyond the Ordinary',
-    images: ['/images/hero.jpg'],
-  },
-}
-
 export async function generateStaticParams() {
-  return [{ locale: 'en' }, { locale: 'mn' }]
+  return locales.map((locale) => ({ locale }))
 }
 
 interface Props {
@@ -39,13 +30,52 @@ interface Props {
   params: Promise<{ locale: string }>
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  if (!isValidLocale(locale)) return {}
+
+  const { meta } = getTranslation(locale)
+  const path = locale === 'en' ? '/en' : `/${locale}`
+
+  return {
+    metadataBase: new URL(siteUrl),
+    title: meta.title,
+    description: meta.description,
+    icons: {
+      icon: '/icon.ico',
+      shortcut: '/icon.ico',
+    },
+    alternates: {
+      canonical: path,
+      languages: {
+        ...Object.fromEntries(locales.map((l) => [l, `/${l}`])),
+        'x-default': '/en',
+      },
+    },
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      url: path,
+      locale,
+      images: ['/images/hero.jpg'],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: meta.title,
+      description: meta.description,
+      images: ['/images/hero.jpg'],
+    },
+  }
+}
+
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
   return (
-    <html lang={locale} className={`${inter.variable} ${cormorant.variable} scroll-smooth`}>
-      <body className="antialiased bg-white text-stone-900" style={{ fontFamily: 'var(--font-inter)' }}>
+    <html lang={locale} className={`${manrope.variable} ${cormorant.variable} scroll-smooth`}>
+      <body className="antialiased bg-cream text-ink" style={{ fontFamily: 'var(--font-manrope)' }}>
         <Header />
         <main>{children}</main>
         <Footer />

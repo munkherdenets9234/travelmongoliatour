@@ -34,15 +34,15 @@ export default function WhySection() {
   const w = t.why
 
   return (
-    <section className="py-24 bg-stone-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <p className="text-amber-600/80 text-[10px] tracking-[0.3em] uppercase mb-12 text-center">{w.eyebrow}</p>
+    <section className="py-24 bg-cream">
+      <div className="container mx-auto px-6">
+        <p className="text-olive/80 text-[10px] tracking-[0.3em] uppercase mb-12 text-center">{w.eyebrow}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {w.items.map((item) => (
             <div key={item.title} className="flex flex-col items-start gap-4">
-              <div className="text-stone-400">{icons[item.icon]}</div>
-              <h3 className="text-stone-900 font-semibold text-base">{item.title}</h3>
-              <p className="text-stone-500 text-sm leading-relaxed">{item.description}</p>
+              <div className="text-warm-gray">{icons[item.icon]}</div>
+              <h3 className="text-ink font-semibold text-base">{item.title}</h3>
+              <p className="text-muted text-sm leading-relaxed">{item.description}</p>
             </div>
           ))}
         </div>
