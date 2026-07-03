@@ -6,6 +6,7 @@ import { isValidLocale } from '@/lib/i18n'
 import { getCars } from '@/lib/data/cars'
 import FilterChips from '@/components/ui/FilterChips'
 import CarCard from '@/components/rentals/CarCard'
+import CarSearchRail from '@/components/rentals/CarSearchRail'
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -32,12 +33,14 @@ export default async function RentACarPage({ params, searchParams }: Props) {
 
   const type = one(sp.type)
   const mode: 'self-drive' | 'with-driver' = one(sp.mode) === 'self-drive' ? 'self-drive' : 'with-driver'
-  const cars = getCars({ type })
+  const pickupDate = one(sp.pickupDate)
+  const returnDate = one(sp.returnDate)
+  const cars = await getCars({ type })
 
   const base = `/${locale}/rent-a-car`
   const qs = (overrides: Record<string, string | undefined>) => {
     const params = new URLSearchParams()
-    const merged = { type, mode, ...overrides }
+    const merged = { type, mode, pickupDate, returnDate, ...overrides }
     Object.entries(merged).forEach(([k, v]) => v && params.set(k, v))
     const s = params.toString()
     return s ? `${base}?${s}` : base
@@ -67,14 +70,7 @@ export default async function RentACarPage({ params, searchParams }: Props) {
       {/* SEARCH RAIL */}
       <div className="container mx-auto px-6 sm:px-14 -mt-9 relative z-10">
         <div className="bg-white rounded-md shadow-[0_20px_44px_rgba(30,27,22,0.14)] p-5 flex flex-wrap items-end gap-5">
-          <div className="flex-1 min-w-[150px]">
-            <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-2">Pick-up date</div>
-            <input type="date" className="w-full border-b border-input-border text-sm py-2 outline-none" />
-          </div>
-          <div className="flex-1 min-w-[150px]">
-            <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-2">Return date</div>
-            <input type="date" className="w-full border-b border-input-border text-sm py-2 outline-none" />
-          </div>
+          <CarSearchRail basePath={base} />
           <div className="flex border border-input-border rounded-sm overflow-hidden">
             <Link href={qs({ mode: 'with-driver' })} className={`px-4 py-2.5 text-xs font-semibold tracking-wide ${mode === 'with-driver' ? 'bg-ink text-cream' : 'text-brown'}`}>
               With driver
@@ -99,7 +95,7 @@ export default async function RentACarPage({ params, searchParams }: Props) {
       {/* FLEET GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto px-6 sm:px-14 py-8">
         {cars.map((car) => (
-          <CarCard key={car.slug} car={car} mode={mode} />
+          <CarCard key={car.slug} car={car} mode={mode} pickupDate={pickupDate} returnDate={returnDate} />
         ))}
 
         <article className="rounded-md bg-ink text-cream flex flex-col items-center justify-center text-center p-8 shadow-[0_10px_26px_rgba(30,27,22,0.12)]">

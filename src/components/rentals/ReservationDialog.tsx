@@ -6,10 +6,12 @@ import type { Car } from '@/lib/data/cars'
 interface Props {
   car: Car
   mode: 'self-drive' | 'with-driver'
+  pickupDate?: string
+  returnDate?: string
   onClose: () => void
 }
 
-export default function ReservationDialog({ car, mode, onClose }: Props) {
+export default function ReservationDialog({ car, mode, pickupDate, returnDate, onClose }: Props) {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [confirmationId, setConfirmationId] = useState<string | null>(null)
 
@@ -68,8 +70,22 @@ export default function ReservationDialog({ car, mode, onClose }: Props) {
             </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <div className="grid grid-cols-2 gap-3">
-                <input name="pickupDate" type="date" required className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white" />
-                <input name="returnDate" type="date" required className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white" />
+                <input
+                  name="pickupDate"
+                  type="date"
+                  defaultValue={pickupDate}
+                  required
+                  onClick={(e) => e.currentTarget.showPicker?.()}
+                  className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white cursor-pointer"
+                />
+                <input
+                  name="returnDate"
+                  type="date"
+                  defaultValue={returnDate}
+                  required
+                  onClick={(e) => e.currentTarget.showPicker?.()}
+                  className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white cursor-pointer"
+                />
               </div>
               <input name="name" type="text" required placeholder="Full name" className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white" />
               <input name="email" type="email" required placeholder="Email" className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white" />

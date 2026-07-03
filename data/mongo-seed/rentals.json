@@ -1,0 +1,50 @@
+[
+  {
+    "confirmationId": "RC-LX3F2H4K",
+    "carSlug": "toyota-land-cruiser-76",
+    "mode": "with-driver",
+    "name": "Daniel Kruger",
+    "email": "daniel.kruger@example.com",
+    "phone": "+49 151 2345678",
+    "pickupDate": "2026-07-20",
+    "returnDate": "2026-07-27",
+    "status": "confirmed",
+    "createdAt": "2026-06-25T10:14:00Z"
+  },
+  {
+    "confirmationId": "RC-LX3G5J8L",
+    "carSlug": "land-cruiser-200",
+    "mode": "self-drive",
+    "name": "Mia Andersson",
+    "email": "mia.andersson@example.com",
+    "phone": "+46 70 123 45 67",
+    "pickupDate": "2026-08-01",
+    "returnDate": "2026-08-10",
+    "status": "confirmed",
+    "createdAt": "2026-06-30T08:41:00Z"
+  },
+  {
+    "confirmationId": "RC-LX3H7K1M",
+    "carSlug": "mitsubishi-delica",
+    "mode": "with-driver",
+    "name": "Liam O'Brien",
+    "email": "liam.obrien@example.com",
+    "phone": "",
+    "pickupDate": "2026-07-05",
+    "returnDate": "2026-07-12",
+    "status": "pending",
+    "createdAt": "2026-07-01T15:52:00Z"
+  },
+  {
+    "confirmationId": "RC-LX3J9M4N",
+    "carSlug": "toyota-prius",
+    "mode": "self-drive",
+    "name": "Yuki Sato",
+    "email": "yuki.sato@example.com",
+    "phone": "+81 90 1234 5678",
+    "pickupDate": "2026-08-15",
+    "returnDate": "2026-08-18",
+    "status": "confirmed",
+    "createdAt": "2026-07-02T18:03:00Z"
+  }
+]

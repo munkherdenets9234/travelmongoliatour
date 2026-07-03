@@ -1,14 +1,44 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 
-export default function SearchBar() {
-  const { t } = useTranslation()
+export interface SearchTour {
+  slug: string
+  title: string
+  type: string
+}
+
+// Duration buckets match the /tours page's own filter codes (see ToursPage's durationChips)
+// so a selection here filters the same way a chip click there would.
+const DURATION_BUCKETS = [
+  { value: '1-5', labelIndex: 0 },
+  { value: '6-10', labelIndex: 1 },
+  { value: '11+', labelIndex: 2 },
+]
+
+export default function SearchBar({ tours }: { tours: SearchTour[] }) {
+  const { t, locale } = useTranslation()
+  const router = useRouter()
   const s = t.search
   const [destination, setDestination] = useState('')
   const [duration, setDuration] = useState('')
   const [style, setStyle] = useState('')
+
+  const styles = useMemo(() => Array.from(new Set(tours.map((tour) => tour.type))).filter(Boolean), [tours])
+
+  function handleExplore() {
+    if (destination) {
+      router.push(`/${locale}/tours/${destination}`)
+      return
+    }
+    const params = new URLSearchParams()
+    if (duration) params.set('duration', duration)
+    if (style) params.set('type', style)
+    const qs = params.toString()
+    router.push(`/${locale}/tours${qs ? `?${qs}` : ''}`)
+  }
 
   return (
     <section className="relative z-20 -mt-16 px-4">
@@ -29,7 +59,7 @@ export default function SearchBar() {
                 className="w-full text-sm text-brown bg-transparent outline-none appearance-none cursor-pointer"
               >
                 <option value="">{s.destination_placeholder}</option>
-                {s.destinations.map((d) => <option key={d} value={d}>{d}</option>)}
+                {tours.map((tour) => <option key={tour.slug} value={tour.slug}>{tour.title}</option>)}
               </select>
               <svg className="text-warm-gray shrink-0" width="10" height="6" viewBox="0 0 10 6" fill="none">
                 <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -53,7 +83,7 @@ export default function SearchBar() {
                 className="w-full text-sm text-brown bg-transparent outline-none appearance-none cursor-pointer"
               >
                 <option value="">{s.duration_placeholder}</option>
-                {s.durations.map((d) => <option key={d} value={d}>{d}</option>)}
+                {DURATION_BUCKETS.map((b) => <option key={b.value} value={b.value}>{s.durations[b.labelIndex]}</option>)}
               </select>
               <svg className="text-warm-gray shrink-0" width="10" height="6" viewBox="0 0 10 6" fill="none">
                 <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -77,7 +107,7 @@ export default function SearchBar() {
                 className="w-full text-sm text-brown bg-transparent outline-none appearance-none cursor-pointer"
               >
                 <option value="">{s.style_placeholder}</option>
-                {s.styles.map((st) => <option key={st} value={st}>{st}</option>)}
+                {styles.map((st) => <option key={st} value={st}>{st.charAt(0).toUpperCase() + st.slice(1)}</option>)}
               </select>
               <svg className="text-warm-gray shrink-0" width="10" height="6" viewBox="0 0 10 6" fill="none">
                 <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -87,7 +117,11 @@ export default function SearchBar() {
 
           {/* CTA */}
           <div className="p-4 flex items-center">
-            <button className="w-full bg-olive hover:bg-olive/90 text-cream text-xs font-semibold tracking-widest uppercase py-4 px-6 flex items-center justify-center gap-3 transition-colors">
+            <button
+              type="button"
+              onClick={handleExplore}
+              className="w-full bg-olive hover:bg-olive/90 text-cream text-xs font-semibold tracking-widest uppercase py-4 px-6 flex items-center justify-center gap-3 transition-colors"
+            >
               {s.cta}
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

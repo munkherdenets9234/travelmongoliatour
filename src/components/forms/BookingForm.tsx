@@ -90,7 +90,13 @@ export default function BookingForm({ tours, initialSlug, initialDate }: { tours
             </div>
             <div>
               <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-1.5">Date</div>
-              <input name="date" type="date" defaultValue={initialDate} className="w-full border border-input-border rounded-sm px-3 py-3 text-sm bg-white" />
+              <input
+                name="date"
+                type="date"
+                defaultValue={initialDate}
+                onClick={(e) => e.currentTarget.showPicker?.()}
+                className="w-full border border-input-border rounded-sm px-3 py-3 text-sm bg-white cursor-pointer"
+              />
             </div>
             <div>
               <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-1.5">Travellers</div>

@@ -37,7 +37,7 @@ export default async function ToursPage({ params, searchParams }: Props) {
   const sort = one(sp.sort)
   const page = sp.page ? Number(one(sp.page)) : 1
 
-  const { items, total } = getTours({ duration, region, type, sort, page })
+  const { items, total } = await getTours({ duration, region, type, sort, page })
 
   const base = `/${locale}/tours`
   const qs = (overrides: Record<string, string | undefined>) => {

@@ -23,7 +23,7 @@
     "scroll": "Scroll to Discover"
   },
   "search": {
-    "destination_label": "Where do you want to explore?",
+    "destination_label": "Choose your destination?",
     "destination_placeholder": "Select destination",
     "duration_label": "Duration",
     "duration_placeholder": "Any duration",

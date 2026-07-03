@@ -6,5 +6,5 @@ export async function GET(request: NextRequest) {
   const defaultMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
   const month = request.nextUrl.searchParams.get('month') ?? defaultMonth
 
-  return NextResponse.json({ month, items: getDepartureWithTour(month) })
+  return NextResponse.json({ month, items: await getDepartureWithTour(month) })
 }

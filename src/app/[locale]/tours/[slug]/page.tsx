@@ -2,21 +2,17 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getTourBySlug, getRelatedTours, tours } from '@/lib/data/tours'
-import { isValidLocale, locales } from '@/lib/i18n'
+import { getTourBySlug, getRelatedTours } from '@/lib/data/tours'
+import { isValidLocale } from '@/lib/i18n'
 import JourneyCard from '@/components/ui/JourneyCard'
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>
 }
 
-export async function generateStaticParams() {
-  return locales.flatMap((locale) => tours.map((t) => ({ locale, slug: t.slug })))
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params
-  const tour = getTourBySlug(slug)
+  const tour = await getTourBySlug(slug)
   if (!tour) return {}
 
   return {
@@ -31,9 +27,9 @@ export default async function TourDetailPage({ params }: Props) {
   const { locale, slug } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const tour = getTourBySlug(slug)
+  const tour = await getTourBySlug(slug)
   if (!tour) notFound()
-  const related = getRelatedTours(slug)
+  const related = await getRelatedTours(slug)
 
   return (
     <>

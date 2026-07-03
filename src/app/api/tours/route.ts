@@ -3,7 +3,7 @@ import { getTours } from '@/lib/data/tours'
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams
-  const result = getTours({
+  const result = await getTours({
     duration: params.get('duration') ?? undefined,
     region: params.get('region') ?? undefined,
     type: params.get('type') ?? undefined,

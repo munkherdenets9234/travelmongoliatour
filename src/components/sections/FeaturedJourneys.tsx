@@ -1,15 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useTranslation } from '@/hooks/useTranslation'
 import JourneyCard from '@/components/ui/JourneyCard'
+import type { JourneyItem } from '@/types/i18n'
 
-export default function FeaturedJourneys() {
-  const { t } = useTranslation()
+export default function FeaturedJourneys({ items }: { items: JourneyItem[] }) {
+  const { t, locale } = useTranslation()
   const j = t.journeys
   const [index, setIndex] = useState(0)
   const visible = 3
-  const max = j.items.length - visible
+  const max = Math.max(0, items.length - visible)
 
   const prev = () => setIndex((i) => Math.max(0, i - 1))
   const next = () => setIndex((i) => Math.min(max, i + 1))
@@ -44,16 +46,16 @@ export default function FeaturedJourneys() {
                 <path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
-            <button className="text-[10px] tracking-widest uppercase text-muted hover:text-ink underline underline-offset-4 transition-colors">
+            <Link href={`/${locale}/tours`} className="text-[10px] tracking-widest uppercase text-muted hover:text-ink underline underline-offset-4 transition-colors">
               {j.view_all}
-            </button>
+            </Link>
           </div>
         </div>
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 overflow-hidden">
-          {j.items.slice(index, index + visible).map((item) => (
-            <JourneyCard key={item.id} item={item} daysLabel={j.days_label} />
+          {items.slice(index, index + visible).map((item) => (
+            <JourneyCard key={item.id} item={item} daysLabel={j.days_label} href={`/${locale}/tours/${item.id}`} />
           ))}
         </div>
 

@@ -1,9 +1,11 @@
-// Placeholder/mock data seeded from the hi-fi design. Swap for a real backend later.
+// Backed by the DigitalService API's `/cars` resource — see src/lib/api/client.ts.
+import { apiGet, ApiError } from '@/lib/api/client'
 
 export interface Car {
+  id?: string
   slug: string
   name: string
-  type: 'suv' | 'van' | 'furgon' | 'sedan'
+  type: string
   seats: number
   fuel: string
   pricePerDay: number
@@ -11,19 +13,61 @@ export interface Car {
   tags: string[]
 }
 
-export const cars: Car[] = [
-  { slug: 'toyota-land-cruiser-76', name: 'Toyota Land Cruiser 76', type: 'suv', seats: 5, fuel: 'Diesel', pricePerDay: 90, image: '/images/gobi.jpg', tags: ['4×4', '5 seats', 'Diesel'] },
-  { slug: 'uaz-452-furgon', name: 'UAZ 452 Furgon', type: 'furgon', seats: 8, fuel: 'Petrol', pricePerDay: 60, image: '/images/terelj.jpg', tags: ['4×4', '8 seats', 'Petrol'] },
-  { slug: 'mitsubishi-delica', name: 'Mitsubishi Delica', type: 'van', seats: 7, fuel: 'Diesel', pricePerDay: 75, image: '/images/nomadic.jpg', tags: ['4×4', '7 seats', 'Diesel'] },
-  { slug: 'toyota-prius', name: 'Toyota Prius', type: 'sedan', seats: 4, fuel: 'Hybrid', pricePerDay: 40, image: '/images/khuvsgul.jpg', tags: ['City', '4 seats', 'Hybrid'] },
-  { slug: 'land-cruiser-200', name: 'Land Cruiser 200', type: 'suv', seats: 5, fuel: 'Diesel', pricePerDay: 140, image: '/images/car-rental-hero.jpg', tags: ['4×4', '5 seats', 'Luxury'] },
-]
+interface BackendImage {
+  url: string
+  caption: string
+}
+
+interface BackendCar {
+  id: string
+  slug: string
+  name: string
+  type: string
+  seats: number
+  fuel: string
+  price_per_day_usd: number
+  tags: string[]
+  cover_image: BackendImage
+  images: BackendImage[]
+  is_active: boolean
+}
+
+function mapCar(c: BackendCar): Car {
+  return {
+    id: c.id,
+    slug: c.slug,
+    name: c.name,
+    type: c.type,
+    seats: c.seats,
+    fuel: c.fuel,
+    pricePerDay: c.price_per_day_usd,
+    image: c.cover_image?.url ?? '',
+    tags: c.tags ?? [],
+  }
+}
+
+export async function getAllCars(): Promise<Car[]> {
+  const { data } = await apiGet<BackendCar[]>('/cars', { limit: 100 })
+  // The Go backend serializes an empty result set as `null`, not `[]`.
+  return (data ?? []).map(mapCar)
+}
 
 export interface CarFilters {
   type?: string
 }
 
-export function getCars(filters: CarFilters = {}) {
+export async function getCars(filters: CarFilters = {}): Promise<Car[]> {
+  const cars = await getAllCars()
   if (filters.type) return cars.filter((c) => c.type === filters.type)
   return cars
+}
+
+export async function getCarBySlug(slug: string): Promise<Car | undefined> {
+  try {
+    const { data } = await apiGet<BackendCar>(`/cars/${slug}`)
+    return mapCar(data)
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 404) return undefined
+    throw err
+  }
 }

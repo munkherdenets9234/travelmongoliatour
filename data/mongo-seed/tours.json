@@ -1,0 +1,249 @@
+[
+  {
+    "name": "Gobi Desert Expedition",
+    "slug": "gobi-desert-expedition",
+    "overview": "Singing dunes, flaming cliffs and nomad gers across the great southern desert.",
+    "region": "gobi",
+    "location": { "lat": 43.5, "lng": 103.8 },
+    "duration_days": 8,
+    "group_size": { "min": 1, "max": 8 },
+    "prices": [
+      { "min_people": 1, "max_people": 8, "price_usd": 1290 }
+    ],
+    "best_seasons": ["spring", "summer", "autumn"],
+    "departures": [],
+    "highlights": [
+      "Khongoryn Els singing dunes",
+      "Bayanzag flaming cliffs",
+      "Yolyn Am ice canyon",
+      "Two nights with a herder family"
+    ],
+    "activities": ["hiking", "camel trekking", "stargazing", "cultural visits"],
+    "inclusions": ["private 4x4 and driver", "ger camp accommodation", "all meals", "domestic flight"],
+    "exclusions": ["international flights", "travel insurance", "personal expenses", "alcoholic drinks"],
+    "itinerary": [
+      { "day": 1, "title": "Ulaanbaatar → Middle Gobi", "description": "Fly south and drive to the white stupas of Tsagaan Suvarga. First night in a ger camp on the open steppe.", "activities": ["domestic flight", "driving", "sightseeing"], "overnight": "Ger Camp", "meals": ["lunch", "dinner"] },
+      { "day": 2, "title": "Yolyn Am ice canyon", "description": "Hike the deep gorge where ice lingers into summer, watched over by lammergeier vultures.", "activities": ["hiking", "wildlife viewing"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 3, "title": "Khongoryn Els dunes", "description": "Climb the towering sand dunes at sunset and ride camels with a local herder family.", "activities": ["camel trekking", "hiking"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 4, "title": "Bayanzag flaming cliffs", "description": "Explore the red sandstone cliffs where the first dinosaur eggs were discovered.", "activities": ["hiking", "sightseeing"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 5, "title": "Herder family homestay", "description": "Spend the day with a nomadic family, learning traditional dairy and herding work.", "activities": ["cultural exchange", "dairy making"], "overnight": "Herder Family Ger", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 6, "title": "Ongi monastery ruins", "description": "Visit the ruins of a once-great monastery on the banks of the Ongi river.", "activities": ["sightseeing"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 7, "title": "Baga Gazriin Chuluu", "description": "Explore the granite rock formations and hidden springs of the central Gobi.", "activities": ["hiking", "exploring"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 8, "title": "Return to Ulaanbaatar", "description": "Domestic flight back to the capital.", "activities": ["domestic flight"], "overnight": null, "meals": ["breakfast"] }
+    ],
+    "accommodation": "ger camps + 1 homestay with herder family",
+    "meal_plan": "all meals included",
+    "difficulty": "moderate",
+    "categories": ["adventure", "desert"],
+    "tags": ["desert", "camel-trekking", "stargazing", "ger-camp"],
+    "cover_image": { "url": "/images/gobi.jpg", "caption": "Gobi Desert Expedition" },
+    "images": [
+      { "url": "/images/gobi.jpg", "caption": "Gobi Desert Expedition" },
+      { "url": "/images/tsagaan-suvarga-1.webp", "caption": "Tsagaan Suvarga white stupas" },
+      { "url": "/images/tsagaan-suvarga-2.webp", "caption": "Tsagaan Suvarga white stupas" }
+    ],
+    "guide": { "name": "Bat-Erdene", "note": "15 years across the Gobi" }
+  },
+  {
+    "name": "Naadam Festival",
+    "slug": "naadam-festival",
+    "overview": "The three manly games — wrestling, archery and horse racing — from the front row.",
+    "region": "central",
+    "location": { "lat": 47.9188, "lng": 106.9176 },
+    "duration_days": 5,
+    "group_size": { "min": 1, "max": 8 },
+    "prices": [
+      { "min_people": 1, "max_people": 8, "price_usd": 980 }
+    ],
+    "best_seasons": ["summer"],
+    "departures": [],
+    "highlights": [
+      "Opening ceremony at the National Stadium",
+      "Wrestling & archery front-row seats",
+      "Countryside horse racing",
+      "Traditional deel fitting"
+    ],
+    "activities": ["wrestling", "archery", "horse racing", "cultural visits"],
+    "inclusions": ["reserved stadium seats", "private vehicle and guide", "all meals", "countryside excursion"],
+    "exclusions": ["international flights", "travel insurance", "personal expenses", "souvenirs"],
+    "itinerary": [
+      { "day": 1, "title": "Arrival & opening ceremony", "description": "Settle in Ulaanbaatar and watch the spectacular Naadam opening ceremony.", "activities": ["ceremony viewing"], "overnight": "Hotel", "meals": ["dinner"] },
+      { "day": 2, "title": "Wrestling & archery", "description": "A full day at the National Stadium for wrestling bouts and traditional archery.", "activities": ["wrestling", "archery"], "overnight": "Hotel", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 3, "title": "Countryside horse racing", "description": "Drive to the steppe to watch child jockeys race across the open grassland.", "activities": ["horse racing viewing", "driving"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 4, "title": "Nomad camp visit", "description": "Meet a local herding family and taste traditional Naadam-season dairy.", "activities": ["cultural visit", "dairy tasting"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 5, "title": "Departure", "description": "Free morning before your onward flight.", "activities": [], "overnight": null, "meals": ["breakfast"] }
+    ],
+    "accommodation": "hotel in Ulaanbaatar + ger camp",
+    "meal_plan": "all meals included",
+    "difficulty": "easy",
+    "categories": ["festival", "cultural"],
+    "tags": ["festival", "wrestling", "archery", "horse-racing"],
+    "cover_image": { "url": "/images/naadam-1.jpg", "caption": "Naadam Festival" },
+    "images": [
+      { "url": "/images/naadam-1.jpg", "caption": "Naadam Festival opening ceremony" },
+      { "url": "/images/naadam-2.jpg", "caption": "Naadam wrestling" },
+      { "url": "/images/naadam-3.jpg", "caption": "Naadam horse racing" }
+    ],
+    "guide": { "name": "Saraa B.", "note": "Lead festival guide" }
+  },
+  {
+    "name": "Eagle Hunters of the Altai",
+    "slug": "eagle-hunters-of-the-altai",
+    "overview": "Ride with Kazakh eagle hunters through the snow-dusted peaks of the far west.",
+    "region": "west",
+    "location": { "lat": 48.97, "lng": 89.97 },
+    "duration_days": 10,
+    "group_size": { "min": 1, "max": 6 },
+    "prices": [
+      { "min_people": 1, "max_people": 6, "price_usd": 1750 }
+    ],
+    "best_seasons": ["autumn"],
+    "departures": [],
+    "highlights": [
+      "Live with an eagle hunter family",
+      "Horseback riding in the Altai",
+      "Golden Eagle Festival (seasonal)",
+      "Kazakh cultural traditions"
+    ],
+    "activities": ["eagle hunting demonstration", "horseback riding", "cultural exchange"],
+    "inclusions": ["domestic flight", "homestay with eagle hunter family", "horses and guide", "all meals"],
+    "exclusions": ["international flights", "travel insurance", "cold-weather gear", "personal expenses"],
+    "itinerary": [
+      { "day": 1, "title": "Ulaanbaatar → Ölgii", "description": "Domestic flight to the far-western province of Bayan-Ölgii.", "activities": ["domestic flight"], "overnight": "Hotel", "meals": ["dinner"] },
+      { "day": 2, "title": "Meet the eagle hunters", "description": "Drive into the mountains to meet a Kazakh eagle hunting family.", "activities": ["driving", "cultural visit"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 3, "title": "Hunting demonstration", "description": "Watch a traditional eagle hunting demonstration on horseback.", "activities": ["eagle hunting demonstration", "horseback riding"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 4, "title": "Altai horseback trek", "description": "Ride through the snow-dusted peaks of the Altai range.", "activities": ["horseback riding", "trekking"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 5, "title": "Kazakh ger stay", "description": "A full day and night living with the hunting family.", "activities": ["cultural exchange"], "overnight": "Kazakh Family Ger", "meals": ["breakfast", "lunch", "dinner"] }
+    ],
+    "accommodation": "ger camps + homestay with eagle hunter family",
+    "meal_plan": "all meals included",
+    "difficulty": "moderate-hard",
+    "categories": ["cultural", "wildlife"],
+    "tags": ["eagle-hunting", "kazakh-culture", "altai-mountains", "horseback"],
+    "cover_image": { "url": "/images/kazakh-eagle-hunter.jpg", "caption": "Eagle Hunters of the Altai" },
+    "images": [
+      { "url": "/images/kazakh-eagle-hunter.jpg", "caption": "Kazakh eagle hunter" }
+    ],
+    "guide": { "name": "Nurlan K.", "note": "Kazakh cultural guide, Bayan-Ölgii native" }
+  },
+  {
+    "name": "Khövsgöl Lake & Reindeer",
+    "slug": "khuvsgul-lake-and-reindeer",
+    "overview": "The blue pearl of Mongolia and the Tsaatan reindeer herders of the taiga.",
+    "region": "north",
+    "location": { "lat": 51.0, "lng": 100.5 },
+    "duration_days": 7,
+    "group_size": { "min": 1, "max": 8 },
+    "prices": [
+      { "min_people": 1, "max_people": 8, "price_usd": 1120 }
+    ],
+    "best_seasons": ["summer", "autumn"],
+    "departures": [],
+    "highlights": [
+      "Khövsgöl Lake horseback ride",
+      "Tsaatan reindeer herder camp",
+      "Taiga forest trekking",
+      "Lakeside ger camp stay"
+    ],
+    "activities": ["horseback riding", "trekking", "cultural visits"],
+    "inclusions": ["domestic flight", "lakeside ger camp", "horses and guide", "all meals"],
+    "exclusions": ["international flights", "travel insurance", "personal expenses", "alcoholic drinks"],
+    "itinerary": [
+      { "day": 1, "title": "Ulaanbaatar → Mörön", "description": "Domestic flight to Mörön, gateway to Khövsgöl.", "activities": ["domestic flight"], "overnight": "Hotel", "meals": ["dinner"] },
+      { "day": 2, "title": "Khövsgöl Lake", "description": "Drive to the lakeshore and settle into a ger camp.", "activities": ["driving", "sightseeing"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 3, "title": "Horseback along the shore", "description": "A full day riding along the lake with a local guide.", "activities": ["horseback riding"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 4, "title": "Into the taiga", "description": "Trek toward the reindeer herders' summer camp.", "activities": ["trekking"], "overnight": "Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 5, "title": "Tsaatan reindeer camp", "description": "A day with the Tsaatan, Mongolia's reindeer-herding people.", "activities": ["cultural visit", "reindeer herding"], "overnight": "Tsaatan Camp", "meals": ["breakfast", "lunch", "dinner"] }
+    ],
+    "accommodation": "lakeside ger camp",
+    "meal_plan": "all meals included",
+    "difficulty": "moderate",
+    "categories": ["cultural", "nature"],
+    "tags": ["lake", "reindeer-herders", "taiga", "horseback"],
+    "cover_image": { "url": "/images/rendeer.jpg", "caption": "Khövsgöl Lake & Reindeer" },
+    "images": [
+      { "url": "/images/rendeer.jpg", "caption": "Tsaatan reindeer herders" }
+    ],
+    "guide": { "name": "Otgonbayar D.", "note": "Khövsgöl native, 12 years guiding" }
+  },
+  {
+    "name": "Heartland & Karakorum",
+    "slug": "heartland-and-karakorum",
+    "overview": "Ancient capitals, monasteries and the gentle grasslands of the Orkhon valley.",
+    "region": "central",
+    "location": { "lat": 47.2, "lng": 102.8 },
+    "duration_days": 6,
+    "group_size": { "min": 1, "max": 10 },
+    "prices": [
+      { "min_people": 1, "max_people": 10, "price_usd": 890 }
+    ],
+    "best_seasons": ["spring", "summer", "autumn"],
+    "departures": [],
+    "highlights": [
+      "Erdene Zuu monastery",
+      "Karakorum ancient capital ruins",
+      "Orkhon valley grasslands",
+      "Hot springs at Tsenkher"
+    ],
+    "activities": ["sightseeing", "hiking", "hot springs"],
+    "inclusions": ["private vehicle and driver", "ger camp accommodation", "all meals", "entrance fees"],
+    "exclusions": ["international flights", "travel insurance", "personal expenses", "alcoholic drinks"],
+    "itinerary": [
+      { "day": 1, "title": "Ulaanbaatar → Elsen Tasarhai", "description": "Drive out through the steppe, stopping at the mini-Gobi sand dunes.", "activities": ["driving", "sightseeing"], "overnight": "Ger Camp", "meals": ["lunch", "dinner"] },
+      { "day": 2, "title": "Karakorum & Erdene Zuu", "description": "Explore the ruins of the ancient Mongol capital and its working monastery.", "activities": ["sightseeing", "cultural visit"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 3, "title": "Orkhon valley", "description": "Drive through the UNESCO-listed Orkhon valley grasslands.", "activities": ["scenic drive", "hiking"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 4, "title": "Tsenkher hot springs", "description": "Relax at the natural hot springs of Tsenkher.", "activities": ["relaxing", "bathing"], "overnight": "Ger Camp", "meals": ["breakfast", "lunch", "dinner"] }
+    ],
+    "accommodation": "ger camps",
+    "meal_plan": "all meals included",
+    "difficulty": "easy",
+    "categories": ["cultural", "historical"],
+    "tags": ["unesco", "monastery", "ancient-capital", "hot-springs"],
+    "cover_image": { "url": "/images/kharkhorin.jpg", "caption": "Heartland & Karakorum" },
+    "images": [
+      { "url": "/images/kharkhorin.jpg", "caption": "Karakorum ancient capital" }
+    ],
+    "guide": { "name": "Munkh-Erdene T.", "note": "Central Mongolia specialist" }
+  },
+  {
+    "name": "Horse Trekking",
+    "slug": "horse-trekking-signature",
+    "overview": "Our flagship two-week traverse from the southern dunes to the central steppe.",
+    "region": "gobi",
+    "location": { "lat": 43.5, "lng": 103.8 },
+    "duration_days": 12,
+    "group_size": { "min": 1, "max": 6 },
+    "prices": [
+      { "min_people": 1, "max_people": 6, "price_usd": 2150 }
+    ],
+    "best_seasons": ["summer", "autumn"],
+    "departures": [],
+    "highlights": [
+      "12 days in the saddle",
+      "Wild camping under open sky",
+      "Multiple herder-family stays",
+      "Traverse of two regions"
+    ],
+    "activities": ["horseback riding", "wild camping"],
+    "inclusions": ["horses and wrangler", "support vehicle", "wild camping and homestays", "all meals"],
+    "exclusions": ["international flights", "travel insurance", "personal riding gear", "alcoholic drinks"],
+    "itinerary": [
+      { "day": 1, "title": "Ulaanbaatar → Gobi start point", "description": "Fly south and meet the horses at the edge of the Gobi.", "activities": ["domestic flight"], "overnight": "Ger Camp", "meals": ["dinner"] },
+      { "day": 2, "title": "Into the dunes", "description": "First day in the saddle, riding toward the singing dunes.", "activities": ["horseback riding"], "overnight": "Wild Camp", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 3, "title": "Herder family camp", "description": "Overnight with a nomadic family on the desert's edge.", "activities": ["horseback riding", "cultural exchange"], "overnight": "Herder Family Ger", "meals": ["breakfast", "lunch", "dinner"] },
+      { "day": 4, "title": "Crossing the transition zone", "description": "Ride north as the Gobi gives way to steppe grassland.", "activities": ["horseback riding"], "overnight": "Wild Camp", "meals": ["breakfast", "lunch", "dinner"] }
+    ],
+    "accommodation": "wild camping + herder family homestays",
+    "meal_plan": "all meals included",
+    "difficulty": "hard",
+    "categories": ["adventure", "horseback"],
+    "tags": ["horse-trekking", "wild-camping", "gobi", "signature-tour"],
+    "cover_image": { "url": "/images/terelj.jpg", "caption": "Horse Trekking" },
+    "images": [
+      { "url": "/images/terelj.jpg", "caption": "Horse trekking in Terelj" },
+      { "url": "/images/elsen-tasarhai.jpeg", "caption": "Elsen Tasarhai dunes" }
+    ],
+    "badge": "Signature",
+    "guide": { "name": "Bat-Erdene", "note": "15 years across the Gobi" }
+  }
+]

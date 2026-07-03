@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { isValidLocale } from '@/lib/i18n'
-import { tours } from '@/lib/data/tours'
+import { getAllTours } from '@/lib/data/tours'
 import BookingForm from '@/components/forms/BookingForm'
 
 interface Props {
@@ -26,6 +26,7 @@ export default async function BookPage({ params, searchParams }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
   const sp = await searchParams
+  const tours = await getAllTours()
 
   return (
     <>

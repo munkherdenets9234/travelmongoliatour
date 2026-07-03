@@ -5,7 +5,14 @@ import Image from 'next/image'
 import type { Car } from '@/lib/data/cars'
 import ReservationDialog from './ReservationDialog'
 
-export default function CarCard({ car, mode }: { car: Car; mode: 'self-drive' | 'with-driver' }) {
+interface Props {
+  car: Car
+  mode: 'self-drive' | 'with-driver'
+  pickupDate?: string
+  returnDate?: string
+}
+
+export default function CarCard({ car, mode, pickupDate, returnDate }: Props) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -34,7 +41,9 @@ export default function CarCard({ car, mode }: { car: Car; mode: 'self-drive' | 
           </div>
         </div>
       </article>
-      {open && <ReservationDialog car={car} mode={mode} onClose={() => setOpen(false)} />}
+      {open && (
+        <ReservationDialog car={car} mode={mode} pickupDate={pickupDate} returnDate={returnDate} onClose={() => setOpen(false)} />
+      )}
     </>
   )
 }

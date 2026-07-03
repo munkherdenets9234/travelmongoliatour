@@ -24,7 +24,7 @@ export default async function ShareATourPage({ params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const items = getDepartureWithTour(`${DEFAULT_YEAR}-${String(DEFAULT_MONTH).padStart(2, '0')}`)
+  const items = await getDepartureWithTour(`${DEFAULT_YEAR}-${String(DEFAULT_MONTH).padStart(2, '0')}`)
 
   return <DepartureCalendar locale={locale} initialYear={DEFAULT_YEAR} initialMonth={DEFAULT_MONTH} initialItems={items} />
 }

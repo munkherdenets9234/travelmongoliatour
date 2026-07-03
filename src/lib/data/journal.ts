@@ -1,9 +1,12 @@
-// Placeholder/mock data seeded from the hi-fi design. Swap for a real backend later.
+// Backed by the DigitalService API's `/blogs` resource — see src/lib/api/client.ts.
+// The backend's Blog model is simpler than this UI's shape (single HTML `content`
+// string, no category/readTime/featured/quote) — those are derived below.
+import { apiGet, ApiError } from '@/lib/api/client'
 
 export interface JournalArticle {
   slug: string
   title: string
-  category: 'guides' | 'culture' | 'tips' | 'stories' | 'food' | 'adventure'
+  category: string
   readTime: number
   image: string
   featured?: boolean
@@ -15,114 +18,97 @@ export interface JournalArticle {
   tags: string[]
 }
 
-export const articles: JournalArticle[] = [
-  {
-    slug: 'best-time-to-visit-mongolia',
-    title: 'When is the best time to visit Mongolia?',
-    category: 'guides',
-    readTime: 8,
-    image: '/images/nomadic.jpg',
-    featured: true,
-    excerpt:
-      'From the green of early summer to the golden light of autumn and the drama of the Naadam season — a month-by-month guide to timing your journey.',
-    author: { name: 'Saraa B.', role: 'Lead guide' },
-    date: '2026-06-12',
-    body: [
-      { heading: 'Spring · May to June', text: "As the snow retreats the steppe turns green and newborn foals appear at every camp. Days are mild, crowds are thin, and the light is soft and long — ideal for photography and quiet, unhurried travel before the summer peak." },
-      { heading: 'Summer & Naadam · July', text: 'July brings the warmest weather and the national Naadam festival — the busiest and most vivid time to visit. Book early: our festival departures fill months ahead. This is peak season for a reason.' },
-      { heading: 'Autumn · September', text: 'Arguably the finest month: golden light, crisp air, fewer travellers and the eagle-hunting season opening in the west. A quiet, cinematic close to the year.' },
-    ],
-    quote: "Come in early summer and you'll have the green steppe almost to yourself.",
-    tags: ['seasons', 'planning', 'naadam'],
-  },
-  {
-    slug: 'inside-the-naadam-festival',
-    title: 'Inside the Naadam festival',
-    category: 'culture',
-    readTime: 5,
-    image: '/images/naadam-2.jpg',
-    excerpt: "Wrestling, archery and the thunder of the horse race — a first-timer's guide.",
-    author: { name: 'Otgonbayar D.', role: 'Guide' },
-    date: '2026-05-20',
-    body: [
-      { heading: 'The three manly games', text: 'Naadam centres on wrestling, archery and horse racing — traditions that stretch back to the era of Chinggis Khaan.' },
-      { heading: 'Getting the best seats', text: 'The National Stadium fills fast; our departures reserve seating for the opening ceremony and wrestling finals.' },
-    ],
-    tags: ['naadam', 'culture'],
-  },
-  {
-    slug: 'packing-for-the-gobi',
-    title: 'Packing for the Gobi',
-    category: 'tips',
-    readTime: 4,
-    image: '/images/gobi.jpg',
-    excerpt: 'What to bring for scorching days and freezing desert nights.',
-    author: { name: 'Bat-Erdene', role: 'Lead guide, Gobi' },
-    date: '2026-05-02',
-    body: [
-      { heading: 'Layer for a 40° swing', text: 'Gobi days can hit 35°C while nights drop below freezing in spring and autumn — layering is essential.' },
-      { heading: 'Dust and sand', text: 'A buff or scarf and eye protection make the dune crossings far more comfortable.' },
-    ],
-    tags: ['packing', 'gobi'],
-  },
-  {
-    slug: 'a-week-with-eagle-hunters',
-    title: 'A week with eagle hunters',
-    category: 'stories',
-    readTime: 7,
-    image: '/images/kazakh-eagle-hunter.jpg',
-    excerpt: 'Living with a Kazakh family in the Altai during hunting season.',
-    author: { name: 'Nurlan K.', role: 'Cultural guide' },
-    date: '2026-04-15',
-    body: [
-      { heading: 'Arriving in Bayan-Ölgii', text: "The far west feels like a different country — Kazakh, Muslim, and mountainous, a world away from the central steppe." },
-      { heading: 'The hunt', text: 'Golden eagles are trained over years; watching one launch from a rider\'s arm across a snow-dusted valley is unforgettable.' },
-    ],
-    tags: ['altai', 'eagle-hunters'],
-  },
-  {
-    slug: 'what-nomads-eat',
-    title: 'What nomads eat',
-    category: 'food',
-    readTime: 6,
-    image: '/images/khuvsgul.jpg',
-    excerpt: 'Airag, aaruul and the art of the dairy year on the steppe.',
-    author: { name: 'Saraa B.', role: 'Lead guide' },
-    date: '2026-03-28',
-    body: [
-      { heading: 'The dairy year', text: 'Summer is dairy season — airag (fermented mare\'s milk), aaruul (dried curd) and clotted cream all follow the herding calendar.' },
-    ],
-    tags: ['food', 'culture'],
-  },
-  {
-    slug: 'horse-trekking-first-timers-guide',
-    title: "A first-timer's guide to horse trekking",
-    category: 'adventure',
-    readTime: 5,
-    image: '/images/terelj.jpg',
-    excerpt: "How to ride, what to expect, and why it's the best way to see the land.",
-    author: { name: 'Bat-Erdene', role: 'Lead guide, Gobi' },
-    date: '2026-03-10',
-    body: [
-      { heading: 'No experience needed', text: 'Mongolian horses are small, sturdy and calm — most riders are comfortable within a day.' },
-    ],
-    tags: ['horse-trekking', 'adventure'],
-  },
-  {
-    slug: '10-things-about-nomads',
-    title: "10 things you didn't know about the nomads",
-    category: 'culture',
-    readTime: 6,
-    image: '/images/nomadic.jpg',
-    excerpt: 'Small customs and big traditions that shape daily life.',
-    author: { name: 'Otgonbayar D.', role: 'Guide' },
-    date: '2026-02-18',
-    body: [
-      { heading: 'Hospitality is sacred', text: 'A traveller is always welcomed into the ger with hot salted milk tea, no matter the hour.' },
-    ],
-    tags: ['culture', 'nomads'],
-  },
-]
+interface BackendImage {
+  url: string
+  caption: string
+}
+
+interface BackendAuthor {
+  name: string
+  role: string
+}
+
+interface BackendBlogSection {
+  heading: string
+  text: string
+}
+
+interface BackendBlog {
+  id: string
+  title: string
+  slug: string
+  category?: string
+  excerpt: string
+  content: string
+  body?: BackendBlogSection[]
+  quote?: string
+  author: BackendAuthor | string
+  read_time?: number
+  date?: string
+  destination_id?: string
+  cover_image: BackendImage
+  image?: string
+  images: BackendImage[] | null
+  tags: string[]
+  status: 'draft' | 'published'
+  views: number
+  published_at?: string
+  created_at: string
+  updated_at: string
+}
+
+const CATEGORY_VALUES = ['guides', 'culture', 'tips', 'stories', 'food', 'adventure']
+
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+}
+
+function deriveCategory(tags: string[]): string {
+  return tags.find((t) => CATEGORY_VALUES.includes(t)) ?? 'guides'
+}
+
+function deriveReadTime(content: string): number {
+  const words = stripHtml(content).split(' ').filter(Boolean).length
+  return Math.max(1, Math.round(words / 200))
+}
+
+function deriveQuote(content: string): string | undefined {
+  const match = content.match(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/i)
+  return match ? stripHtml(match[1]) : undefined
+}
+
+function normalizeAuthor(author: BackendBlog['author']): { name: string; role: string } {
+  if (typeof author === 'string') return { name: author, role: '' }
+  return { name: author?.name ?? '', role: author?.role ?? '' }
+}
+
+function mapBlog(b: BackendBlog): JournalArticle {
+  return {
+    slug: b.slug,
+    title: b.title,
+    category: b.category ?? deriveCategory(b.tags ?? []),
+    readTime: b.read_time || deriveReadTime(b.content ?? ''),
+    image: b.image ?? b.cover_image?.url ?? '',
+    excerpt: b.excerpt,
+    author: normalizeAuthor(b.author),
+    date: b.date ?? b.published_at ?? b.created_at,
+    body: b.body?.length ? b.body : [{ heading: '', text: b.content ?? '' }],
+    quote: b.quote || deriveQuote(b.content ?? ''),
+    tags: b.tags ?? [],
+  }
+}
+
+export async function getAllArticles(): Promise<JournalArticle[]> {
+  const { data } = await apiGet<BackendBlog[]>('/blogs', { limit: 100 })
+  // The Go backend serializes an empty result set as `null`, not `[]`.
+  const mapped = (data ?? []).map(mapBlog)
+
+  // Feature the single most-recently-published article, mirroring the old
+  // hand-curated `featured` flag — derived since the backend has no such field.
+  const sorted = [...mapped].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const featuredSlug = sorted[0]?.slug
+  return mapped.map((a) => ({ ...a, featured: a.slug === featuredSlug }))
+}
 
 export interface JournalFilters {
   category?: string
@@ -130,12 +116,13 @@ export interface JournalFilters {
   pageSize?: number
 }
 
-export function getArticles(filters: JournalFilters = {}) {
-  let results = articles.filter((a) => !a.featured)
+export async function getArticles(filters: JournalFilters = {}) {
+  const all = await getAllArticles()
+  const featured = all.find((a) => a.featured)
+  let results = all.filter((a) => !a.featured)
   if (filters.category && filters.category !== 'all') {
     results = results.filter((a) => a.category === filters.category)
   }
-  const featured = articles.find((a) => a.featured)
 
   const pageSize = filters.pageSize ?? 6
   const page = filters.page ?? 1
@@ -144,10 +131,17 @@ export function getArticles(filters: JournalFilters = {}) {
   return { featured, items, total: results.length, hasMore: items.length < results.length }
 }
 
-export function getArticleBySlug(slug: string) {
-  return articles.find((a) => a.slug === slug)
+export async function getArticleBySlug(slug: string): Promise<JournalArticle | undefined> {
+  try {
+    const { data } = await apiGet<BackendBlog>(`/blogs/${slug}`)
+    return mapBlog(data)
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 404) return undefined
+    throw err
+  }
 }
 
-export function getRelatedArticles(slug: string, count = 3) {
-  return articles.filter((a) => a.slug !== slug).slice(0, count)
+export async function getRelatedArticles(slug: string, count = 3): Promise<JournalArticle[]> {
+  const all = await getAllArticles()
+  return all.filter((a) => a.slug !== slug).slice(0, count)
 }

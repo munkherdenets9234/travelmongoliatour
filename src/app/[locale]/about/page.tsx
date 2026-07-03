@@ -50,7 +50,7 @@ export default async function AboutPage({ params }: Props) {
           <p className="text-brown leading-loose mt-4">Every journey we build supports the herder families and camps we&apos;ve worked with for years.</p>
         </div>
         <div className="relative h-[420px] rounded-lg overflow-hidden">
-          <Image src="/images/hero.jpg" alt="E and S Discovery Mongolia team on the steppe" fill className="object-cover" />
+          <Image src="https://res.cloudinary.com/drttbs82q/image/upload/v1783078770/992cf6_89ad9d9885ce416aba51afd25a56d123_mv2_qqnpaj.avif" alt="E and S Discovery Mongolia team on the steppe" fill className="object-cover" />
         </div>
       </div>
 

@@ -34,7 +34,7 @@ export default async function JournalPage({ params, searchParams }: Props) {
 
   const category = one(sp.category) ?? 'all'
   const page = sp.page ? Number(one(sp.page)) : 1
-  const { featured, items, hasMore } = getArticles({ category, page })
+  const { featured, items, hasMore } = await getArticles({ category, page })
 
   const base = `/${locale}/journal`
   const qs = (overrides: Record<string, string | undefined>) => {

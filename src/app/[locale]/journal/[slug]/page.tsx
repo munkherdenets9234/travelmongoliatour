@@ -2,21 +2,17 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getArticleBySlug, getRelatedArticles, articles } from '@/lib/data/journal'
-import { isValidLocale, locales } from '@/lib/i18n'
+import { getArticleBySlug, getRelatedArticles } from '@/lib/data/journal'
+import { isValidLocale } from '@/lib/i18n'
 import ArticleCard from '@/components/ui/ArticleCard'
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>
 }
 
-export async function generateStaticParams() {
-  return locales.flatMap((locale) => articles.map((a) => ({ locale, slug: a.slug })))
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params
-  const article = getArticleBySlug(slug)
+  const article = await getArticleBySlug(slug)
   if (!article) return {}
 
   return {
@@ -31,9 +27,9 @@ export default async function JournalPostPage({ params }: Props) {
   const { locale, slug } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const article = getArticleBySlug(slug)
+  const article = await getArticleBySlug(slug)
   if (!article) notFound()
-  const related = getRelatedArticles(slug)
+  const related = await getRelatedArticles(slug)
 
   return (
     <>
@@ -67,9 +63,9 @@ export default async function JournalPostPage({ params }: Props) {
         <p className="text-lg leading-relaxed text-[#3a352d]">{article.excerpt}</p>
 
         {article.body.map((section, i) => (
-          <div key={section.heading}>
-            <h2 className="font-display text-3xl mt-9 mb-3">{section.heading}</h2>
-            <p className="text-brown leading-relaxed">{section.text}</p>
+          <div key={i}>
+            {section.heading && <h2 className="font-display text-3xl mt-9 mb-3">{section.heading}</h2>}
+            <div className="text-brown leading-relaxed [&_p]:mt-4 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:mt-8" dangerouslySetInnerHTML={{ __html: section.text }} />
             {i === 0 && article.quote && (
               <blockquote className="my-8 pl-6 border-l-[3px] border-olive font-display text-2xl italic leading-snug">{article.quote}</blockquote>
             )}
