@@ -57,8 +57,11 @@ function toQueryString(searchParams?: Record<string, string | number | undefined
   return qs ? `?${qs}` : ''
 }
 
+// GET reads hit the Next.js Data Cache instead of the live backend on every
+// request — this content is admin-managed and changes infrequently. Mutations
+// (apiPost/apiPut below) intentionally stay uncached.
 export function apiGet<T>(path: string, searchParams?: Record<string, string | number | undefined>) {
-  return request<T>(`${path}${toQueryString(searchParams)}`, { method: 'GET' })
+  return request<T>(`${path}${toQueryString(searchParams)}`, { method: 'GET', next: { revalidate: 300 } })
 }
 
 export function apiPost<T>(path: string, body: unknown, token?: string) {

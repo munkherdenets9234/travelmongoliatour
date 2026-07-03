@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useTranslation } from '@/hooks/useTranslation'
 
 export default function Footer() {
@@ -28,7 +29,8 @@ export default function Footer() {
           <div className="max-w-xs">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-9 h-9 rounded-full border border-cream/50 flex items-center justify-center">
-                <span className="font-display text-sm font-semibold">E&amp;S</span>
+                <Image src="/images/logo.png" alt="E and S Discovery Mongolia" width={40} height={40} className="w-full h-full object-cover" priority />
+                {/* <span className="font-display text-sm font-semibold">E&amp;S</span> */}
               </div>
               <span className="font-display text-lg font-semibold tracking-wide">E and S Discovery Mongolia</span>
             </div>

@@ -3,12 +3,7 @@
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import type { Tour } from '@/lib/data/tours'
-
-const ADDONS = [
-  { id: 'meet-greet', label: 'Airport meet & greet', price: 40 },
-  { id: 'insurance', label: 'Travel insurance', price: 75 },
-  { id: 'extra-night', label: 'Extra night in Ulaanbaatar', price: 90 },
-]
+import { ADDONS } from '@/lib/data/addons'
 
 export default function BookingForm({ tours, initialSlug, initialDate }: { tours: Tour[]; initialSlug?: string; initialDate?: string }) {
   const [slug, setSlug] = useState(initialSlug && tours.some((t) => t.slug === initialSlug) ? initialSlug : tours[0]?.slug ?? '')

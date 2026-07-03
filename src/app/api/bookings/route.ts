@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { apiPost } from '@/lib/api/client'
 import { getTourBySlug } from '@/lib/data/tours'
+import { ADDONS } from '@/lib/data/addons'
 
 interface BookingResponse {
   id: string
@@ -27,6 +28,21 @@ export async function POST(request: NextRequest) {
   const start = body.date ? new Date(body.date).toISOString() : new Date().toISOString()
   const end = addDays(start, tour.days)
 
+  // Price is authoritative here, not on the client — never trust a client-supplied
+  // total. Recompute it from the tour's real price and known add-on ids.
+  const requestedTravellers = Number(body.travellers)
+  const maxTravellers = tour.maxTravellers > 0 ? tour.maxTravellers : 20
+  const travellers = Number.isInteger(requestedTravellers) && requestedTravellers >= 1
+    ? Math.min(requestedTravellers, maxTravellers)
+    : 1
+
+  const requestedAddonIds: string[] = Array.isArray(body.addons)
+    ? body.addons.filter((id: unknown): id is string => typeof id === 'string')
+    : []
+  const selectedAddons = ADDONS.filter((a) => requestedAddonIds.includes(a.id))
+  const addonsTotal = selectedAddons.reduce((sum, a) => sum + a.price, 0)
+  const total = tour.price * travellers + addonsTotal
+
   try {
     const { data } = await apiPost<BookingResponse>('/bookings', {
       destination_id: tour.id,
@@ -39,8 +55,8 @@ export async function POST(request: NextRequest) {
       },
       booking: {
         travel_dates: { start, end },
-        travelers: { adults: Number(body.travellers) || 1, children: 0 },
-        total_price_usd: Number(body.total) || 0,
+        travelers: { adults: travellers, children: 0 },
+        total_price_usd: total,
         notes: body.notes ?? '',
       },
     })

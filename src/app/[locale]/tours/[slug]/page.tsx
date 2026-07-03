@@ -124,7 +124,7 @@ export default async function TourDetailPage({ params }: Props) {
               href={`/${locale}/book?tour=${tour.slug}`}
               className="block bg-olive text-cream rounded-sm py-3.5 text-center text-xs font-semibold tracking-widest uppercase"
             >
-              Check availability →
+              Book now
             </Link>
             <Link href={`/${locale}/share-a-tour`} className="block text-center text-xs font-medium text-warm-gray mt-3">
               or <span className="text-ink border-b border-ink pb-0.5">see open departures</span>
@@ -133,13 +133,13 @@ export default async function TourDetailPage({ params }: Props) {
               <span className="text-olive">✓</span> Free cancellation up to 30 days before
             </div>
           </div>
-          <div className="flex items-center gap-3 mt-4 p-4 bg-white border border-tan rounded-md">
+          {/* <div className="flex items-center gap-3 mt-4 p-4 bg-white border border-tan rounded-md">
             <div className="w-12 h-12 rounded-full bg-tan flex-none" />
             <div>
               <div className="font-display text-base font-semibold">Your guide · {tour.guide.name}</div>
               <div className="text-xs text-warm-gray">{tour.guide.note}</div>
             </div>
-          </div>
+          </div> */}
         </aside>
       </div>
 
