@@ -50,7 +50,7 @@ export default async function BookPage({ params, searchParams }: Props) {
         </h1>
       </div>
 
-      <BookingForm tours={tours} initialSlug={one(sp.tour)} initialDate={one(sp.date)} />
+      <BookingForm tours={tours} initialSlug={one(sp.tour)} initialDate={one(sp.date)} initialAddon={one(sp.addon)} />
     </>
   )
 }

@@ -6,6 +6,8 @@ export interface NavT {
   airport: string
   carRental: string
   journal: string
+  partners: string
+  reviews: string
   about: string
   share: string
   contact: string
@@ -49,6 +51,10 @@ export interface Translation {
     title: string
     description: string
   }
+  common: {
+    read_more: string
+    read_less: string
+  }
   nav: NavT
   hero: {
     eyebrow: string
@@ -80,6 +86,18 @@ export interface Translation {
   tripadvisor: {
     description: string
   }
+  partners: {
+    eyebrow: string
+    title: string
+    cta: string
+  }
+  partnerDetail: {
+    eyebrow: string
+    offerings: string
+    testimonialEyebrow: string
+    ctaEyebrow: string
+    ctaBook: string
+  }
   map: {
     eyebrow: string
     title_line1: string
@@ -93,6 +111,23 @@ export interface Translation {
   why: {
     eyebrow: string
     items: WhyItem[]
+  }
+  reviews: {
+    eyebrow: string
+    title: string
+    title_italic: string
+    reviews_label: string
+    cta: string
+  }
+  reviewsPage: {
+    eyebrow: string
+    travelers_label: string
+    title_suffix: string
+    reviews_label: string
+    all_tours: string
+    empty: string
+    prev: string
+    next: string
   }
   quote: {
     line1: string

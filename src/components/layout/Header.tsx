@@ -38,6 +38,8 @@ export default function Header() {
     { href: `/${locale}/airport-transfers`, label: t.nav.airport },
     { href: `/${locale}/rent-a-car`, label: t.nav.carRental },
     { href: `/${locale}/journal`, label: t.nav.journal },
+    // { href: `/${locale}/partners`, label: t.nav.partners },
+    // { href: `/${locale}/reviews`, label: t.nav.reviews },
     { href: `/${locale}/share-a-tour`, label: t.nav.share },
     // { href: `/${locale}/about`, label: t.nav.about },
     // { href: `/${locale}/contact`, label: t.nav.contact },

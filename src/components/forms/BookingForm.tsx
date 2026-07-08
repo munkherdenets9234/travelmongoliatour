@@ -5,10 +5,16 @@ import Image from 'next/image'
 import type { Tour } from '@/lib/data/tours'
 import { ADDONS } from '@/lib/data/addons'
 
-export default function BookingForm({ tours, initialSlug, initialDate }: { tours: Tour[]; initialSlug?: string; initialDate?: string }) {
+export default function BookingForm({ tours, initialSlug, initialDate, initialAddon }: { tours: Tour[]; initialSlug?: string; initialDate?: string; initialAddon?: string }) {
   const [slug, setSlug] = useState(initialSlug && tours.some((t) => t.slug === initialSlug) ? initialSlug : tours[0]?.slug ?? '')
   const [travellers, setTravellers] = useState(2)
-  const [addons, setAddons] = useState<string[]>(['meet-greet'])
+  const [addons, setAddons] = useState<string[]>(() => {
+    const defaults = ['meet-greet']
+    if (initialAddon && ADDONS.some((a) => a.id === initialAddon) && !defaults.includes(initialAddon)) {
+      defaults.push(initialAddon)
+    }
+    return defaults
+  })
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [confirmationId, setConfirmationId] = useState<string | null>(null)
 

@@ -13,6 +13,8 @@ export default function Footer() {
     { key: 'aboutMongolia', href: `/${locale}/about-mongolia` },
     { key: 'airportTransfer', href: `/${locale}/airport-transfers` },
     { key: 'carRental', href: `/${locale}/rent-a-car` },
+    { key: 'partners', href: `/${locale}/partners` },
+    { key: 'reviews', href: `/${locale}/reviews` },
   ] as const
 
   const companyLinks = [

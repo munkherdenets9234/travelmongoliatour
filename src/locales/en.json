@@ -3,12 +3,18 @@
     "title": "E & S Discovery Mongolia — Private Mongolia Travel & Tours",
     "description": "Curated private journeys and small group tours through Mongolia's nomadic culture, endless steppes and remote landscapes — crafted by trusted local experts."
   },
+  "common": {
+    "read_more": "Read more",
+    "read_less": "Read less"
+  },
   "nav": {
     "tours": "Tours",
     "aboutMongolia": "About Mongolia",
     "airport": "Airport",
     "carRental": "Car Rental",
     "journal": "Journal",
+    "partners": "Partners",
+    "reviews": "Reviews",
     "about": "About",
     "contact": "Contact",
     "bookCta": "Book a Trip",
@@ -81,6 +87,18 @@
   "tripadvisor": {
     "description": "We have been helping people the world over to enjoy unforgettable adventures to our homeland, and we do it all with expertise and passion."
   },
+  "partners": {
+    "eyebrow": "Recommended Partners",
+    "title": "Our Trusted Partners",
+    "cta": "Visit"
+  },
+  "partnerDetail": {
+    "eyebrow": "Recommended partner",
+    "offerings": "What they offer",
+    "testimonialEyebrow": "In their words",
+    "ctaEyebrow": "Ready to visit?",
+    "ctaBook": "Book a Trip"
+  },
   "map": {
     "eyebrow": "Mongolia is Different",
     "title_line1": "Not Every Journey",
@@ -121,6 +139,23 @@
         "description": "Supporting local communities and preserving our land."
       }
     ]
+  },
+  "reviews": {
+    "eyebrow": "Verified everywhere",
+    "title": "Trusted by Travelers",
+    "title_italic": "Worldwide",
+    "reviews_label": "reviews",
+    "cta": "See All Reviews"
+  },
+  "reviewsPage": {
+    "eyebrow": "Traveler reviews",
+    "travelers_label": "travelers",
+    "title_suffix": "one Mongolia.",
+    "reviews_label": "reviews",
+    "all_tours": "All Tours",
+    "empty": "No reviews yet.",
+    "prev": "← Previous",
+    "next": "Next →"
   },
   "quote": {
     "line1": "Silence",
@@ -165,6 +200,8 @@
       "aboutMongolia": "About Mongolia",
       "airportTransfer": "Airport transfer",
       "carRental": "Car rental",
+      "partners": "Partners",
+      "reviews": "Reviews",
       "aboutUs": "About us",
       "journal": "Journal",
       "contact": "Contact"

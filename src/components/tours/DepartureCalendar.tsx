@@ -128,7 +128,7 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
                         selected ? 'bg-olive text-cream' : d.status === 'full' ? 'bg-tan text-[#a9824f]' : 'bg-[#eef0e6] text-[#5f5f38]'
                       }`}
                     >
-                      {d.tour.title.split(' ')[0]} · {d.status === 'full' ? 'full' : `${d.spotsLeft} left`}
+                      {d.tour.title.split(' ')[0]} · {d.status === 'full' ? 'full' : 'open'}
                     </span>
                   ))}
                 </button>
@@ -170,7 +170,7 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
                             {d.tour.region} · {d.tour.type}
                           </span>
                           <span className={`text-[10px] font-semibold tracking-wide uppercase rounded px-2 py-1 ${d.status === 'full' ? 'bg-tan text-[#a9824f]' : 'bg-[#f0e7e0] text-[#a9824f]'}`}>
-                            {d.status === 'full' ? 'Full' : `${d.spotsLeft} spots left`}
+                            {d.status === 'full' ? 'Full' : 'Open'}
                           </span>
                         </div>
                         <div className="font-display text-xl font-semibold mt-2">{d.tour.title}</div>

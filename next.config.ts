@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
     // API (Cloudinary today, potentially other hosts later) — allow any https host.
     remotePatterns: [{ protocol: "https", hostname: "**" }],
   },
+  experimental: {
+    serverActions: {
+      // Must stay above the MAX_BYTES image cap in src/lib/uploads.ts.
+      bodySizeLimit: "11mb",
+    },
+  },
 };
 
 export default nextConfig;

@@ -35,6 +35,7 @@ export interface Tour {
   itinerary: TourItinerary[]
   inclusions: TourInclusion[]
   guide: { name: string; note: string }
+  departures: { date: string; available: boolean }[]
 }
 
 interface BackendImage {
@@ -120,6 +121,7 @@ function mapDestinationToTour(d: Destination): Tour {
     itinerary: (d.itinerary ?? []).map((day) => ({ day: day.day, title: day.title, description: day.description })),
     inclusions: (d.inclusions ?? []).map((title) => ({ title, description: '' })),
     guide: { name: 'Your local guide', note: 'Assigned on booking' },
+    departures: (d.departures ?? []).map((dep) => ({ date: dep.start_date.slice(0, 10), available: dep.available })),
   }
 }
 
