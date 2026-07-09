@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { isValidLocale } from '@/lib/i18n'
+import { isValidLocale, getTranslation } from '@/lib/i18n'
 import { getDepartureWithTour } from '@/lib/data/departures'
 import DepartureCalendar from '@/components/tours/DepartureCalendar'
 
@@ -10,9 +10,11 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
+  if (!isValidLocale(locale)) return {}
+  const t = getTranslation(locale).shareATour
   return {
-    title: 'Share a Tour — Open Departures — E & S Discovery Mongolia',
-    description: 'Join an open group departure — pick a date on the calendar and travel alongside fellow guests.',
+    title: t.meta_title,
+    description: t.meta_description,
     alternates: { canonical: `/${locale}/share-a-tour` },
   }
 }
@@ -24,7 +26,7 @@ export default async function ShareATourPage({ params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const items = await getDepartureWithTour(`${DEFAULT_YEAR}-${String(DEFAULT_MONTH).padStart(2, '0')}`)
+  const items = await getDepartureWithTour(`${DEFAULT_YEAR}-${String(DEFAULT_MONTH).padStart(2, '0')}`, locale)
 
   return <DepartureCalendar locale={locale} initialYear={DEFAULT_YEAR} initialMonth={DEFAULT_MONTH} initialItems={items} />
 }

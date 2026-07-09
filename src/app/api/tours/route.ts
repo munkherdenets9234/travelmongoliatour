@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getTours } from '@/lib/data/tours'
+import { defaultLocale } from '@/lib/i18n'
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams
-  const result = await getTours({
+  const result = await getTours(defaultLocale, {
     duration: params.get('duration') ?? undefined,
     region: params.get('region') ?? undefined,
     type: params.get('type') ?? undefined,

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getTourBySlug, getRelatedTours } from '@/lib/data/tours'
-import { isValidLocale } from '@/lib/i18n'
+import { isValidLocale, getTranslation } from '@/lib/i18n'
 import JourneyCard from '@/components/ui/JourneyCard'
 import TourGallery from '@/components/ui/TourGallery'
 
@@ -12,7 +12,8 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params
-  const tour = await getTourBySlug(slug)
+  if (!isValidLocale(locale)) return {}
+  const tour = await getTourBySlug(slug, locale)
   if (!tour) return {}
 
   const metaDescription = tour.summary.replace(/\n+/g, ' ')
@@ -29,16 +30,18 @@ export default async function TourDetailPage({ params }: Props) {
   const { locale, slug } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const tour = await getTourBySlug(slug)
+  const tour = await getTourBySlug(slug, locale)
   if (!tour) notFound()
-  const related = await getRelatedTours(slug)
+  const related = await getRelatedTours(slug, locale)
+  const t = getTranslation(locale)
+  const td = t.tourDetail
 
   return (
     <>
       {/* BREADCRUMB + TITLE */}
       <div className="container mx-auto px-6 sm:px-14 pt-8 pb-4">
         <div className="text-xs font-medium uppercase tracking-wide text-warm-gray">
-          <Link href={`/${locale}/tours`}>Tours</Link> <span className="mx-1.5">/</span>
+          <Link href={`/${locale}/tours`}>{td.breadcrumb_tours}</Link> <span className="mx-1.5">/</span>
           <span className="capitalize">{tour.region}</span> <span className="mx-1.5">/</span>
           <span className="text-ink">{tour.title}</span>
         </div>
@@ -48,14 +51,14 @@ export default async function TourDetailPage({ params }: Props) {
             <div className="flex items-center gap-4 mt-3 text-sm text-brown flex-wrap">
               <span className="text-gold tracking-wide">{'★'.repeat(5)} {tour.rating.toFixed(1)}</span>
               <span className="text-border-strong">|</span>
-              <span>{tour.days} days · {tour.nights} nights</span>
+              <span>{tour.days} {td.days_label} · {tour.nights} {td.nights_label}</span>
               <span className="text-border-strong">|</span>
-              <span>Max {tour.maxTravellers} travellers</span>
+              <span>{td.max_travellers} {tour.maxTravellers} {td.traveller_plural}</span>
             </div>
           </div>
           <div className="flex gap-3">
-            <span className="inline-flex items-center gap-2 border border-border-strong rounded-sm px-4 py-2.5 text-xs font-semibold tracking-widest uppercase">♡ Save</span>
-            <span className="inline-flex items-center gap-2 border border-border-strong rounded-sm px-4 py-2.5 text-xs font-semibold tracking-widest uppercase">↗ Share</span>
+            <span className="inline-flex items-center gap-2 border border-border-strong rounded-sm px-4 py-2.5 text-xs font-semibold tracking-widest uppercase">♡ {t.common.save}</span>
+            <span className="inline-flex items-center gap-2 border border-border-strong rounded-sm px-4 py-2.5 text-xs font-semibold tracking-widest uppercase">↗ {t.common.share}</span>
           </div>
         </div>
       </div>
@@ -73,7 +76,7 @@ export default async function TourDetailPage({ params }: Props) {
 
           <div className="flex flex-wrap gap-12 mt-7">
             <div className="flex-1 min-w-[220px]">
-              <div className="text-xs font-semibold tracking-widest uppercase text-warm-gray mb-3">Highlights</div>
+              <div className="text-xs font-semibold tracking-widest uppercase text-warm-gray mb-3">{td.highlights}</div>
               <div className="flex flex-col gap-2.5 text-sm text-brown">
                 {tour.highlights.map((h) => (
                   <span key={h}>✦&nbsp;&nbsp;{h}</span>
@@ -81,7 +84,7 @@ export default async function TourDetailPage({ params }: Props) {
               </div>
             </div>
             <div className="flex-1 min-w-[220px]">
-              <div className="text-xs font-semibold tracking-widest uppercase text-warm-gray mb-3">Good to know</div>
+              <div className="text-xs font-semibold tracking-widest uppercase text-warm-gray mb-3">{td.good_to_know}</div>
               <div className="flex flex-col gap-2.5 text-sm text-brown">
                 {tour.goodToKnow.map((g) => (
                   <span key={g}>{g}</span>
@@ -91,11 +94,11 @@ export default async function TourDetailPage({ params }: Props) {
           </div>
 
           {/* ITINERARY */}
-          <div className="font-display text-3xl mt-10 mb-4">Day by day</div>
+          <div className="font-display text-3xl mt-10 mb-4">{td.day_by_day}</div>
           <div className="flex flex-col">
             {tour.itinerary.map((day) => (
               <div key={day.day} className="flex gap-5 py-4 border-t border-border">
-                <span className="flex-none w-14 text-xs font-semibold tracking-wide uppercase text-olive pt-0.5">Day {day.day}</span>
+                <span className="flex-none w-14 text-xs font-semibold tracking-wide uppercase text-olive pt-0.5">{td.day_label} {day.day}</span>
                 <div>
                   <div className="font-display text-lg font-semibold">{day.title}</div>
                   <p className="text-sm leading-relaxed text-brown mt-1 max-w-lg">{day.description}</p>
@@ -104,19 +107,19 @@ export default async function TourDetailPage({ params }: Props) {
                     <div className="flex flex-wrap gap-x-6 gap-y-1.5 mt-3 text-xs text-warm-gray">
                       {day.activities.length > 0 ? (
                         <span>
-                          <span className="font-semibold uppercase tracking-wide text-olive">Activities</span>{' '}
+                          <span className="font-semibold uppercase tracking-wide text-olive">{td.activities}</span>{' '}
                           {day.activities.join(', ')}
                         </span>
                       ) : null}
                       {day.overnight ? (
                         <span>
-                          <span className="font-semibold uppercase tracking-wide text-olive">Accommodation</span>{' '}
+                          <span className="font-semibold uppercase tracking-wide text-olive">{td.accommodation}</span>{' '}
                           {day.overnight}
                         </span>
                       ) : null}
                       {day.meals.length > 0 ? (
                         <span>
-                          <span className="font-semibold uppercase tracking-wide text-olive">Meals</span>{' '}
+                          <span className="font-semibold uppercase tracking-wide text-olive">{td.meals}</span>{' '}
                           {day.meals.join(', ')}
                         </span>
                       ) : null}
@@ -132,9 +135,9 @@ export default async function TourDetailPage({ params }: Props) {
         <aside className="w-full lg:w-80 flex-none">
           <div className="bg-white border border-tan rounded-md shadow-[0_14px_34px_rgba(30,27,22,0.1)] p-6">
             <div className="flex items-baseline gap-2">
-              <span className="text-xs text-warm-gray">from</span>
+              <span className="text-xs text-warm-gray">{t.common.from}</span>
               <span className="font-display text-4xl">${tour.price.toLocaleString()}</span>
-              <span className="text-xs text-warm-gray">/ person</span>
+              <span className="text-xs text-warm-gray">{t.common.per_person}</span>
             </div>
 
             {tour.prices.length > 0 ? (
@@ -143,8 +146,8 @@ export default async function TourDetailPage({ params }: Props) {
                   <div key={`${tier.minPeople}-${tier.maxPeople}`} className="flex items-center justify-between">
                     <span>
                       {tier.minPeople === tier.maxPeople
-                        ? `${tier.minPeople} traveller${tier.minPeople === 1 ? '' : 's'}`
-                        : `${tier.minPeople}–${tier.maxPeople} travellers`}
+                        ? `${tier.minPeople} ${td.traveller_singular}`
+                        : `${tier.minPeople}–${tier.maxPeople} ${td.traveller_plural}`}
                     </span>
                     <span className="font-semibold">${tier.priceUsd.toLocaleString()}</span>
                   </div>
@@ -157,13 +160,13 @@ export default async function TourDetailPage({ params }: Props) {
               href={`/${locale}/book?tour=${tour.slug}`}
               className="block bg-olive text-cream rounded-sm py-3.5 text-center text-xs font-semibold tracking-widest uppercase"
             >
-              Book now
+              {td.book_now}
             </Link>
             <Link href={`/${locale}/share-a-tour`} className="block text-center text-xs font-medium text-warm-gray mt-3">
-              or <span className="text-ink border-b border-ink pb-0.5">see open departures</span>
+              {td.or} <span className="text-ink border-b border-ink pb-0.5">{td.see_open_departures}</span>
             </Link>
             <div className="flex items-center gap-2 mt-4 pt-4 border-t border-tan text-xs text-muted">
-              <span className="text-olive">✓</span> Free cancellation up to 30 days before
+              <span className="text-olive">✓</span> {td.free_cancellation}
             </div>
           </div>
           {/* <div className="flex items-center gap-3 mt-4 p-4 bg-white border border-tan rounded-md">
@@ -179,7 +182,7 @@ export default async function TourDetailPage({ params }: Props) {
       {/* INCLUSIONS */}
       <div className="container mx-auto px-6 sm:px-14 pb-10">
         <div className="h-px bg-border mb-7" />
-        <div className="font-display text-3xl mb-5">What&apos;s included</div>
+        <div className="font-display text-3xl mb-5">{td.whats_included}</div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {tour.inclusions.map((inc) => (
             <div key={inc.title}>
@@ -194,19 +197,19 @@ export default async function TourDetailPage({ params }: Props) {
       {/* RELATED */}
       <div className="container mx-auto px-6 sm:px-14 pb-12">
         <div className="flex items-baseline justify-between mb-5">
-          <div className="font-display text-3xl">You may also like</div>
+          <div className="font-display text-3xl">{td.you_may_also_like}</div>
           <Link href={`/${locale}/tours`} className="text-xs font-semibold tracking-widest uppercase border-b border-ink pb-0.5">
-            View all tours →
+            {td.view_all_tours}
           </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {related.map((t) => (
+          {related.map((rt) => (
             <JourneyCard
-              key={t.slug}
-              item={{ id: t.slug, days: t.days, title: t.title, description: t.summary, badge: `${t.region} · ${t.type}`, rating: t.rating, image: t.image }}
-              daysLabel="Days"
-              price={`$${t.price.toLocaleString()}`}
-              href={`/${locale}/tours/${t.slug}`}
+              key={rt.slug}
+              item={{ id: rt.slug, days: rt.days, title: rt.title, description: rt.summary, badge: `${rt.region} · ${rt.type}`, rating: rt.rating, image: rt.image }}
+              daysLabel={t.journeys.days_label}
+              price={`$${rt.price.toLocaleString()}`}
+              href={`/${locale}/tours/${rt.slug}`}
             />
           ))}
         </div>

@@ -1,5 +1,6 @@
 // Backed by the DigitalService API's `/destinations` resource — see src/lib/api/client.ts.
 import { apiGet, ApiError } from '@/lib/api/client'
+import type { Locale } from '@/types/i18n'
 
 // `overview` is authored as HTML in the admin's rich text editor. `description` keeps the
 // full HTML for the tour detail page; `summary` is a flattened, line-clamped preview for
@@ -170,16 +171,16 @@ function mapDestinationToTour(d: Destination): Tour {
   }
 }
 
-export async function getAllTours(): Promise<Tour[]> {
-  const { data } = await apiGet<Destination[]>('/destinations', { limit: 100 })
+export async function getAllTours(locale: Locale): Promise<Tour[]> {
+  const { data } = await apiGet<Destination[]>('/destinations', { limit: 100, lang: locale })
   // The Go backend serializes an empty result set as `null`, not `[]`.
   return (data ?? []).map(mapDestinationToTour)
 }
 
 // `/destinations` has no `?featured` query param — the Destination model's
 // `featured` field is filtered client-side instead of trusting the backend to do it.
-export async function getFeaturedTours(): Promise<Tour[]> {
-  const tours = await getAllTours()
+export async function getFeaturedTours(locale: Locale): Promise<Tour[]> {
+  const tours = await getAllTours(locale)
   return tours.filter((t) => t.featured)
 }
 
@@ -193,8 +194,8 @@ export interface TourFilters {
   pageSize?: number
 }
 
-export async function getTours(filters: TourFilters = {}) {
-  let results = await getAllTours()
+export async function getTours(locale: Locale, filters: TourFilters = {}) {
+  let results = await getAllTours(locale)
 
   if (filters.region) results = results.filter((t) => t.region === filters.region)
   if (filters.type) results = results.filter((t) => t.type === filters.type)
@@ -222,9 +223,9 @@ export async function getTours(filters: TourFilters = {}) {
   return { items, total, page, pageSize }
 }
 
-export async function getTourBySlug(slug: string): Promise<Tour | undefined> {
+export async function getTourBySlug(slug: string, locale: Locale): Promise<Tour | undefined> {
   try {
-    const { data } = await apiGet<Destination>(`/destinations/${slug}`)
+    const { data } = await apiGet<Destination>(`/destinations/${slug}`, { lang: locale })
     return mapDestinationToTour(data)
   } catch (err) {
     if (err instanceof ApiError && err.status === 404) return undefined
@@ -232,7 +233,7 @@ export async function getTourBySlug(slug: string): Promise<Tour | undefined> {
   }
 }
 
-export async function getRelatedTours(slug: string, count = 3): Promise<Tour[]> {
-  const all = await getAllTours()
+export async function getRelatedTours(slug: string, locale: Locale, count = 3): Promise<Tour[]> {
+  const all = await getAllTours(locale)
   return all.filter((t) => t.slug !== slug).slice(0, count)
 }

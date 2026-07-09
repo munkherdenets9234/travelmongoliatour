@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { apiPost } from '@/lib/api/client'
 import { getTourBySlug } from '@/lib/data/tours'
 import { ADDONS } from '@/lib/data/addons'
+import { defaultLocale } from '@/lib/i18n'
 
 interface BookingResponse {
   id: string
@@ -20,7 +21,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Missing required booking fields' }, { status: 400 })
   }
 
-  const tour = await getTourBySlug(body.tourSlug)
+  const tour = await getTourBySlug(body.tourSlug, defaultLocale)
   if (!tour || !tour.id) {
     return NextResponse.json({ error: 'Tour not found' }, { status: 404 })
   }

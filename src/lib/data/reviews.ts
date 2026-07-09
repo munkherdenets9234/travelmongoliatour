@@ -1,5 +1,6 @@
 // Backed by the DigitalService API's `/reviews` resource — see src/lib/api/client.ts.
 import { apiGet } from '@/lib/api/client'
+import type { Locale } from '@/types/i18n'
 
 export interface Review {
   id: string
@@ -37,7 +38,7 @@ export interface ReviewFilters {
   pageSize?: number
 }
 
-export async function getReviews(filters: ReviewFilters = {}) {
+export async function getReviews(locale: Locale, filters: ReviewFilters = {}) {
   const page = filters.page ?? 1
   const pageSize = filters.pageSize ?? 20
   const { data, meta } = await apiGet<BackendReview[]>('/reviews', {
@@ -45,6 +46,7 @@ export async function getReviews(filters: ReviewFilters = {}) {
     partner: filters.partner,
     page,
     limit: pageSize,
+    lang: locale,
   })
   // The Go backend serializes an empty result set as `null`, not `[]`.
   const items = (data ?? []).map(mapReview)
@@ -52,7 +54,7 @@ export async function getReviews(filters: ReviewFilters = {}) {
   return { items, total, page, pageSize, hasMore: page * pageSize < total }
 }
 
-export async function getAllReviews(): Promise<Review[]> {
-  const { items } = await getReviews({ pageSize: 100 })
+export async function getAllReviews(locale: Locale): Promise<Review[]> {
+  const { items } = await getReviews(locale, { pageSize: 100 })
   return items
 }

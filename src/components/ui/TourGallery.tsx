@@ -2,8 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export default function TourGallery({ images, title }: { images: string[]; title: string }) {
+  const { t } = useTranslation()
+  const tg = t.tourGallery
   const slides = images
   const [active, setActive] = useState(0)
   const [lightbox, setLightbox] = useState<number | null>(null)
@@ -33,7 +36,7 @@ export default function TourGallery({ images, title }: { images: string[]; title
           type="button"
           onClick={() => setLightbox(active)}
           className="absolute inset-0 cursor-zoom-in"
-          aria-label="Open photo preview"
+          aria-label={tg.open_preview}
         >
           <Image src={slides[active]} alt={`${title} photo ${active + 1}`} fill className="object-cover" priority />
         </button>
@@ -43,7 +46,7 @@ export default function TourGallery({ images, title }: { images: string[]; title
             <button
               type="button"
               onClick={() => go(-1)}
-              aria-label="Previous photo"
+              aria-label={tg.previous_photo}
               className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-cream/90 flex items-center justify-center text-ink hover:bg-cream transition-colors"
             >
               ‹
@@ -51,7 +54,7 @@ export default function TourGallery({ images, title }: { images: string[]; title
             <button
               type="button"
               onClick={() => go(1)}
-              aria-label="Next photo"
+              aria-label={tg.next_photo}
               className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-cream/90 flex items-center justify-center text-ink hover:bg-cream transition-colors"
             >
               ›
@@ -70,7 +73,7 @@ export default function TourGallery({ images, title }: { images: string[]; title
               key={src + i}
               type="button"
               onClick={() => setActive(i)}
-              aria-label={`View photo ${i + 1}`}
+              aria-label={`${tg.view_photo} ${i + 1}`}
               aria-current={i === active}
               className={`relative flex-none w-24 h-16 rounded-md overflow-hidden border-2 transition-colors ${
                 i === active ? 'border-olive' : 'border-transparent'
@@ -92,7 +95,7 @@ export default function TourGallery({ images, title }: { images: string[]; title
           <button
             type="button"
             onClick={() => setLightbox(null)}
-            aria-label="Close preview"
+            aria-label={tg.close_preview}
             className="absolute top-5 right-5 w-10 h-10 rounded-full bg-cream/10 text-cream flex items-center justify-center hover:bg-cream/20 transition-colors"
           >
             ✕
@@ -107,7 +110,7 @@ export default function TourGallery({ images, title }: { images: string[]; title
               <button
                 type="button"
                 onClick={() => goLightbox(-1)}
-                aria-label="Previous photo"
+                aria-label={tg.previous_photo}
                 className="absolute left-3 sm:left-8 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-cream/10 text-cream flex items-center justify-center hover:bg-cream/20 transition-colors"
               >
                 ‹
@@ -115,7 +118,7 @@ export default function TourGallery({ images, title }: { images: string[]; title
               <button
                 type="button"
                 onClick={() => goLightbox(1)}
-                aria-label="Next photo"
+                aria-label={tg.next_photo}
                 className="absolute right-3 sm:right-8 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-cream/10 text-cream flex items-center justify-center hover:bg-cream/20 transition-colors"
               >
                 ›

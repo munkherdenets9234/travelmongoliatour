@@ -128,7 +128,7 @@ export default function Header() {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="lg:hidden w-8 h-8 flex flex-col justify-center gap-1.5 group"
-            aria-label="Menu"
+            aria-label={t.common.menu}
           >
             <span className={`block h-px transition-all duration-300 ${overlay ? 'bg-cream' : 'bg-ink'} ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
             <span className={`block h-px transition-all duration-300 ${overlay ? 'bg-cream' : 'bg-ink'} ${menuOpen ? 'opacity-0' : ''}`} />

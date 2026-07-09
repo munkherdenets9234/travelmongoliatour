@@ -78,7 +78,7 @@ export default function Footer() {
                   placeholder={f.newsletter.placeholder}
                   className="flex-1 min-w-0 bg-transparent px-3 py-2.5 text-sm text-cream placeholder:text-cream/50 focus:outline-none"
                 />
-                <button type="submit" className="bg-cream text-ink px-4 py-2.5 text-xs font-semibold" aria-label="Subscribe">
+                <button type="submit" className="bg-cream text-ink px-4 py-2.5 text-xs font-semibold" aria-label={t.common.subscribe}>
                   →
                 </button>
               </form>

@@ -22,7 +22,7 @@ export default async function PartnersIndexPage({ params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const partners = await getAllPartners()
+  const partners = await getAllPartners(locale)
   const t = getTranslation(locale)
   const p = t.partners
 

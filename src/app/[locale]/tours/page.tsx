@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getTours, type Tour } from '@/lib/data/tours'
-import { isValidLocale } from '@/lib/i18n'
+import { isValidLocale, getTranslation } from '@/lib/i18n'
 import JourneyCard from '@/components/ui/JourneyCard'
 import FilterChips from '@/components/ui/FilterChips'
 import { notFound } from 'next/navigation'
@@ -14,10 +14,12 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
+  if (!isValidLocale(locale)) return {}
+  const t = getTranslation(locale).toursPage
   const path = `/${locale}/tours`
   return {
-    title: 'Our Tours — E & S Discovery Mongolia',
-    description: 'Small-group and private expeditions across Mongolia, shaped by the land and the people who know it best.',
+    title: t.meta_title,
+    description: t.meta_description,
     alternates: { canonical: path },
   }
 }
@@ -30,6 +32,7 @@ export default async function ToursPage({ params, searchParams }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
   const sp = await searchParams
+  const t = getTranslation(locale).toursPage
 
   const duration = one(sp.duration)
   const region = one(sp.region)
@@ -37,7 +40,7 @@ export default async function ToursPage({ params, searchParams }: Props) {
   const sort = one(sp.sort)
   const page = sp.page ? Number(one(sp.page)) : 1
 
-  const { items, total } = await getTours({ duration, region, type, sort, page })
+  const { items, total } = await getTours(locale, { duration, region, type, sort, page })
 
   const base = `/${locale}/tours`
   const qs = (overrides: Record<string, string | undefined>) => {
@@ -48,29 +51,14 @@ export default async function ToursPage({ params, searchParams }: Props) {
     return s ? `${base}?${s}` : base
   }
 
-  const durationChips = [
-    { label: '1–5 days', value: '1-5' },
-    { label: '6–10 days', value: '6-10' },
-    { label: '11 days +', value: '11+' },
-  ]
-  const regionChips = [
-    { label: 'Gobi', value: 'gobi' },
-    { label: 'Central', value: 'central' },
-    { label: 'North', value: 'north' },
-    { label: 'West', value: 'west' },
-  ]
-  const typeChips = [
-    { label: 'Cultural', value: 'cultural' },
-    { label: 'Adventure', value: 'adventure' },
-    { label: 'Festival', value: 'festival' },
-    { label: 'Group', value: 'group' },
-  ]
-  const sortChips = [
-    { label: 'Top rated', value: '' },
-    { label: 'Price: low to high', value: 'price-low' },
-    { label: 'Price: high to low', value: 'price-high' },
-    { label: 'Duration', value: 'duration' },
-  ]
+  const durationValues = ['1-5', '6-10', '11+']
+  const durationChips = t.duration_chips.map((label, i) => ({ label, value: durationValues[i] }))
+  const regionValues = ['gobi', 'central', 'north', 'west']
+  const regionChips = t.region_chips.map((label, i) => ({ label, value: regionValues[i] }))
+  const typeValues = ['cultural', 'adventure', 'festival', 'group']
+  const typeChips = t.type_chips.map((label, i) => ({ label, value: typeValues[i] }))
+  const sortValues = ['', 'price-low', 'price-high', 'duration']
+  const sortChips = t.sort_chips.map((label, i) => ({ label, value: sortValues[i] }))
 
   const totalPages = Math.max(1, Math.ceil(total / 12))
 
@@ -81,13 +69,11 @@ export default async function ToursPage({ params, searchParams }: Props) {
         <Image src="/images/terelj.jpg" alt="Sweeping Mongolian steppe" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/45 to-ink/10" />
         <div className="relative z-10 h-full flex flex-col justify-center container mx-auto px-6 sm:px-14 max-w-xl">
-          <p className="text-cream/85 text-xs font-semibold tracking-[0.24em] uppercase">Journeys across Mongolia</p>
+          <p className="text-cream/85 text-xs font-semibold tracking-[0.24em] uppercase">{t.hero_eyebrow}</p>
           <h1 className="text-cream text-5xl mt-4">
-            Our <span className="italic font-normal">Tours</span>
+            {t.hero_title_prefix} <span className="italic font-normal">{t.hero_title_italic}</span>
           </h1>
-          <p className="text-cream/85 mt-4 max-w-md">
-            Small-group and private expeditions shaped by the land and the people who know it best. Find the journey that&apos;s yours.
-          </p>
+          <p className="text-cream/85 mt-4 max-w-md">{t.hero_subtext}</p>
         </div>
       </section>
 
@@ -95,7 +81,7 @@ export default async function ToursPage({ params, searchParams }: Props) {
       <div className="flex flex-wrap items-center justify-between gap-4 container mx-auto px-6 sm:px-14 pt-6">
         <div className="flex items-baseline gap-3">
           <span className="font-display text-2xl">{total}</span>
-          <span className="text-xs font-medium tracking-widest uppercase text-warm-gray">Journeys found</span>
+          <span className="text-xs font-medium tracking-widest uppercase text-warm-gray">{t.journeys_found}</span>
         </div>
         <div className="flex flex-wrap gap-2">
           {sortChips.map((s) => (
@@ -116,14 +102,14 @@ export default async function ToursPage({ params, searchParams }: Props) {
       <div className="flex flex-col lg:flex-row gap-10 container mx-auto px-6 sm:px-14 py-8">
         <aside className="lg:w-56 flex-none flex flex-col gap-7">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold tracking-widest uppercase">Filters</span>
+            <span className="text-xs font-semibold tracking-widest uppercase">{t.filters}</span>
             <Link href={base} className="text-xs text-olive border-b border-olive pb-0.5">
-              Clear all
+              {t.clear_all}
             </Link>
           </div>
 
           <div>
-            <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-3">Duration</div>
+            <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-3">{t.duration}</div>
             <FilterChips
               chips={durationChips.map((c) => ({ label: c.label, href: qs({ duration: duration === c.value ? undefined : c.value, page: undefined }), active: duration === c.value }))}
             />
@@ -132,7 +118,7 @@ export default async function ToursPage({ params, searchParams }: Props) {
           <div className="h-px bg-border" />
 
           <div>
-            <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-3">Region</div>
+            <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-3">{t.region}</div>
             <FilterChips
               chips={regionChips.map((c) => ({ label: c.label, href: qs({ region: region === c.value ? undefined : c.value, page: undefined }), active: region === c.value }))}
             />
@@ -141,7 +127,7 @@ export default async function ToursPage({ params, searchParams }: Props) {
           <div className="h-px bg-border" />
 
           <div>
-            <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-3">Trip type</div>
+            <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-3">{t.trip_type}</div>
             <FilterChips
               chips={typeChips.map((c) => ({ label: c.label, href: qs({ type: type === c.value ? undefined : c.value, page: undefined }), active: type === c.value }))}
             />
@@ -150,14 +136,14 @@ export default async function ToursPage({ params, searchParams }: Props) {
 
         <div className="flex-1">
           {items.length === 0 ? (
-            <p className="text-warm-gray">No tours match those filters yet. Try clearing a filter.</p>
+            <p className="text-warm-gray">{t.empty}</p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {items.map((tour: Tour) => (
                 <JourneyCard
                   key={tour.slug}
                   item={{ id: tour.slug, days: tour.days, title: tour.title, description: tour.summary, badge: `${tour.region} · ${tour.type}`, rating: tour.rating, image: tour.image }}
-                  daysLabel="Days"
+                  daysLabel={getTranslation(locale).journeys.days_label}
                   price={`$${tour.price.toLocaleString()}`}
                   href={`/${locale}/tours/${tour.slug}`}
                 />
@@ -186,13 +172,13 @@ export default async function ToursPage({ params, searchParams }: Props) {
       {/* INQUIRY BAND */}
       <section className="bg-olive container mx-auto px-6 sm:px-14 py-12 flex flex-wrap items-center justify-between gap-6">
         <div>
-          <div className="text-cream/75 text-xs font-semibold tracking-[0.22em] uppercase">Can&apos;t find your journey?</div>
+          <div className="text-cream/75 text-xs font-semibold tracking-[0.22em] uppercase">{t.cta_eyebrow}</div>
           <div className="text-cream font-display text-3xl mt-2">
-            Every trip can be <span className="italic">tailor-made</span>.
+            {t.cta_heading_prefix} <span className="italic">{t.cta_heading_italic}</span>
           </div>
         </div>
         <Link href={`/${locale}/contact`} className="bg-cream text-ink rounded-sm px-7 py-3.5 text-xs font-semibold tracking-widest uppercase">
-          Plan a custom trip →
+          {t.cta_button}
         </Link>
       </section>
     </>

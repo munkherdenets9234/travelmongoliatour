@@ -1,8 +1,11 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export default function CarSearchRail({ basePath }: { basePath: string }) {
+  const { t } = useTranslation()
+  const csr = t.carSearchRail
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -17,7 +20,7 @@ export default function CarSearchRail({ basePath }: { basePath: string }) {
   return (
     <>
       <div className="flex-1 min-w-[150px]">
-        <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-2">Pick-up date</div>
+        <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-2">{csr.pickup_date}</div>
         <input
           type="date"
           defaultValue={searchParams.get('pickupDate') ?? ''}
@@ -27,7 +30,7 @@ export default function CarSearchRail({ basePath }: { basePath: string }) {
         />
       </div>
       <div className="flex-1 min-w-[150px]">
-        <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-2">Return date</div>
+        <div className="text-[10px] font-semibold tracking-widest uppercase text-warm-gray mb-2">{csr.return_date}</div>
         <input
           type="date"
           defaultValue={searchParams.get('returnDate') ?? ''}

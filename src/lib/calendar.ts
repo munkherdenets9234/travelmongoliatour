@@ -30,8 +30,9 @@ export function buildCalendarGrid(year: number, month: number): CalendarCell[] {
   return cells
 }
 
-export function monthLabel(year: number, month: number) {
-  return new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })
+export function monthLabel(year: number, month: number, locale: string = 'en') {
+  const intlLocale = locale === 'mn' ? 'mn-MN' : 'en-US'
+  return new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString(intlLocale, { month: 'long', year: 'numeric', timeZone: 'UTC' })
 }
 
 export function shiftMonth(year: number, month: number, delta: number) {

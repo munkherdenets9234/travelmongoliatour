@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import type { Car } from '@/lib/data/cars'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface Props {
   car: Car
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export default function ReservationDialog({ car, mode, pickupDate, returnDate, onClose }: Props) {
+  const { t } = useTranslation()
+  const rd = t.reservationDialog
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [confirmationId, setConfirmationId] = useState<string | null>(null)
 
@@ -49,22 +52,22 @@ export default function ReservationDialog({ car, mode, pickupDate, returnDate, o
         {status === 'success' ? (
           <div className="text-center py-4">
             <div className="text-3xl mb-3">✓</div>
-            <h3 className="font-display text-2xl mb-2">Reservation received</h3>
-            <p className="text-sm text-brown mb-1">Confirmation: <span className="font-semibold">{confirmationId}</span></p>
-            <p className="text-sm text-warm-gray mb-6">We&apos;ll confirm your {car.name} rental by email shortly.</p>
+            <h3 className="font-display text-2xl mb-2">{rd.success_heading}</h3>
+            <p className="text-sm text-brown mb-1">{rd.confirmation_label} <span className="font-semibold">{confirmationId}</span></p>
+            <p className="text-sm text-warm-gray mb-6">{rd.success_message_prefix} {car.name} {rd.success_message_suffix}</p>
             <button onClick={onClose} className="bg-ink text-cream rounded-sm px-6 py-3 text-xs font-semibold tracking-widest uppercase">
-              Close
+              {t.common.close}
             </button>
           </div>
         ) : (
           <>
             <div className="flex items-start justify-between mb-5">
               <div>
-                <div className="text-xs font-semibold tracking-widest uppercase text-warm-gray">Reserve</div>
+                <div className="text-xs font-semibold tracking-widest uppercase text-warm-gray">{rd.reserve_eyebrow}</div>
                 <h3 className="font-display text-2xl">{car.name}</h3>
                 <p className="text-xs text-brown mt-1 capitalize">{mode.replace('-', ' ')} · ${car.pricePerDay}/day</p>
               </div>
-              <button onClick={onClose} aria-label="Close" className="text-warm-gray text-xl leading-none">
+              <button onClick={onClose} aria-label={t.common.close} className="text-warm-gray text-xl leading-none">
                 ×
               </button>
             </div>
@@ -87,18 +90,18 @@ export default function ReservationDialog({ car, mode, pickupDate, returnDate, o
                   className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white cursor-pointer"
                 />
               </div>
-              <input name="name" type="text" required placeholder="Full name" className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white" />
-              <input name="email" type="email" required placeholder="Email" className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white" />
-              <input name="phone" type="tel" placeholder="Phone (optional)" className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white" />
+              <input name="name" type="text" required placeholder={rd.name_placeholder} className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white" />
+              <input name="email" type="email" required placeholder={rd.email_placeholder} className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white" />
+              <input name="phone" type="tel" placeholder={rd.phone_placeholder} className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white" />
 
-              {status === 'error' && <p className="text-xs text-red-600">Something went wrong — please try again.</p>}
+              {status === 'error' && <p className="text-xs text-red-600">{t.common.error_generic}</p>}
 
               <button
                 type="submit"
                 disabled={status === 'submitting'}
                 className="bg-olive text-cream rounded-sm py-3.5 text-xs font-semibold tracking-widest uppercase mt-2 disabled:opacity-60"
               >
-                {status === 'submitting' ? 'Sending…' : 'Confirm reservation →'}
+                {status === 'submitting' ? t.common.sending : rd.confirm_reservation}
               </button>
             </form>
           </>

@@ -14,7 +14,8 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params
-  const partner = await getPartnerBySlug(slug)
+  if (!isValidLocale(locale)) return {}
+  const partner = await getPartnerBySlug(slug, locale)
   if (!partner) return {}
 
   return {
@@ -37,13 +38,13 @@ export default async function PartnerDetailPage({ params }: Props) {
   const { locale, slug } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const partner = await getPartnerBySlug(slug)
+  const partner = await getPartnerBySlug(slug, locale)
   if (!partner) notFound()
 
   const [allPartners, tours, testimonials] = await Promise.all([
-    getAllPartners(),
-    getAllTours(),
-    getReviews({ partner: partner.name, pageSize: 1 }),
+    getAllPartners(locale),
+    getAllTours(locale),
+    getReviews(locale, { partner: partner.name, pageSize: 1 }),
   ])
   const tourTitleBySlug = new Map(tours.map((tr) => [tr.slug, tr.title]))
   const testimonial = testimonials.items[0]
