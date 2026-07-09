@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getTourBySlug, getRelatedTours } from '@/lib/data/tours'
-import { isValidLocale } from '@/lib/i18n'
+import { isValidLocale, siteUrl } from '@/lib/i18n'
+import { tourSchema, breadcrumbSchema } from '@/lib/seo'
 import JourneyCard from '@/components/ui/JourneyCard'
 import TourGallery from '@/components/ui/TourGallery'
 
@@ -33,8 +34,16 @@ export default async function TourDetailPage({ params }: Props) {
   if (!tour) notFound()
   const related = await getRelatedTours(slug)
 
+  const breadcrumb = breadcrumbSchema([
+    { name: 'Tours', url: `${siteUrl}/${locale}/tours` },
+    { name: tour.title, url: `${siteUrl}/${locale}/tours/${tour.slug}` },
+  ])
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(tourSchema(tour, locale)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+
       {/* BREADCRUMB + TITLE */}
       <div className="container mx-auto px-6 sm:px-14 pt-8 pb-4">
         <div className="text-xs font-medium uppercase tracking-wide text-warm-gray">

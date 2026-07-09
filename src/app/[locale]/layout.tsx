@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Manrope, Cormorant_Garamond } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { isValidLocale, getTranslation, locales, siteUrl } from '@/lib/i18n'
+import { organizationSchema } from '@/lib/seo'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import '../globals.css'
@@ -76,6 +77,10 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale} className={`${manrope.variable} ${cormorant.variable} scroll-smooth`}>
       <body className="antialiased bg-cream text-ink" style={{ fontFamily: 'var(--font-manrope)' }}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
+        />
         <Header />
         <main>{children}</main>
         <Footer />
