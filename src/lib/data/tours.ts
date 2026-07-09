@@ -1,15 +1,46 @@
 // Backed by the DigitalService API's `/destinations` resource — see src/lib/api/client.ts.
 import { apiGet, ApiError } from '@/lib/api/client'
 
+// `overview` is authored as HTML in the admin's rich text editor. `description` keeps the
+// full HTML for the tour detail page; `summary` is a flattened, line-clamped preview for
+// tour cards and <meta> tags, extracted from the first few block-level elements.
+function htmlToPlainText(html: string): string {
+  return html
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function getOverviewPreview(html: string, maxLines = 3): string {
+  const blocks = html.match(/<(p|li|h[1-6])[^>]*>[\s\S]*?<\/\1>/gi) ?? []
+  const lines = blocks.map((block) => htmlToPlainText(block)).filter(Boolean).slice(0, maxLines)
+  if (lines.length > 0) return lines.join('\n')
+  // No block-level tags found (legacy plain-text overview) — fall back to flat text.
+  return htmlToPlainText(html)
+}
+
 export interface TourItinerary {
   day: number
   title: string
   description: string
+  activities: string[]
+  overnight: string
+  meals: string[]
 }
 
 export interface TourInclusion {
   title: string
   description: string
+}
+
+export interface TourPriceTier {
+  minPeople: number
+  maxPeople: number
+  priceUsd: number
 }
 
 export interface Tour {
@@ -22,6 +53,8 @@ export interface Tour {
   days: number
   nights: number
   price: number
+  /** All group-size price tiers, sorted by min people ascending. `price` above is the cheapest of these. */
+  prices: TourPriceTier[]
   rating: number
   maxTravellers: number
   image: string
@@ -29,6 +62,7 @@ export interface Tour {
   badge?: string
   featured: boolean
   summary: string
+  /** Full tour overview as HTML, authored via the admin's rich text editor. */
   description: string
   highlights: string[]
   goodToKnow: string[]
@@ -88,6 +122,9 @@ interface Destination {
 
 function mapDestinationToTour(d: Destination): Tour {
   const cheapest = d.prices?.length ? Math.min(...d.prices.map((p) => p.price_usd)) : 0
+  const prices: TourPriceTier[] = (d.prices ?? [])
+    .map((p) => ({ minPeople: p.min_people, maxPeople: p.max_people, priceUsd: p.price_usd }))
+    .sort((a, b) => a.minPeople - b.minPeople)
 
   // rating and guide have no backend field yet — static placeholders until the
   // Destination model grows one.
@@ -108,17 +145,25 @@ function mapDestinationToTour(d: Destination): Tour {
     days: d.duration_days,
     nights: Math.max(0, d.duration_days - 1),
     price: cheapest,
+    prices,
     rating: 4.8,
     maxTravellers: d.group_size?.max ?? 0,
     image: d.cover_image?.url ?? '',
     gallery: d.images?.map((img) => img.url) ?? [],
     badge: d.tags?.includes('signature') ? 'Signature' : undefined,
     featured: d.featured === true,
-    summary: d.overview,
+    summary: getOverviewPreview(d.overview, 3),
     description: d.overview,
     highlights: d.highlights ?? [],
     goodToKnow,
-    itinerary: (d.itinerary ?? []).map((day) => ({ day: day.day, title: day.title, description: day.description })),
+    itinerary: (d.itinerary ?? []).map((day) => ({
+      day: day.day,
+      title: day.title,
+      description: day.description,
+      activities: day.activities ?? [],
+      overnight: day.overnight ?? '',
+      meals: day.meals ?? [],
+    })),
     inclusions: (d.inclusions ?? []).map((title) => ({ title, description: '' })),
     guide: { name: 'Your local guide', note: 'Assigned on booking' },
     departures: (d.departures ?? []).map((dep) => ({ date: dep.start_date.slice(0, 10), available: dep.available })),

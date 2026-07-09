@@ -44,7 +44,7 @@ export default function JourneyCard({ item, daysLabel, price, href }: Props) {
             <span className="text-cream/80 text-[10px] ml-1">{item.rating.toFixed(1)}</span>
           </div>
           <h3 className="text-cream text-xl font-display font-semibold mb-1">{item.title}</h3>
-          <p className="text-cream/70 text-sm mb-4 leading-relaxed">{item.description}</p>
+          <p className="text-cream/70 text-sm mb-4 leading-relaxed line-clamp-3 whitespace-pre-line">{item.description}</p>
           <div className="flex items-center justify-between">
             {price ? (
               <span>

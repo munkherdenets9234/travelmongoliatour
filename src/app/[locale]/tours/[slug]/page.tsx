@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getTourBySlug, getRelatedTours } from '@/lib/data/tours'
 import { isValidLocale } from '@/lib/i18n'
 import JourneyCard from '@/components/ui/JourneyCard'
+import TourGallery from '@/components/ui/TourGallery'
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>
@@ -15,11 +15,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tour = await getTourBySlug(slug)
   if (!tour) return {}
 
+  const metaDescription = tour.summary.replace(/\n+/g, ' ')
+
   return {
     title: `${tour.title} — E & S Discovery Mongolia`,
-    description: tour.summary,
+    description: metaDescription,
     alternates: { canonical: `/${locale}/tours/${slug}` },
-    openGraph: { title: tour.title, description: tour.summary, images: [tour.image] },
+    openGraph: { title: tour.title, description: metaDescription, images: [tour.image] },
   }
 }
 
@@ -59,23 +61,15 @@ export default async function TourDetailPage({ params }: Props) {
       </div>
 
       {/* GALLERY */}
-      <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-3 container mx-auto px-6 sm:px-14">
-        <div className="relative rounded-md overflow-hidden h-[380px]">
-          <Image src={tour.gallery[0] ?? tour.image} alt={tour.title} fill className="object-cover" priority />
-        </div>
-        <div className="grid grid-rows-2 gap-3">
-          {[tour.gallery[1] ?? tour.image, tour.gallery[2] ?? tour.image].map((src, i) => (
-            <div key={i} className="relative rounded-md overflow-hidden h-full">
-              <Image src={src} alt={`${tour.title} ${i + 2}`} fill className="object-cover" />
-            </div>
-          ))}
-        </div>
-      </div>
+      <TourGallery images={tour.gallery.length > 0 ? tour.gallery : [tour.image]} title={tour.title} />
 
       {/* BODY */}
       <div className="flex flex-col lg:flex-row gap-11 container mx-auto px-6 sm:px-14 py-8 items-start">
         <div className="flex-1 min-w-0">
-          <p className="text-lg leading-relaxed text-brown max-w-2xl">{tour.description}</p>
+          <div
+            className="text-lg leading-relaxed text-brown max-w-2xl [&_p]:mt-4 [&_p:first-child]:mt-0 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:mt-8 [&_h3]:font-display [&_h3]:text-xl [&_h3]:mt-6 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mt-1 [&_a]:underline [&_blockquote]:border-l-[3px] [&_blockquote]:border-olive [&_blockquote]:pl-4 [&_blockquote]:italic"
+            dangerouslySetInnerHTML={{ __html: tour.description }}
+          />
 
           <div className="flex flex-wrap gap-12 mt-7">
             <div className="flex-1 min-w-[220px]">
@@ -105,6 +99,29 @@ export default async function TourDetailPage({ params }: Props) {
                 <div>
                   <div className="font-display text-lg font-semibold">{day.title}</div>
                   <p className="text-sm leading-relaxed text-brown mt-1 max-w-lg">{day.description}</p>
+
+                  {day.activities.length > 0 || day.overnight || day.meals.length > 0 ? (
+                    <div className="flex flex-wrap gap-x-6 gap-y-1.5 mt-3 text-xs text-warm-gray">
+                      {day.activities.length > 0 ? (
+                        <span>
+                          <span className="font-semibold uppercase tracking-wide text-olive">Activities</span>{' '}
+                          {day.activities.join(', ')}
+                        </span>
+                      ) : null}
+                      {day.overnight ? (
+                        <span>
+                          <span className="font-semibold uppercase tracking-wide text-olive">Accommodation</span>{' '}
+                          {day.overnight}
+                        </span>
+                      ) : null}
+                      {day.meals.length > 0 ? (
+                        <span>
+                          <span className="font-semibold uppercase tracking-wide text-olive">Meals</span>{' '}
+                          {day.meals.join(', ')}
+                        </span>
+                      ) : null}
+                    </div>
+                  ) : null}
                 </div>
               </div>
             ))}
@@ -119,6 +136,22 @@ export default async function TourDetailPage({ params }: Props) {
               <span className="font-display text-4xl">${tour.price.toLocaleString()}</span>
               <span className="text-xs text-warm-gray">/ person</span>
             </div>
+
+            {tour.prices.length > 0 ? (
+              <div className="flex flex-col gap-1.5 mt-3 pt-3 border-t border-tan text-xs text-brown">
+                {tour.prices.map((tier) => (
+                  <div key={`${tier.minPeople}-${tier.maxPeople}`} className="flex items-center justify-between">
+                    <span>
+                      {tier.minPeople === tier.maxPeople
+                        ? `${tier.minPeople} traveller${tier.minPeople === 1 ? '' : 's'}`
+                        : `${tier.minPeople}–${tier.maxPeople} travellers`}
+                    </span>
+                    <span className="font-semibold">${tier.priceUsd.toLocaleString()}</span>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+
             <div className="h-px bg-tan my-4" />
             <Link
               href={`/${locale}/book?tour=${tour.slug}`}
