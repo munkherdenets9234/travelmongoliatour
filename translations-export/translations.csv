@@ -1,0 +1,511 @@
+key,en,mn
+meta.title,E & S Discovery Mongolia — Private Mongolia Travel & Tours,"E & S Discovery Mongolia — Монголын хувийн аялал, тур"
+meta.description,"Curated private journeys and small group tours through Mongolia's nomadic culture, endless steppes and remote landscapes — crafted by trusted local experts.","Монголын нүүдэлчин соёл, төгсгөлгүй тал нутаг, алслагдсан байгалиар дамжуулсан хувийн болон бага бүлгийн аялал — итгэмжлэгдсэн орон нутгийн мэргэжилтнүүдээр зохион байгуулагдсан."
+common.read_more,Read more,Дэлгэрэнгүй
+common.read_less,Read less,Хураах
+common.save,Save,Хадгалах
+common.share,Share,Хуваалцах
+common.close,Close,Хаах
+common.menu,Menu,Цэс
+common.subscribe,Subscribe,Бүртгүүлэх
+common.from,from,эхлэх үнэ
+common.per_person,/ person,/ хүн
+common.sending,Sending…,Илгээж байна…
+common.error_generic,Something went wrong — please try again.,Ямар нэг зүйл буруу боллоо — дахин оролдоно уу.
+common.selected,Selected,Сонгогдсон
+common.select,Select,Сонгох
+nav.tours,Tours,Тур
+nav.aboutMongolia,About Mongolia,Монголын тухай
+nav.airport,Airport,Онгоцны буудал
+nav.carRental,Car Rental,Машин түрээс
+nav.journal,Journal,Блог
+nav.partners,Partners,Хамтрагчид
+nav.reviews,Reviews,Сэтгэгдэл
+nav.about,About,Бидний тухай
+nav.contact,Contact,Холбоо барих
+nav.bookCta,Book a Trip,Захиалах
+nav.share,Share a Tour,Аялал хуваалцах
+hero.eyebrow,Experience the Last True Wilderness,Сүүлийн жинхэнэ зэрлэг байгалийг мэдрэ
+hero.title,Experience Mongolia with Trusted Local Experts Since 2004,Монгол — Энгийнээс давсан газар
+hero.subtitle,Private journeys & small group tours through Mongolia’s nomadic culture and remote landscapes — crafted by trusted local experts since 2004.,"Төгсгөлгүй тал нутаг, эртний уламжлал, гайхамшигт байгалиар дамжуулсан хувийн аялал."
+hero.cta_explore,Explore Journeys,Аяллуудыг үзэх
+hero.cta_film,Watch Film,Кино үзэх
+hero.scroll,Scroll to Discover,Доош гүйлгэн нээ
+search.destination_label,Choose your destination?,Хаашаа аялахыг хүсч байна вэ?
+search.destination_placeholder,Select destination,Аялал газар сонгох
+search.duration_label,Duration,Хугацаа
+search.duration_placeholder,Any duration,Ямар ч хугацаа
+search.style_label,Travel Style,Аяллын хэлбэр
+search.style_placeholder,Any style,Ямар ч хэлбэр
+search.cta,Explore,Хайх
+search.destinations[0],Terelj National Park,Тэрэлж Үндэсний Цэцэрлэгт Хүрээлэн
+search.destinations[1],Gobi Desert,Говь цөл
+search.destinations[2],Khuvsgul Lake,Хөвсгөл нуур
+search.destinations[3],Altai Mountains,Алтайн нуруу
+search.destinations[4],Khustain Nuruu,Хустайн Нуруу
+search.durations[0],3–5 days,3–5 өдөр
+search.durations[1],6–9 days,6–9 өдөр
+search.durations[2],10–14 days,10–14 өдөр
+search.durations[3],15+ days,15+ өдөр
+search.styles[0],Private Tour,Хувийн тур
+search.styles[1],Luxury Camp,Тансаг лагерь
+search.styles[2],Cultural Journey,Соёлын аялал
+search.styles[3],Adventure,Адал явдал
+search.styles[4],Photography,Гэрэл зургийн аялал
+journeys.eyebrow,Featured Journeys,Онцлох аяллууд
+journeys.title,Handcrafted Experiences,Гар аргаар бүтээсэн туршлагууд
+journeys.view_all,View All Journeys,Бүх аяллыг үзэх
+journeys.days_label,Days,Өдөр
+journeys.items[0].id,terelj,terelj
+journeys.items[0].days,2,2
+journeys.items[0].title,Terelj National Park,Тэрэлж Үндэсний Цэцэрлэгт Хүрээлэн
+journeys.items[0].description,"Granite mountains, nomadic families and serene nature.","Боржин чулуун уулс, нүүдэлчин гэр бүлүүд, тайван байгаль."
+journeys.items[0].badge,Private Tour,Хувийн тур
+journeys.items[0].rating,5,5
+journeys.items[0].image,/images/terelj.jpg,/images/terelj.jpg
+journeys.items[1].id,gobi,gobi
+journeys.items[1].days,7,7
+journeys.items[1].title,Gobi Expedition,Говийн экспедиц
+journeys.items[1].description,"Vast deserts, dramatic canyons and starlit nights.","Өргөн цөл, гайхамшигт хавцал, одтой шөнө."
+journeys.items[1].badge,Luxury Camp,Тансаг лагерь
+journeys.items[1].rating,5,5
+journeys.items[1].image,/images/gobi.jpg,/images/gobi.jpg
+journeys.items[2].id,nomadic,nomadic
+journeys.items[2].days,5,5
+journeys.items[2].title,Nomadic Heritage,Нүүдэлчний өв
+journeys.items[2].description,Live with nomad families and discover ancient traditions.,"Нүүдэлчин гэр бүлтэй амьдарч, эртний уламжлалыг нээ."
+journeys.items[2].badge,Cultural Journey,Соёлын аялал
+journeys.items[2].rating,5,5
+journeys.items[2].image,/images/nomadic.jpg,/images/nomadic.jpg
+journeys.items[3].id,khuvsgul,khuvsgul
+journeys.items[3].days,6,6
+journeys.items[3].title,Khuvsgul Lake,Хөвсгөл нуур
+journeys.items[3].description,Crystal-clear sacred lake surrounded by ancient taiga forest.,Эртний тайгын ойгоор хүрээлэгдсэн болор цэлгэр ариун нуур.
+journeys.items[3].badge,Adventure,Адал явдал
+journeys.items[3].rating,5,5
+journeys.items[3].image,/images/khuvsgul.jpg,/images/khuvsgul.jpg
+tripadvisor.description,"We have been helping people the world over to enjoy unforgettable adventures to our homeland, and we do it all with expertise and passion.",Бид дэлхий даяарх хүмүүст эх нутагтаа мартагдашгүй адал явдал бэлэглэж ирсэн бөгөөд үүнийг мэргэжил чадвар болон хүсэл тэмүүллээрээ хийдэг.
+partners.eyebrow,Recommended Partners,Санал болгож буй хамтрагчид
+partners.title,Our Trusted Partners,Бидний итгэмжлэгдсэн хамтрагчид
+partners.cta,Visit,Зочлох
+partnerDetail.eyebrow,Recommended partner,Санал болгож буй хамтрагч
+partnerDetail.offerings,What they offer,Тэдний санал болгож буй зүйлс
+partnerDetail.testimonialEyebrow,In their words,Тэдний хэлснээр
+partnerDetail.ctaEyebrow,Ready to visit?,Зочлохыг хүсэж байна уу?
+partnerDetail.ctaBook,Book a Trip,Захиалах
+map.eyebrow,Mongolia is Different,Монгол өөр
+map.title_line1,Not Every Journey,Бүх аялал чамайг
+map.title_line2,Changes You.,Өөрчилдөггүй.
+map.title_italic,This One Will.,Энэ нь өөрчилнө.
+map.description,"From the moment you arrive, we take care of everything. You just show up — and we handle the rest with heart and precision.",Ирсэн цагаасаа эхлэн бид бүгдийг зохицуулна. Та зүгээр ирэх л хэрэгтэй — бусдыг нь бид зүрх сэтгэлээр шийдвэрлэнэ.
+map.cta,About Us,Бидний тухай
+map.hover_hint,Hover a Destination,Газар дээр хулганаа аваачна уу
+map.destinations[0].id,khuvsgul,khuvsgul
+map.destinations[0].name,Khuvsgul,Хөвсгөл
+map.destinations[0].subtitle,Northern Lakes,Хойд нуурууд
+map.destinations[0].x,52,52
+map.destinations[0].y,18,18
+map.destinations[1].id,khustain,khustain
+map.destinations[1].name,Khustain,Хустай
+map.destinations[1].subtitle,Wild Horses,Зэрлэг морь
+map.destinations[1].x,28,28
+map.destinations[1].y,44,44
+map.destinations[2].id,terelj,terelj
+map.destinations[2].name,Terelj,Тэрэлж
+map.destinations[2].subtitle,Mountains & Nature,Уул & Байгаль
+map.destinations[2].x,72,72
+map.destinations[2].y,42,42
+map.destinations[3].id,gobi,gobi
+map.destinations[3].name,Gobi,Говь
+map.destinations[3].subtitle,Desert & Dunes,Цөл & Элсэн манхан
+map.destinations[3].x,58,58
+map.destinations[3].y,65,65
+map.destinations[4].id,altai,altai
+map.destinations[4].name,Altai,Алтай
+map.destinations[4].subtitle,Western Mongolia,Баруун Монгол
+map.destinations[4].x,22,22
+map.destinations[4].y,68,68
+why.eyebrow,Why Travel With Us,Яагаад бидэнтэй аялах вэ
+why.items[0].icon,compass,compass
+why.items[0].title,Tailor-made Journeys,Захиалгат аялал
+why.items[0].description,Every itinerary is custom-designed around you.,Бүх хөтөлбөр таны хүсэлд тулгуурлан боловсруулагдана.
+why.items[1].icon,users,users
+why.items[1].title,Local Experts,Орон нутгийн мэргэжилтнүүд
+why.items[1].description,Born and raised in Mongolia. We know it best.,Монголд төрж өссөн. Бид үүнийг хамгийн сайн мэднэ.
+why.items[2].icon,mountain,mountain
+why.items[2].title,Private Experiences,Хувийн туршлага
+why.items[2].description,No crowded buses. Just you and the wilderness.,Натовчлол байхгүй. Зөвхөн та болон зэрлэг байгаль.
+why.items[3].icon,leaf,leaf
+why.items[3].title,Sustainable Tourism,Тогтвортой аялал жуулчлал
+why.items[3].description,Supporting local communities and preserving our land.,"Орон нутгийн нийгэмлэгийг дэмжиж, нутгийг хамгаалах."
+reviews.eyebrow,Verified everywhere,Хаа сайгүй баталгаажсан
+reviews.title,Trusted by Travelers,Дэлхий даяарх аялагчид
+reviews.title_italic,Worldwide,бидэнд итгэдэг
+reviews.reviews_label,reviews,сэтгэгдэл
+reviews.cta,See All Reviews,Бүх сэтгэгдлийг үзэх
+reviewsPage.eyebrow,Traveler reviews,Аялагчдын сэтгэгдэл
+reviewsPage.travelers_label,travelers,аялагч
+reviewsPage.title_suffix,one Mongolia.,нэг Монгол.
+reviewsPage.reviews_label,reviews,сэтгэгдэл
+reviewsPage.all_tours,All Tours,Бүх аялал
+reviewsPage.empty,No reviews yet.,Одоогоор сэтгэгдэл алга.
+reviewsPage.prev,← Previous,← Өмнөх
+reviewsPage.next,Next →,Дараах →
+quote.line1,Silence,Чимээгүй байдал
+quote.line2,has,нь
+quote.line3,a sound.,дуутай.
+quote.cta,Discover Mongolia,Монголыг нээ
+journal.eyebrow,Journey Inspiration,Аяллын урам зориг
+journal.view_all,View All Articles,Бүх нийтлэлийг үзэх
+journal.items[0].id,best-time,best-time
+journal.items[0].category,Travel Guide,Аяллын гарын авлага
+journal.items[0].title,When is the Best Time to Visit Mongolia?,Монгол руу аялахад хамгийн тохиромжтой цаг хэзээ вэ?
+journal.items[0].read_time,6,6
+journal.items[0].image,/images/article-1.jpg,/images/article-1.jpg
+journal.items[1].id,10-things,10-things
+journal.items[1].category,Culture,Соёл
+journal.items[1].title,10 Things You Didn't Know About Mongolia,Монголын тухай мэдэхгүй байсан 10 зүйл
+journal.items[1].read_time,7,7
+journal.items[1].image,/images/article-2.jpg,/images/article-2.jpg
+journal.items[2].id,horse-trekking,horse-trekking
+journal.items[2].category,Adventure,Адал явдал
+journal.items[2].title,Horse Trekking Guide: Tips for Your Journey,Морин аялалын гарын авлага: Аяллын зөвлөмжүүд
+journal.items[2].read_time,5,5
+journal.items[2].image,/images/article-3.jpg,/images/article-3.jpg
+journal.read_label,min read,мин унших
+footer.tagline,"Private, tailor-made journeys across the last great wilderness. Ulaanbaatar, Mongolia.","Сүүлийн жинхэнэ зэрлэг байгаль дээрх хувийн, тусгайлан бэлтгэсэн аялал. Улаанбаатар, Монгол."
+footer.exploreHeading,Explore,Үзэх
+footer.companyHeading,Company,Компани
+footer.links.tours,Tours,Тур
+footer.links.aboutMongolia,About Mongolia,Монголын тухай
+footer.links.airportTransfer,Airport transfer,Онгоцны буудлын үйлчилгээ
+footer.links.carRental,Car rental,Машин түрээс
+footer.links.partners,Partners,Хамтрагчид
+footer.links.reviews,Reviews,Сэтгэгдэл
+footer.links.aboutUs,About us,Бидний тухай
+footer.links.journal,Journal,Блог
+footer.links.contact,Contact,Холбоо барих
+footer.newsletter.heading,Newsletter,Мэдээлэл авах
+footer.newsletter.text,"Stories from the steppe, a few times a year.",Тал нутгийн түүхүүдийг жилд хэдэн удаа хүлээн аваарай.
+footer.newsletter.placeholder,Email address,И-мэйл хаяг
+footer.copyright,© 2026 E and S Discovery Mongolia. All rights reserved.,© 2026 E and S Discovery Mongolia. Бүх эрх хуулиар хамгаалагдсан.
+tourDetail.breadcrumb_tours,Tours,Тур
+tourDetail.days_label,days,өдөр
+tourDetail.nights_label,nights,шөнө
+tourDetail.max_travellers,Max,Дээд тал нь
+tourDetail.highlights,Highlights,Онцлох зүйлс
+tourDetail.good_to_know,Good to know,Мэдэж байх зүйлс
+tourDetail.day_by_day,Day by day,Өдөр тутмын хөтөлбөр
+tourDetail.day_label,Day,Өдөр
+tourDetail.activities,Activities,Үйл ажиллагаа
+tourDetail.accommodation,Accommodation,Байрлах газар
+tourDetail.meals,Meals,Хоол
+tourDetail.traveller_singular,traveller,аялагч
+tourDetail.traveller_plural,travellers,аялагч
+tourDetail.book_now,Book now,Захиалах
+tourDetail.or,or,эсвэл
+tourDetail.see_open_departures,see open departures,нээлттэй аяллуудыг харах
+tourDetail.free_cancellation,Free cancellation up to 30 days before,30 хоногийн өмнө үнэгүй цуцлах боломжтой
+tourDetail.whats_included,What's included,Юу багтсан бэ
+tourDetail.you_may_also_like,You may also like,Танд таалагдаж магадгүй
+tourDetail.view_all_tours,View all tours →,Бүх аяллыг үзэх →
+toursPage.meta_title,Our Tours — E & S Discovery Mongolia,Бидний аяллууд — E & S Discovery Mongolia
+toursPage.meta_description,"Small-group and private expeditions across Mongolia, shaped by the land and the people who know it best.",Монголыг хамгийн сайн мэддэг хүмүүсийн бүтээсэн бага бүлгийн болон хувийн экспедицүүд.
+toursPage.hero_eyebrow,Journeys across Mongolia,Монгол даяар аялал
+toursPage.hero_title_prefix,Our,Бидний
+toursPage.hero_title_italic,Tours,аяллууд
+toursPage.hero_subtext,Small-group and private expeditions shaped by the land and the people who know it best. Find the journey that's yours.,"Газар нутаг, түүнийг хамгийн сайн мэддэг хүмүүсийн бүтээсэн бага бүлгийн болон хувийн экспедицүүд. Танд тохирох аяллаа ол."
+toursPage.journeys_found,Journeys found,аялал олдлоо
+toursPage.duration_chips[0],1–5 days,1–5 өдөр
+toursPage.duration_chips[1],6–10 days,6–10 өдөр
+toursPage.duration_chips[2],11 days +,11+ өдөр
+toursPage.region_chips[0],Gobi,Говь
+toursPage.region_chips[1],Central,Төв
+toursPage.region_chips[2],North,Хойд
+toursPage.region_chips[3],West,Баруун
+toursPage.type_chips[0],Cultural,Соёлын
+toursPage.type_chips[1],Adventure,Адал явдал
+toursPage.type_chips[2],Festival,Наадам
+toursPage.type_chips[3],Group,Бүлгийн
+toursPage.sort_chips[0],Top rated,Шилдэг үнэлгээтэй
+toursPage.sort_chips[1],Price: low to high,Үнэ: багаас их рүү
+toursPage.sort_chips[2],Price: high to low,Үнэ: ихээс бага руу
+toursPage.sort_chips[3],Duration,Үргэлжлэх хугацаа
+toursPage.filters,Filters,Шүүлтүүр
+toursPage.clear_all,Clear all,Бүгдийг арилгах
+toursPage.duration,Duration,Үргэлжлэх хугацаа
+toursPage.region,Region,Бүс нутаг
+toursPage.trip_type,Trip type,Аяллын төрөл
+toursPage.empty,No tours match those filters yet. Try clearing a filter.,Энэ шүүлтүүрт тохирох аялал алга байна. Шүүлтүүрээ арилгаад дахин оролдоно уу.
+toursPage.cta_eyebrow,Can't find your journey?,Хүссэн аяллаа олсонгүй юу?
+toursPage.cta_heading_prefix,Every trip can be,Бүх аяллыг
+toursPage.cta_heading_italic,tailor-made.,танд тохируулан бүтээж болно.
+toursPage.cta_button,Plan a custom trip →,Тусгай аялал төлөвлөх →
+journalPage.meta_title,The Journal — Stories from the Steppe — E & S Discovery Mongolia,Блог — Тал нутгийн түүхүүд — E & S Discovery Mongolia
+journalPage.meta_description,"Guides, culture, tips and stories from the steppe, the Gobi and the taiga.","Тал нутаг, Говь, тайгын тухай гарын авлага, соёл, зөвлөмж, түүхүүд."
+journalPage.hero_eyebrow,Stories from the steppe,Тал нутгийн түүхүүд
+journalPage.hero_title_prefix,The,Бидний
+journalPage.hero_title_italic,Journal,Блог
+journalPage.category_all,All,Бүгд
+journalPage.categories.guides,Guides,Гарын авлага
+journalPage.categories.culture,Culture,Соёл
+journalPage.categories.tips,Tips,Зөвлөмж
+journalPage.categories.stories,Stories,Түүхүүд
+journalPage.categories.food,Food,Хоол
+journalPage.categories.adventure,Adventure,Адал явдал
+journalPage.featured_prefix,Featured,Онцлох
+journalPage.read_article,Read article →,Нийтлэл унших →
+journalPage.load_more,Load more articles,Илүү ихийг харах
+journalDetail.share,↗ Share,↗ Хуваалцах
+journalDetail.save,♡ Save,♡ Хадгалах
+journalDetail.cta_eyebrow,See it yourself,Өөрөө үзээрэй
+journalDetail.cta_heading_prefix,Tours that match this,Энэ түүхтэй тохирох
+journalDetail.cta_heading_italic,guide.,аяллууд.
+journalDetail.browse_tours,Browse tours →,Аяллуудыг үзэх →
+journalDetail.keep_reading,Keep reading,Цааш унших
+bookPage.meta_title,Book Your Journey — E & S Discovery Mongolia,Аяллаа захиалах — E & S Discovery Mongolia
+bookPage.meta_description,A single-page guest checkout for your Mongolia journey — no account needed.,Монгол руу хийх аяллынхаа захиалгыг нэг хуудсанд — бүртгэл шаардлагагүй.
+bookPage.step_trip,Trip,Аялал
+bookPage.step_traveller,Traveller,Аялагч
+bookPage.step_payment,Payment,Төлбөр
+bookPage.heading_prefix,Book your,Аяллаа
+bookPage.heading_italic,journey,захиалах
+bookingForm.no_tours,No tours available to book right now.,Одоогоор захиалах боломжтой аялал алга байна.
+bookingForm.success_heading,Booking request sent,Захиалгын хүсэлт илгээгдлээ
+bookingForm.confirmation_label,Confirmation:,Баталгаажуулах дугаар:
+bookingForm.success_message_prefix,Our team will follow up by email to confirm your,Манай баг таны
+bookingForm.success_message_suffix,booking.,захиалгыг баталгаажуулахаар и-мэйлээр холбогдоно.
+bookingForm.section1,1 · Trip details,1 · Аяллын мэдээлэл
+bookingForm.tour_label,Tour,Аялал
+bookingForm.date_label,Date,Огноо
+bookingForm.travellers_label,Travellers,Аялагчид
+bookingForm.section2,2 · Lead traveller,2 · Тэргүүлэх аялагч
+bookingForm.name_placeholder,Full name,Овог нэр
+bookingForm.email_placeholder,Email,И-мэйл
+bookingForm.country_placeholder,Country,Улс
+bookingForm.phone_placeholder,Phone,Утас
+bookingForm.section3,3 · Add-ons,3 · Нэмэлт үйлчилгээ
+bookingForm.section4,4 · Notes & requests,4 · Тэмдэглэл & хүсэлт
+bookingForm.notes_placeholder,"Dietary needs, accessibility, custom itinerary…","Хоолны хэрэгцээ, хүртээмж, тусгай хөтөлбөр…"
+bookingForm.adult_singular,adult,хүн
+bookingForm.adult_plural,adults,хүн
+bookingForm.order_summary,Order summary,Захиалгын дүн
+bookingForm.total,Total,Нийт
+bookingForm.deposit_label,Deposit today · 20%,Өнөөдрийн урьдчилгаа · 20%
+bookingForm.pay_deposit,Pay deposit →,Урьдчилгаа төлөх →
+bookingForm.guest_checkout_note,No account needed · guest checkout,Бүртгэл шаардлагагүй · зочны захиалга
+shareATour.meta_title,Share a Tour — Open Departures — E & S Discovery Mongolia,Аялал хуваалцах — Нээлттэй аяллууд — E & S Discovery Mongolia
+shareATour.meta_description,Join an open group departure — pick a date on the calendar and travel alongside fellow guests.,Нээлттэй бүлгийн аялалд нэгдээрэй — хуанлиас огноогоо сонгоод бусад зочидтой хамт аялаарай.
+departureCalendar.weekdays[0],Mon,Да
+departureCalendar.weekdays[1],Tue,Мя
+departureCalendar.weekdays[2],Wed,Лх
+departureCalendar.weekdays[3],Thu,Пү
+departureCalendar.weekdays[4],Fri,Ба
+departureCalendar.weekdays[5],Sat,Бя
+departureCalendar.weekdays[6],Sun,Ня
+departureCalendar.regions[0],All tours,Бүх аялал
+departureCalendar.regions[1],Gobi,Говь
+departureCalendar.regions[2],Central,Төв
+departureCalendar.regions[3],North,Хойд
+departureCalendar.regions[4],West,Баруун
+departureCalendar.join_group_departure,Join a group departure,Бүлгийн аялалд нэгдэх
+departureCalendar.heading_prefix,Share a,Аялал
+departureCalendar.heading_italic,tour,хуваалцах
+departureCalendar.prev_month,Previous month,Өмнөх сар
+departureCalendar.next_month,Next month,Дараах сар
+departureCalendar.filter,Filter,Шүүлтүүр
+departureCalendar.full,Full,Дүүрсэн
+departureCalendar.open,Open,Нээлттэй
+departureCalendar.select_day,Select a highlighted day to see its departure.,Аяллыг харахын тулд онцолсон өдрийг сонгоно уу.
+departureCalendar.no_departures,No departures on this day yet.,Энэ өдөр одоогоор аялал алга байна.
+departureCalendar.departure_count_singular,departure this day,аялал энэ өдөр
+departureCalendar.departure_count_plural,departures this day,аялал энэ өдөр
+departureCalendar.from,from,эхлэх үнэ
+departureCalendar.per_person,/ person,/ хүн
+departureCalendar.fully_booked,Fully booked,Бүрэн захиалагдсан
+departureCalendar.join_departure,Join this departure →,Энэ аялалд нэгдэх →
+departureCalendar.confirmed_note,Confirmed to run · guaranteed departure,Баталгаажсан · заавал явна
+departureCalendar.days_label,days,өдөр
+departureCalendar.small_group_of,small group of,"бага бүлэг, дээд тал нь"
+departureCalendar.english_speaking_guide,English-speaking guide,англи хэлтэй хөтөч
+about.meta_title,About Us — A Local Team Born on the Steppe — E & S Discovery Mongolia,Бидний тухай — Тал нутагт төрсөн орон нутгийн баг — E & S Discovery Mongolia
+about.meta_description,"Mongolian-owned and staffed since 2009 — a team of forty guides, drivers and travel designers.","2009 оноос хойш Монголын өмчлөлтэй, дөчин хөтөч, жолооч, аяллын дизайнеруудаас бүрдсэн баг."
+about.since_label,Since 2009,2009 оноос хойш
+about.heading_prefix,"A local team,",Тал нутагт төрсөн
+about.heading_italic,born on the steppe,орон нутгийн баг
+about.body1,"We started with one Land Cruiser and a belief that the best way to see Mongolia is with the people who call it home. Fifteen years later we're a team of forty guides, drivers and travel designers — all Mongolian-born, all still a little in love with the horizon.","Бид нэг Land Cruiser машин болон Монголыг үзэх хамгийн сайн арга нь энд амьдардаг хүмүүстэй хамт байх гэдэг итгэл үнэмшлээр эхэлсэн. Арван таван жилийн дараа бид бүгд Монголд төрсөн, өнөөг хүртэл тэнгэрийн хаяанд дурлаж явдаг дөчин хөтөч, жолооч, аяллын дизайнеруудаас бүрдсэн баг боллоо."
+about.body2,Every journey we build supports the herder families and camps we've worked with for years.,Бидний бүтээж буй аялал бүр олон жил хамтарч ажилласан малчин гэр бүлүүд болон лагерийг дэмждэг.
+about.stats[0].value,15+,15+
+about.stats[0].label,Years guiding,жил хөтөч ажилласан
+about.stats[1].value,"8,000+","8,000+"
+about.stats[1].label,Travellers hosted,аялагч дагуулсан
+about.stats[2].value,40,40
+about.stats[2].label,Local guides,орон нутгийн хөтөч
+about.stats[3].value,4.9★,4.9★
+about.stats[3].label,Average rating,дундаж үнэлгээ
+about.beliefs_eyebrow,What we believe,Бидний итгэл үнэмшил
+about.beliefs_heading,How we travel,Бид хэрхэн аялдаг вэ
+about.values[0].title,Local first,Орон нутгийг эн тэргүүнд
+about.values[0].text,Mongolian-owned and staffed. Your trip directly supports the families and camps that host you.,"Монголын өмчлөлтэй, ажилчидтай. Таны аялал таныг зочилж буй гэр бүл, лагерийг шууд дэмждэг."
+about.values[1].title,Small & tailor-made,Жижиг & тусгайлан бэлтгэсэн
+about.values[1].text,"No crowds, no fixed factory itineraries. Every journey is built around you.","Олон түмэн, тогтмол хөтөлбөр байхгүй. Аялал бүр танд тохируулан бүтээгддэг."
+about.values[2].title,Light on the land,Байгальд ээлтэй
+about.values[2].text,Low-impact camps and a commitment to leaving the steppe as we found it.,Байгаль орчинд бага нөлөөтэй лагерь ба тал нутгийг олсон хэвээр нь үлдээх амлалт.
+about.credentials_heading,Trusted & certified,Итгэмжлэгдсэн & гэрчилгээтэй
+about.credentials[0],Mongolia Tourism,Монголын Аялал Жуулчлал
+about.credentials[1],ASTA member,ASTA гишүүн
+about.credentials[2],Travellers' Choice,Аялагчдын Сонголт
+about.credentials[3],Eco-certified,Байгальд ээлтэй гэрчилгээтэй
+aboutMongolia.meta_title,About Mongolia — Land of the Eternal Blue Sky — E & S Discovery Mongolia,Монголын тухай — Мөнх хөх тэнгэрийн орон — E & S Discovery Mongolia
+aboutMongolia.meta_description,"A country the size of Western Europe with fewer than 3.5 million people — geography, nomadic culture, history and wildlife.","3.5 сая хүрэхгүй хүн амтай, Баруун Европтой хэмжээгээрээ адилхан улс — газар зүй, нүүдэлчин соёл, түүх, ан амьтан."
+aboutMongolia.sections[0].id,geography,geography
+aboutMongolia.sections[0].label,Geography,Газар зүй
+aboutMongolia.sections[1].id,climate,climate
+aboutMongolia.sections[1].label,Climate & seasons,Уур амьсгал & улирал
+aboutMongolia.sections[2].id,culture,culture
+aboutMongolia.sections[2].label,Nomadic culture,Нүүдэлчин соёл
+aboutMongolia.sections[3].id,history,history
+aboutMongolia.sections[3].label,History,Түүх
+aboutMongolia.sections[4].id,naadam,naadam
+aboutMongolia.sections[4].label,Naadam festival,Наадам
+aboutMongolia.sections[5].id,ger,ger
+aboutMongolia.sections[5].label,Ger life,Гэрийн амьдрал
+aboutMongolia.sections[6].id,wildlife,wildlife
+aboutMongolia.sections[6].label,Wildlife,Ан амьтан
+aboutMongolia.facts[0].value,1.56M,1.56 сая
+aboutMongolia.facts[0].label,km² of land,хавтгай дурсгал км²
+aboutMongolia.facts[1].value,260+,260+
+aboutMongolia.facts[1].label,sunny days a year,нартай өдөр жилд
+aboutMongolia.facts[2].value,~25%,~25%
+aboutMongolia.facts[2].label,still nomadic,нүүдэлчин хэвээр
+aboutMongolia.facts[3].value,1206,1206
+aboutMongolia.facts[3].label,Chinggis unites the tribes,Чингис хаан аймгуудыг нэгтгэсэн
+aboutMongolia.hero_eyebrow,Land of the eternal blue sky,Мөнх хөх тэнгэрийн орон
+aboutMongolia.hero_heading_prefix,About,Монголын
+aboutMongolia.hero_heading_italic,Mongolia,тухай
+aboutMongolia.hero_subtext,"A country the size of Western Europe with fewer than 3.5 million people — the last great expanse of open land, and the living heart of nomadic culture.","3.5 сая хүрэхгүй хүн амтай, Баруун Европтой хэмжээгээрээ адилхан улс — нээлттэй газар нутгийн сүүлчийн агуу их уудам, нүүдэлчин соёлын амьд зүрх."
+aboutMongolia.geography_heading,Geography,Газар зүй
+aboutMongolia.geography_body,"From the Gobi Desert in the south to the taiga forests and glaciers of the north, Mongolia spans an astonishing range of landscapes. Vast grasslands roll toward the Altai mountains in the west, while the central steppe — the archetypal Mongolian horizon — stretches unbroken for hundreds of kilometres. It remains one of the most sparsely populated sovereign nations on earth.","Өмнөд хэсгийн Говийн цөлөөс хойд хэсгийн тайгын ой, мөсөн голууд хүртэл Монгол улс гайхалтай олон төрлийн байгалийн бүсийг хамардаг. Баруун талаараа Алтайн нуруу руу уудам тал нутаг үргэлжилдэг бол Монголын хаяа гэгддэг төв тал нутаг хэдэн зуун километрээр тасралтгүй үргэлжилдэг. Энэ нь дэлхийн хамгийн цөөн хүн амтай тусгаар улсуудын нэг хэвээр байна."
+aboutMongolia.climate_heading,Climate & seasons,Уур амьсгал & улирал
+aboutMongolia.climate_body,"Mongolia is the world's most continental climate — long, fiercely cold winters give way to short, intense summers, with barely a spring or autumn between. Summer (June–August) brings warm days, green steppe and the Naadam festival; September paints the north gold before the first snow. Winter is spectacular but severe, dropping well below −20°C, while July highs can reach 30°C. Most travel is timed for the May–September window.","Монгол улс дэлхийн хамгийн эрс тэс уур амьсгалтай — урт, хатуу хүйтэн өвөл богино, эрчимтэй зунд шилждэг бөгөөд хавар, намар бараг байдаггүй. Зун (6-8 сар) дулаан өдрүүд, ногоон тал нутаг, Наадамын баяраар эхэлдэг; 9-р сард хойд бүс алтан өнгөтэй болж, эхний цас орно. Өвөл гайхамшигтай ч хатуу ширүүн, −20°C-аас доош, харин 7-р сарын дулаан нь 30°C хүрдэг. Ихэнх аялал 5-9 сарын хооронд зохион байгуулагддаг."
+aboutMongolia.history_heading,History,Түүх
+aboutMongolia.history_body,"In 1206 Chinggis Khaan united the warring steppe tribes and forged the Mongol Empire, which at its height stretched from Korea to Hungary — the largest contiguous land empire in history. Karakorum, its capital near present-day Kharkhorin, was once the crossroads of the world. Centuries of Manchu rule and socialist alignment with the Soviet Union followed, before Mongolia's peaceful 1990 democratic revolution opened the country to the world it welcomes travellers into today.","1206 онд Чингис хаан тал нутгийн дайсагнасан овог аймгуудыг нэгтгэн Монголын эзэнт гүрнийг байгуулсан бөгөөд энэ нь оргилдоо Солонгосоос Унгар хүртэл үргэлжилж, түүхэн дэх хамгийн том тасралтгүй хуурай газрын эзэнт гүрэн болсон. Одоогийн Хархорины ойролцоох нийслэл Хархорум нь дэлхийн уулзвар байсан. Хожим Манж, дараа нь Зөвлөлт социалист нөлөөний олон зууны дараа 1990 оны энхийн ардчилсан хувьсгал улс орныг өнөөгийн аялагчдыг угтдаг дэлхийтэй холбосон."
+aboutMongolia.culture_heading,Nomadic culture,Нүүдэлчин соёл
+aboutMongolia.culture_body,"Roughly a quarter of Mongolians still live as herders, moving with the seasons between pastures. Hospitality is sacred: a traveller is always welcomed into the ger with hot salted milk tea. This rhythm of movement, family and the land shapes everything — and it is what our journeys are built to share, at the pace of the people who live it.","Монголчуудын дөрөвний нэг орчим нь улирлын дагуу бэлчээрээс бэлчээр рүү нүүдэллэдэг малчин хэвээр байна. Зочломтгой байдал ариун: аялагчийг үргэлж халуун сүүтэй цайгаар гэрт угтдаг. Энэхүү нүүдэл, гэр бүл, газар нутгийн хэмнэл бүх зүйлийг тодорхойлдог — бидний аялал энэ хэмнэлийг мэдрүүлэхээр бүтээгдсэн."
+aboutMongolia.culture_quote,The steppe teaches patience — the horizon is never in a hurry.,Тал нутаг тэвчээрийг заадаг — тэнгэрийн хаяа хэзээ ч яардаггүй.
+aboutMongolia.naadam_heading,Naadam festival,Наадам
+aboutMongolia.naadam_body,"Held every July, Naadam is Mongolia's great national celebration — the ""three manly games"" of wrestling, archery and horse racing, staged across the country and centred on Ulaanbaatar. It is the single best week to witness the culture at full colour, and our festival departures put you in the thick of it.","Жил бүрийн 7-р сард болдог Наадам бол Монголын агуу их үндэсний баяр бөгөөд эрийн гурван наадам буюу бөх барилдаан, сур харваа, морин уралдааныг улс даяар, ялангуяа Улаанбаатарт зохион байгуулдаг. Энэ бол соёлыг бүрэн дүүрэн харах хамгийн сайн долоо хоног бөгөөд бидний наадмын аялал таныг үүний голд оруулдаг."
+aboutMongolia.ger_heading,Ger life,Гэрийн амьдрал
+aboutMongolia.ger_body,"The ger — known outside Mongolia as a yurt — is a felt-and-canvas dwelling engineered for a life on the move: it can be raised or struck in under an hour, insulates against −30°C winters, and stays cool in summer. Everything inside has its place, from the stove at the centre to the honoured seat opposite the door reserved for guests. Staying in a family ger, rather than passing through as a spectator, is the heart of most of our itineraries.","Гэр — гадаадад юрт гэж мэддэг — нүүдлийн амьдралд зориулж зохион бүтээгдсэн эсгий, даавуун орон сууц: нэг цагийн дотор босгож, буулгаж болно, −30°C өвлийг тэсвэрлэдэг, зунд сэрүүн байдаг. Дотор бүх зүйл өөрийн байрандаа байдаг — төвд зуухнаас эхлээд хаалганы эсрэг талд буй зочны хүндэт суудал хүртэл. Зөвхөн харж өнгөрөхийн оронд гэр бүлийн гэрт хонох нь бидний ихэнх хөтөлбөрийн гол цөм юм."
+aboutMongolia.wildlife_heading,Wildlife,Ан амьтан
+aboutMongolia.wildlife_body,"Mongolia's empty landscapes are a refuge for species that have vanished elsewhere. The Gobi shelters snow leopards, wild Bactrian camels and the reintroduced Przewalski's horse — the last truly wild horse on earth. Golden eagles are trained by Kazakh hunters in the west, while reindeer herders of the northern taiga live alongside their domesticated herds. Lake Khuvsgul and the surrounding forests hold ibex, argali sheep and elusive wolves.","Монголын хоосон газар нутаг бусад газарт устсан зүйлүүдийн хоргодох газар юм. Говьд цасан барс, зэрлэг хос бөхт тэмээ, дахин нутагшуулсан тахь морь — дэлхийн сүүлчийн жинхэнэ зэрлэг морь амьдардаг. Баруун бүсэд казах бөргөчид алтан бүргэдийг сургадаг, харин хойд тайгын цаатан малчид гэршүүлсэн сүргүүдтэйгээ хамт амьдардаг. Хөвсгөл нуур болон түүнийг хүрээлэн буй ойд янгир, аргаль хонь, зэрлэг чоно амьдардаг."
+aboutMongolia.cta_eyebrow,Ready to see it for yourself?,Өөрөө үзэхэд бэлэн үү?
+aboutMongolia.cta_heading_prefix,Explore our Mongolia,Монголын аяллуудыг
+aboutMongolia.cta_heading_italic,journeys.,судлаарай.
+aboutMongolia.cta_button,Browse all tours →,Бүх аяллыг үзэх →
+airportTransfers.meta_title,Airport Transfers — E & S Discovery Mongolia,Онгоцны буудлын үйлчилгээ — E & S Discovery Mongolia
+airportTransfers.meta_description,A familiar face waiting at arrivals. We track your flight and wait if you're delayed.,"Буудал дээр танил царай таныг угтана. Бид таны нислэгийг хянаж, хоцорвол хүлээнэ."
+airportTransfers.hero_eyebrow,Chinggis Khaan Int'l · door to door,Чингис хаан НОБ · хаалганаас хаалга хүртэл
+airportTransfers.hero_heading_prefix,Airport,Онгоцны буудлын
+airportTransfers.hero_heading_italic,Transfers,үйлчилгээ
+airportTransfers.hero_subtext,A familiar face waiting at arrivals. We track your flight and wait if you're delayed — no stress after a long journey.,"Буудал дээр танил царай таныг угтана. Бид таны нислэгийг хянаж, хоцорвол хүлээнэ — урт аяллын дараа стресс байхгүй."
+airportTransfers.steps[0].n,01,01
+airportTransfers.steps[0].title,Book with your flight,Нислэгээ оруулж захиалаарай
+airportTransfers.steps[0].text,Enter your flight number and we handle the rest — no need to know the address.,Нислэгийн дугаараа оруулаад үлдсэнийг нь бидэнд даатгаарай — хаяг мэдэх шаардлагагүй.
+airportTransfers.steps[1].n,02,02
+airportTransfers.steps[1].title,We track & wait,Бид хянаж хүлээнэ
+airportTransfers.steps[1].text,"Delayed? Your driver adjusts automatically and waits at arrivals, free of charge.","Хоцорсон уу? Таны жолооч автоматаар тохируулж, буудал дээр үнэ төлбөргүй хүлээнэ."
+airportTransfers.steps[2].n,03,03
+airportTransfers.steps[2].title,Straight to your ger,Шууд таны буудал хүртэл
+airportTransfers.steps[2].text,"Door-to-door to your hotel or the start of your tour, with a local who knows the way.",Замыг мэддэг орон нутгийн хүнтэй хамт зочид буудал эсвэл аяллынхаа эхлэл хүртэл хаалганаас хаалга хүргэнэ.
+airportTransferForm.flight_number,Flight number,Нислэгийн дугаар
+airportTransferForm.flight_number_placeholder,OM-302,OM-302
+airportTransferForm.arrival_datetime,Arrival date & time,Буух огноо & цаг
+airportTransferForm.passengers,Passengers,Зорчигчид
+airportTransferForm.adult_suffix_singular,adult,хүн
+airportTransferForm.adult_suffix_plural,adults,хүн
+airportTransferForm.name,Name,Нэр
+airportTransferForm.name_placeholder,Full name,Овог нэр
+airportTransferForm.email,Email,И-мэйл
+airportTransferForm.email_placeholder,you@email.com,you@email.com
+airportTransferForm.choose_service_eyebrow,Choose your service,Үйлчилгээгээ сонгоно уу
+airportTransferForm.choose_service_heading,Three ways to arrive,Ирэх гурван арга зам
+airportTransferForm.tiers[0].name,Standard Transfer,Энгийн үйлчилгээ
+airportTransferForm.tiers[0].desc,Private sedan · up to 3 passengers,Хувийн седан · 3 хүртэл зорчигч
+airportTransferForm.tiers[0].features[0],Flight tracking,Нислэг хяналт
+airportTransferForm.tiers[0].features[1],Driver waits at arrivals,Жолооч буудал дээр хүлээнэ
+airportTransferForm.tiers[1].name,Meet & Greet,Угтах & Дагалдах
+airportTransferForm.tiers[1].desc,Guide with name-board · up to 6 pax,Нэртэй хавтастай хөтөч · 6 хүртэл хүн
+airportTransferForm.tiers[1].features[0],Personal greeter inside,Дотор угтагч
+airportTransferForm.tiers[1].features[1],SIM card & welcome pack,SIM карт & угтах бэлэг
+airportTransferForm.tiers[1].features[2],Bottled water & wifi,Ус & wifi
+airportTransferForm.tiers[2].name,VIP & Lounge,VIP & Танхим
+airportTransferForm.tiers[2].desc,Private lounge · Land Cruiser · 4 pax,Хувийн танхим · Land Cruiser · 4 хүн
+airportTransferForm.tiers[2].features[0],Fast-track & lounge access,Хурдавчилсан бүртгэл & танхим
+airportTransferForm.tiers[2].features[1],Luxury Land Cruiser,Тансаг Land Cruiser
+airportTransferForm.most_popular,Most popular,Хамгийн түгээмэл
+airportTransferForm.per_vehicle,per vehicle,тээврийн хэрэгслэгт
+airportTransferForm.book_transfer,Book transfer →,Захиалах →
+airportTransferForm.success_heading,Transfer requested,Хүсэлт илгээгдлээ
+airportTransferForm.confirmation_label,Confirmation:,Баталгаажуулах дугаар:
+airportTransferForm.success_message,We'll confirm your driver details by email before your flight lands.,Нислэг буухаас өмнө жолоочийн дэлгэрэнгүй мэдээллийг и-мэйлээр баталгаажуулна.
+rentACar.meta_title,Rent a 4×4 — Car Rental — E & S Discovery Mongolia,4×4 түрээслэх — Машин түрээс — E & S Discovery Mongolia
+rentACar.meta_description,"Well-maintained expedition vehicles — drive yourself, or add an experienced local driver-guide.","Сайн арчлагдсан экспедицийн машинууд — өөрөө жолоод, эсвэл туршлагатай орон нутгийн жолооч-хөтөч нэмээрэй."
+rentACar.hero_eyebrow,Built for the roadless steppe,Замгүй тал нутагт зориулагдсан
+rentACar.hero_heading_prefix,Rent a,Түрээсэл
+rentACar.hero_heading_italic,4×4,4×4
+rentACar.hero_subtext,"Well-maintained expedition vehicles — drive yourself, or add an experienced local driver-guide.","Сайн арчлагдсан экспедицийн машинууд — өөрөө жолоод, эсвэл туршлагатай орон нутгийн жолооч-хөтөч нэмээрэй."
+rentACar.with_driver,With driver,Жолоочтой
+rentACar.self_drive,Self-drive,Өөрөө жолоодох
+rentACar.all_vehicles,All vehicles,Бүх машин
+rentACar.type_chips[0],SUV,SUV
+rentACar.type_chips[1],Van,Ван
+rentACar.type_chips[2],Furgon,Фургон
+rentACar.type_chips[3],Sedan,Седан
+rentACar.need_fleet_heading,Need a fleet?,Олон машин хэрэгтэй юу?
+rentACar.need_fleet_text,"Multiple vehicles for a group expedition, with drivers and support crew.","Бүлгийн экспедицэд зориулсан олон тээврийн хэрэгсэл, жолооч болон дэмжлэгийн багтай."
+rentACar.ask_us,Ask us →,Асуух →
+rentACar.insurance_note,Insurance & unlimited km included,Даатгал & хязгааргүй км багтсан
+rentACar.roadside_note,24/7 roadside support,24/7 замын дэмжлэг
+rentACar.camping_note,Rooftop tent & camping gear add-ons,Дээвэр майхан & кемпингийн хэрэгсэл нэмэлт
+carCard.per_day,/day,/өдөр
+carCard.reserve,Reserve,Захиалах
+carSearchRail.pickup_date,Pick-up date,Авах огноо
+carSearchRail.return_date,Return date,Буцаах огноо
+reservationDialog.success_heading,Reservation received,Захиалга хүлээн авлаа
+reservationDialog.confirmation_label,Confirmation:,Баталгаажуулах дугаар:
+reservationDialog.success_message_prefix,We'll confirm your,Таны
+reservationDialog.success_message_suffix,rental by email shortly.,түрээсийг удахгүй и-мэйлээр баталгаажуулна.
+reservationDialog.reserve_eyebrow,Reserve,Захиалах
+reservationDialog.confirm_reservation,Confirm reservation →,Захиалгыг баталгаажуулах →
+reservationDialog.name_placeholder,Full name,Овог нэр
+reservationDialog.email_placeholder,Email,И-мэйл
+reservationDialog.phone_placeholder,Phone (optional),Утас (заавал биш)
+contact.meta_title,Contact Us — E & S Discovery Mongolia,Холбоо барих — E & S Discovery Mongolia
+contact.meta_description,Tell us what you're dreaming of and a real person on our Ulaanbaatar team will reply within a day.,"Юу мөрөөддөгөө хэлээрэй, манай Улаанбаатар дахь баг нэг өдрийн дотор хариулна."
+contact.eyebrow,We'd love to hear from you,Танаас сонсоход таатай байх болно
+contact.heading_prefix,Contact,Холбоо
+contact.heading_italic,us,барих
+contact.subtext,"Tell us what you're dreaming of — a festival, a Gobi crossing, a family trip — and a real person on our Ulaanbaatar team will reply within a day.","Наадам, Говийн аялал, гэр бүлийн аялал зэрэг юу мөрөөддөгөө хэлээрэй — манай Улаанбаатар дахь баг нэг өдрийн дотор хариулна."
+contact.offices[0].title,Call,Залгах
+contact.offices[1].title,Email,И-мэйл
+contact.offices[2].title,Visit,Зочлох
+contact.map_title,E and S Discovery Mongolia office location,E and S Discovery Mongolia оффисын байршил
+contactForm.name_placeholder,Name,Нэр
+contactForm.email_placeholder,Email,И-мэйл
+contactForm.phone_placeholder,Phone (optional),Утас (заавал биш)
+contactForm.subjects[0],Tour inquiry,Аяллын лавлагаа
+contactForm.subjects[1],Car rental,Машин түрээс
+contactForm.subjects[2],Airport transfer,Онгоцны буудлын үйлчилгээ
+contactForm.subjects[3],General question,Ерөнхий асуулт
+contactForm.message_placeholder,"Tell us about your trip — dates, group size, what you'd love to see…","Аяллынхаа тухай — огноо, бүлгийн хэмжээ, юу үзэхийг хүсэж байгаагаа бичнэ үү…"
+contactForm.send_message,Send message →,Илгээх →
+contactForm.success_heading,Message sent,Мессеж илгээгдлээ
+contactForm.reference_label,Reference:,Лавлах дугаар:
+contactForm.success_message,A member of our Ulaanbaatar team will reply within a day.,Манай Улаанбаатар дахь баг нэг өдрийн дотор хариулна.
+tourGallery.open_preview,Open photo preview,Зургийг томоор харах
+tourGallery.previous_photo,Previous photo,Өмнөх зураг
+tourGallery.next_photo,Next photo,Дараах зураг
+tourGallery.view_photo,View photo,Зураг харах
+tourGallery.close_preview,Close preview,Хаах
+sectionNav.on_this_page,On this page,Энэ хуудсанд

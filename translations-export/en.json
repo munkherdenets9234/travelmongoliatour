@@ -1,0 +1,539 @@
+{
+  "meta": {
+    "title": "E & S Discovery Mongolia — Private Mongolia Travel & Tours",
+    "description": "Curated private journeys and small group tours through Mongolia's nomadic culture, endless steppes and remote landscapes — crafted by trusted local experts."
+  },
+  "common": {
+    "read_more": "Read more",
+    "read_less": "Read less",
+    "save": "Save",
+    "share": "Share",
+    "close": "Close",
+    "menu": "Menu",
+    "subscribe": "Subscribe",
+    "from": "from",
+    "per_person": "/ person",
+    "sending": "Sending…",
+    "error_generic": "Something went wrong — please try again.",
+    "selected": "Selected",
+    "select": "Select"
+  },
+  "nav": {
+    "tours": "Tours",
+    "aboutMongolia": "About Mongolia",
+    "airport": "Airport",
+    "carRental": "Car Rental",
+    "journal": "Journal",
+    "partners": "Partners",
+    "reviews": "Reviews",
+    "about": "About",
+    "contact": "Contact",
+    "bookCta": "Book a Trip",
+    "share": "Share a Tour"
+  },
+  "hero": {
+    "eyebrow": "Experience the Last True Wilderness",
+    "title": "Experience Mongolia with Trusted Local Experts Since 2004",
+    "subtitle": "Private journeys & small group tours through Mongolia’s nomadic culture and remote landscapes — crafted by trusted local experts since 2004.",
+    "cta_explore": "Explore Journeys",
+    "cta_film": "Watch Film",
+    "scroll": "Scroll to Discover"
+  },
+  "search": {
+    "destination_label": "Choose your destination?",
+    "destination_placeholder": "Select destination",
+    "duration_label": "Duration",
+    "duration_placeholder": "Any duration",
+    "style_label": "Travel Style",
+    "style_placeholder": "Any style",
+    "cta": "Explore",
+    "destinations": ["Terelj National Park", "Gobi Desert", "Khuvsgul Lake", "Altai Mountains", "Khustain Nuruu"],
+    "durations": ["3–5 days", "6–9 days", "10–14 days", "15+ days"],
+    "styles": ["Private Tour", "Luxury Camp", "Cultural Journey", "Adventure", "Photography"]
+  },
+  "journeys": {
+    "eyebrow": "Featured Journeys",
+    "title": "Handcrafted Experiences",
+    "view_all": "View All Journeys",
+    "days_label": "Days",
+    "items": [
+      {
+        "id": "terelj",
+        "days": 2,
+        "title": "Terelj National Park",
+        "description": "Granite mountains, nomadic families and serene nature.",
+        "badge": "Private Tour",
+        "rating": 5.0,
+        "image": "/images/terelj.jpg"
+      },
+      {
+        "id": "gobi",
+        "days": 7,
+        "title": "Gobi Expedition",
+        "description": "Vast deserts, dramatic canyons and starlit nights.",
+        "badge": "Luxury Camp",
+        "rating": 5.0,
+        "image": "/images/gobi.jpg"
+      },
+      {
+        "id": "nomadic",
+        "days": 5,
+        "title": "Nomadic Heritage",
+        "description": "Live with nomad families and discover ancient traditions.",
+        "badge": "Cultural Journey",
+        "rating": 5.0,
+        "image": "/images/nomadic.jpg"
+      },
+      {
+        "id": "khuvsgul",
+        "days": 6,
+        "title": "Khuvsgul Lake",
+        "description": "Crystal-clear sacred lake surrounded by ancient taiga forest.",
+        "badge": "Adventure",
+        "rating": 5.0,
+        "image": "/images/khuvsgul.jpg"
+      }
+    ]
+  },
+  "tripadvisor": {
+    "description": "We have been helping people the world over to enjoy unforgettable adventures to our homeland, and we do it all with expertise and passion."
+  },
+  "partners": {
+    "eyebrow": "Recommended Partners",
+    "title": "Our Trusted Partners",
+    "cta": "Visit"
+  },
+  "partnerDetail": {
+    "eyebrow": "Recommended partner",
+    "offerings": "What they offer",
+    "testimonialEyebrow": "In their words",
+    "ctaEyebrow": "Ready to visit?",
+    "ctaBook": "Book a Trip"
+  },
+  "map": {
+    "eyebrow": "Mongolia is Different",
+    "title_line1": "Not Every Journey",
+    "title_line2": "Changes You.",
+    "title_italic": "This One Will.",
+    "description": "From the moment you arrive, we take care of everything. You just show up — and we handle the rest with heart and precision.",
+    "cta": "About Us",
+    "hover_hint": "Hover a Destination",
+    "destinations": [
+      { "id": "khuvsgul", "name": "Khuvsgul", "subtitle": "Northern Lakes", "x": 52, "y": 18 },
+      { "id": "khustain", "name": "Khustain", "subtitle": "Wild Horses", "x": 28, "y": 44 },
+      { "id": "terelj", "name": "Terelj", "subtitle": "Mountains & Nature", "x": 72, "y": 42 },
+      { "id": "gobi", "name": "Gobi", "subtitle": "Desert & Dunes", "x": 58, "y": 65 },
+      { "id": "altai", "name": "Altai", "subtitle": "Western Mongolia", "x": 22, "y": 68 }
+    ]
+  },
+  "why": {
+    "eyebrow": "Why Travel With Us",
+    "items": [
+      {
+        "icon": "compass",
+        "title": "Tailor-made Journeys",
+        "description": "Every itinerary is custom-designed around you."
+      },
+      {
+        "icon": "users",
+        "title": "Local Experts",
+        "description": "Born and raised in Mongolia. We know it best."
+      },
+      {
+        "icon": "mountain",
+        "title": "Private Experiences",
+        "description": "No crowded buses. Just you and the wilderness."
+      },
+      {
+        "icon": "leaf",
+        "title": "Sustainable Tourism",
+        "description": "Supporting local communities and preserving our land."
+      }
+    ]
+  },
+  "reviews": {
+    "eyebrow": "Verified everywhere",
+    "title": "Trusted by Travelers",
+    "title_italic": "Worldwide",
+    "reviews_label": "reviews",
+    "cta": "See All Reviews"
+  },
+  "reviewsPage": {
+    "eyebrow": "Traveler reviews",
+    "travelers_label": "travelers",
+    "title_suffix": "one Mongolia.",
+    "reviews_label": "reviews",
+    "all_tours": "All Tours",
+    "empty": "No reviews yet.",
+    "prev": "← Previous",
+    "next": "Next →"
+  },
+  "quote": {
+    "line1": "Silence",
+    "line2": "has",
+    "line3": "a sound.",
+    "cta": "Discover Mongolia"
+  },
+  "journal": {
+    "eyebrow": "Journey Inspiration",
+    "view_all": "View All Articles",
+    "items": [
+      {
+        "id": "best-time",
+        "category": "Travel Guide",
+        "title": "When is the Best Time to Visit Mongolia?",
+        "read_time": 6,
+        "image": "/images/article-1.jpg"
+      },
+      {
+        "id": "10-things",
+        "category": "Culture",
+        "title": "10 Things You Didn't Know About Mongolia",
+        "read_time": 7,
+        "image": "/images/article-2.jpg"
+      },
+      {
+        "id": "horse-trekking",
+        "category": "Adventure",
+        "title": "Horse Trekking Guide: Tips for Your Journey",
+        "read_time": 5,
+        "image": "/images/article-3.jpg"
+      }
+    ],
+    "read_label": "min read"
+  },
+  "footer": {
+    "tagline": "Private, tailor-made journeys across the last great wilderness. Ulaanbaatar, Mongolia.",
+    "exploreHeading": "Explore",
+    "companyHeading": "Company",
+    "links": {
+      "tours": "Tours",
+      "aboutMongolia": "About Mongolia",
+      "airportTransfer": "Airport transfer",
+      "carRental": "Car rental",
+      "partners": "Partners",
+      "reviews": "Reviews",
+      "aboutUs": "About us",
+      "journal": "Journal",
+      "contact": "Contact"
+    },
+    "newsletter": {
+      "heading": "Newsletter",
+      "text": "Stories from the steppe, a few times a year.",
+      "placeholder": "Email address"
+    },
+    "copyright": "© 2026 E and S Discovery Mongolia. All rights reserved."
+  },
+  "tourDetail": {
+    "breadcrumb_tours": "Tours",
+    "days_label": "days",
+    "nights_label": "nights",
+    "max_travellers": "Max",
+    "highlights": "Highlights",
+    "good_to_know": "Good to know",
+    "day_by_day": "Day by day",
+    "day_label": "Day",
+    "activities": "Activities",
+    "accommodation": "Accommodation",
+    "meals": "Meals",
+    "traveller_singular": "traveller",
+    "traveller_plural": "travellers",
+    "book_now": "Book now",
+    "or": "or",
+    "see_open_departures": "see open departures",
+    "free_cancellation": "Free cancellation up to 30 days before",
+    "whats_included": "What's included",
+    "you_may_also_like": "You may also like",
+    "view_all_tours": "View all tours →"
+  },
+  "toursPage": {
+    "meta_title": "Our Tours — E & S Discovery Mongolia",
+    "meta_description": "Small-group and private expeditions across Mongolia, shaped by the land and the people who know it best.",
+    "hero_eyebrow": "Journeys across Mongolia",
+    "hero_title_prefix": "Our",
+    "hero_title_italic": "Tours",
+    "hero_subtext": "Small-group and private expeditions shaped by the land and the people who know it best. Find the journey that's yours.",
+    "journeys_found": "Journeys found",
+    "duration_chips": ["1–5 days", "6–10 days", "11 days +"],
+    "region_chips": ["Gobi", "Central", "North", "West"],
+    "type_chips": ["Cultural", "Adventure", "Festival", "Group"],
+    "sort_chips": ["Top rated", "Price: low to high", "Price: high to low", "Duration"],
+    "filters": "Filters",
+    "clear_all": "Clear all",
+    "duration": "Duration",
+    "region": "Region",
+    "trip_type": "Trip type",
+    "empty": "No tours match those filters yet. Try clearing a filter.",
+    "cta_eyebrow": "Can't find your journey?",
+    "cta_heading_prefix": "Every trip can be",
+    "cta_heading_italic": "tailor-made.",
+    "cta_button": "Plan a custom trip →"
+  },
+  "journalPage": {
+    "meta_title": "The Journal — Stories from the Steppe — E & S Discovery Mongolia",
+    "meta_description": "Guides, culture, tips and stories from the steppe, the Gobi and the taiga.",
+    "hero_eyebrow": "Stories from the steppe",
+    "hero_title_prefix": "The",
+    "hero_title_italic": "Journal",
+    "category_all": "All",
+    "categories": {
+      "guides": "Guides",
+      "culture": "Culture",
+      "tips": "Tips",
+      "stories": "Stories",
+      "food": "Food",
+      "adventure": "Adventure"
+    },
+    "featured_prefix": "Featured",
+    "read_article": "Read article →",
+    "load_more": "Load more articles"
+  },
+  "journalDetail": {
+    "share": "↗ Share",
+    "save": "♡ Save",
+    "cta_eyebrow": "See it yourself",
+    "cta_heading_prefix": "Tours that match this",
+    "cta_heading_italic": "guide.",
+    "browse_tours": "Browse tours →",
+    "keep_reading": "Keep reading"
+  },
+  "bookPage": {
+    "meta_title": "Book Your Journey — E & S Discovery Mongolia",
+    "meta_description": "A single-page guest checkout for your Mongolia journey — no account needed.",
+    "step_trip": "Trip",
+    "step_traveller": "Traveller",
+    "step_payment": "Payment",
+    "heading_prefix": "Book your",
+    "heading_italic": "journey"
+  },
+  "bookingForm": {
+    "no_tours": "No tours available to book right now.",
+    "success_heading": "Booking request sent",
+    "confirmation_label": "Confirmation:",
+    "success_message_prefix": "Our team will follow up by email to confirm your",
+    "success_message_suffix": "booking.",
+    "section1": "1 · Trip details",
+    "tour_label": "Tour",
+    "date_label": "Date",
+    "travellers_label": "Travellers",
+    "section2": "2 · Lead traveller",
+    "name_placeholder": "Full name",
+    "email_placeholder": "Email",
+    "country_placeholder": "Country",
+    "phone_placeholder": "Phone",
+    "section3": "3 · Add-ons",
+    "section4": "4 · Notes & requests",
+    "notes_placeholder": "Dietary needs, accessibility, custom itinerary…",
+    "adult_singular": "adult",
+    "adult_plural": "adults",
+    "order_summary": "Order summary",
+    "total": "Total",
+    "deposit_label": "Deposit today · 20%",
+    "pay_deposit": "Pay deposit →",
+    "guest_checkout_note": "No account needed · guest checkout"
+  },
+  "shareATour": {
+    "meta_title": "Share a Tour — Open Departures — E & S Discovery Mongolia",
+    "meta_description": "Join an open group departure — pick a date on the calendar and travel alongside fellow guests."
+  },
+  "departureCalendar": {
+    "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    "regions": ["All tours", "Gobi", "Central", "North", "West"],
+    "join_group_departure": "Join a group departure",
+    "heading_prefix": "Share a",
+    "heading_italic": "tour",
+    "prev_month": "Previous month",
+    "next_month": "Next month",
+    "filter": "Filter",
+    "full": "Full",
+    "open": "Open",
+    "select_day": "Select a highlighted day to see its departure.",
+    "no_departures": "No departures on this day yet.",
+    "departure_count_singular": "departure this day",
+    "departure_count_plural": "departures this day",
+    "from": "from",
+    "per_person": "/ person",
+    "fully_booked": "Fully booked",
+    "join_departure": "Join this departure →",
+    "confirmed_note": "Confirmed to run · guaranteed departure",
+    "days_label": "days",
+    "small_group_of": "small group of",
+    "english_speaking_guide": "English-speaking guide"
+  },
+  "about": {
+    "meta_title": "About Us — A Local Team Born on the Steppe — E & S Discovery Mongolia",
+    "meta_description": "Mongolian-owned and staffed since 2009 — a team of forty guides, drivers and travel designers.",
+    "since_label": "Since 2009",
+    "heading_prefix": "A local team,",
+    "heading_italic": "born on the steppe",
+    "body1": "We started with one Land Cruiser and a belief that the best way to see Mongolia is with the people who call it home. Fifteen years later we're a team of forty guides, drivers and travel designers — all Mongolian-born, all still a little in love with the horizon.",
+    "body2": "Every journey we build supports the herder families and camps we've worked with for years.",
+    "stats": [
+      { "value": "15+", "label": "Years guiding" },
+      { "value": "8,000+", "label": "Travellers hosted" },
+      { "value": "40", "label": "Local guides" },
+      { "value": "4.9★", "label": "Average rating" }
+    ],
+    "beliefs_eyebrow": "What we believe",
+    "beliefs_heading": "How we travel",
+    "values": [
+      { "title": "Local first", "text": "Mongolian-owned and staffed. Your trip directly supports the families and camps that host you." },
+      { "title": "Small & tailor-made", "text": "No crowds, no fixed factory itineraries. Every journey is built around you." },
+      { "title": "Light on the land", "text": "Low-impact camps and a commitment to leaving the steppe as we found it." }
+    ],
+    "credentials_heading": "Trusted & certified",
+    "credentials": ["Mongolia Tourism", "ASTA member", "Travellers' Choice", "Eco-certified"]
+  },
+  "aboutMongolia": {
+    "meta_title": "About Mongolia — Land of the Eternal Blue Sky — E & S Discovery Mongolia",
+    "meta_description": "A country the size of Western Europe with fewer than 3.5 million people — geography, nomadic culture, history and wildlife.",
+    "sections": [
+      { "id": "geography", "label": "Geography" },
+      { "id": "climate", "label": "Climate & seasons" },
+      { "id": "culture", "label": "Nomadic culture" },
+      { "id": "history", "label": "History" },
+      { "id": "naadam", "label": "Naadam festival" },
+      { "id": "ger", "label": "Ger life" },
+      { "id": "wildlife", "label": "Wildlife" }
+    ],
+    "facts": [
+      { "value": "1.56M", "label": "km² of land" },
+      { "value": "260+", "label": "sunny days a year" },
+      { "value": "~25%", "label": "still nomadic" },
+      { "value": "1206", "label": "Chinggis unites the tribes" }
+    ],
+    "hero_eyebrow": "Land of the eternal blue sky",
+    "hero_heading_prefix": "About",
+    "hero_heading_italic": "Mongolia",
+    "hero_subtext": "A country the size of Western Europe with fewer than 3.5 million people — the last great expanse of open land, and the living heart of nomadic culture.",
+    "geography_heading": "Geography",
+    "geography_body": "From the Gobi Desert in the south to the taiga forests and glaciers of the north, Mongolia spans an astonishing range of landscapes. Vast grasslands roll toward the Altai mountains in the west, while the central steppe — the archetypal Mongolian horizon — stretches unbroken for hundreds of kilometres. It remains one of the most sparsely populated sovereign nations on earth.",
+    "climate_heading": "Climate & seasons",
+    "climate_body": "Mongolia is the world's most continental climate — long, fiercely cold winters give way to short, intense summers, with barely a spring or autumn between. Summer (June–August) brings warm days, green steppe and the Naadam festival; September paints the north gold before the first snow. Winter is spectacular but severe, dropping well below −20°C, while July highs can reach 30°C. Most travel is timed for the May–September window.",
+    "history_heading": "History",
+    "history_body": "In 1206 Chinggis Khaan united the warring steppe tribes and forged the Mongol Empire, which at its height stretched from Korea to Hungary — the largest contiguous land empire in history. Karakorum, its capital near present-day Kharkhorin, was once the crossroads of the world. Centuries of Manchu rule and socialist alignment with the Soviet Union followed, before Mongolia's peaceful 1990 democratic revolution opened the country to the world it welcomes travellers into today.",
+    "culture_heading": "Nomadic culture",
+    "culture_body": "Roughly a quarter of Mongolians still live as herders, moving with the seasons between pastures. Hospitality is sacred: a traveller is always welcomed into the ger with hot salted milk tea. This rhythm of movement, family and the land shapes everything — and it is what our journeys are built to share, at the pace of the people who live it.",
+    "culture_quote": "The steppe teaches patience — the horizon is never in a hurry.",
+    "naadam_heading": "Naadam festival",
+    "naadam_body": "Held every July, Naadam is Mongolia's great national celebration — the \"three manly games\" of wrestling, archery and horse racing, staged across the country and centred on Ulaanbaatar. It is the single best week to witness the culture at full colour, and our festival departures put you in the thick of it.",
+    "ger_heading": "Ger life",
+    "ger_body": "The ger — known outside Mongolia as a yurt — is a felt-and-canvas dwelling engineered for a life on the move: it can be raised or struck in under an hour, insulates against −30°C winters, and stays cool in summer. Everything inside has its place, from the stove at the centre to the honoured seat opposite the door reserved for guests. Staying in a family ger, rather than passing through as a spectator, is the heart of most of our itineraries.",
+    "wildlife_heading": "Wildlife",
+    "wildlife_body": "Mongolia's empty landscapes are a refuge for species that have vanished elsewhere. The Gobi shelters snow leopards, wild Bactrian camels and the reintroduced Przewalski's horse — the last truly wild horse on earth. Golden eagles are trained by Kazakh hunters in the west, while reindeer herders of the northern taiga live alongside their domesticated herds. Lake Khuvsgul and the surrounding forests hold ibex, argali sheep and elusive wolves.",
+    "cta_eyebrow": "Ready to see it for yourself?",
+    "cta_heading_prefix": "Explore our Mongolia",
+    "cta_heading_italic": "journeys.",
+    "cta_button": "Browse all tours →"
+  },
+  "airportTransfers": {
+    "meta_title": "Airport Transfers — E & S Discovery Mongolia",
+    "meta_description": "A familiar face waiting at arrivals. We track your flight and wait if you're delayed.",
+    "hero_eyebrow": "Chinggis Khaan Int'l · door to door",
+    "hero_heading_prefix": "Airport",
+    "hero_heading_italic": "Transfers",
+    "hero_subtext": "A familiar face waiting at arrivals. We track your flight and wait if you're delayed — no stress after a long journey.",
+    "steps": [
+      { "n": "01", "title": "Book with your flight", "text": "Enter your flight number and we handle the rest — no need to know the address." },
+      { "n": "02", "title": "We track & wait", "text": "Delayed? Your driver adjusts automatically and waits at arrivals, free of charge." },
+      { "n": "03", "title": "Straight to your ger", "text": "Door-to-door to your hotel or the start of your tour, with a local who knows the way." }
+    ]
+  },
+  "airportTransferForm": {
+    "flight_number": "Flight number",
+    "flight_number_placeholder": "OM-302",
+    "arrival_datetime": "Arrival date & time",
+    "passengers": "Passengers",
+    "adult_suffix_singular": "adult",
+    "adult_suffix_plural": "adults",
+    "name": "Name",
+    "name_placeholder": "Full name",
+    "email": "Email",
+    "email_placeholder": "you@email.com",
+    "choose_service_eyebrow": "Choose your service",
+    "choose_service_heading": "Three ways to arrive",
+    "tiers": [
+      { "name": "Standard Transfer", "desc": "Private sedan · up to 3 passengers", "features": ["Flight tracking", "Driver waits at arrivals"] },
+      { "name": "Meet & Greet", "desc": "Guide with name-board · up to 6 pax", "features": ["Personal greeter inside", "SIM card & welcome pack", "Bottled water & wifi"] },
+      { "name": "VIP & Lounge", "desc": "Private lounge · Land Cruiser · 4 pax", "features": ["Fast-track & lounge access", "Luxury Land Cruiser"] }
+    ],
+    "most_popular": "Most popular",
+    "per_vehicle": "per vehicle",
+    "book_transfer": "Book transfer →",
+    "success_heading": "Transfer requested",
+    "confirmation_label": "Confirmation:",
+    "success_message": "We'll confirm your driver details by email before your flight lands."
+  },
+  "rentACar": {
+    "meta_title": "Rent a 4×4 — Car Rental — E & S Discovery Mongolia",
+    "meta_description": "Well-maintained expedition vehicles — drive yourself, or add an experienced local driver-guide.",
+    "hero_eyebrow": "Built for the roadless steppe",
+    "hero_heading_prefix": "Rent a",
+    "hero_heading_italic": "4×4",
+    "hero_subtext": "Well-maintained expedition vehicles — drive yourself, or add an experienced local driver-guide.",
+    "with_driver": "With driver",
+    "self_drive": "Self-drive",
+    "all_vehicles": "All vehicles",
+    "type_chips": ["SUV", "Van", "Furgon", "Sedan"],
+    "need_fleet_heading": "Need a fleet?",
+    "need_fleet_text": "Multiple vehicles for a group expedition, with drivers and support crew.",
+    "ask_us": "Ask us →",
+    "insurance_note": "Insurance & unlimited km included",
+    "roadside_note": "24/7 roadside support",
+    "camping_note": "Rooftop tent & camping gear add-ons"
+  },
+  "carCard": {
+    "per_day": "/day",
+    "reserve": "Reserve"
+  },
+  "carSearchRail": {
+    "pickup_date": "Pick-up date",
+    "return_date": "Return date"
+  },
+  "reservationDialog": {
+    "success_heading": "Reservation received",
+    "confirmation_label": "Confirmation:",
+    "success_message_prefix": "We'll confirm your",
+    "success_message_suffix": "rental by email shortly.",
+    "reserve_eyebrow": "Reserve",
+    "confirm_reservation": "Confirm reservation →",
+    "name_placeholder": "Full name",
+    "email_placeholder": "Email",
+    "phone_placeholder": "Phone (optional)"
+  },
+  "contact": {
+    "meta_title": "Contact Us — E & S Discovery Mongolia",
+    "meta_description": "Tell us what you're dreaming of and a real person on our Ulaanbaatar team will reply within a day.",
+    "eyebrow": "We'd love to hear from you",
+    "heading_prefix": "Contact",
+    "heading_italic": "us",
+    "subtext": "Tell us what you're dreaming of — a festival, a Gobi crossing, a family trip — and a real person on our Ulaanbaatar team will reply within a day.",
+    "offices": [
+      { "title": "Call" },
+      { "title": "Email" },
+      { "title": "Visit" }
+    ],
+    "map_title": "E and S Discovery Mongolia office location"
+  },
+  "contactForm": {
+    "name_placeholder": "Name",
+    "email_placeholder": "Email",
+    "phone_placeholder": "Phone (optional)",
+    "subjects": ["Tour inquiry", "Car rental", "Airport transfer", "General question"],
+    "message_placeholder": "Tell us about your trip — dates, group size, what you'd love to see…",
+    "send_message": "Send message →",
+    "success_heading": "Message sent",
+    "reference_label": "Reference:",
+    "success_message": "A member of our Ulaanbaatar team will reply within a day."
+  },
+  "tourGallery": {
+    "open_preview": "Open photo preview",
+    "previous_photo": "Previous photo",
+    "next_photo": "Next photo",
+    "view_photo": "View photo",
+    "close_preview": "Close preview"
+  },
+  "sectionNav": {
+    "on_this_page": "On this page"
+  }
+}
