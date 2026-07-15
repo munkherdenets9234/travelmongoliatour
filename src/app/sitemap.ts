@@ -18,20 +18,25 @@ const STATIC_ROUTES = [
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [tours, articles] = await Promise.all([getAllTours(), getAllArticles()])
-  const routes = [
-    ...STATIC_ROUTES,
-    ...tours.map((t) => `/tours/${t.slug}`),
-    ...articles.map((a) => `/journal/${a.slug}`),
+
+  const routes: { path: string; lastModified?: Date }[] = [
+    ...STATIC_ROUTES.map((path) => ({ path })),
+    ...tours.map((t) => ({ path: `/tours/${t.slug}` })),
+    ...articles.map((a) => ({ path: `/journal/${a.slug}`, lastModified: new Date(a.date) })),
   ]
 
-  return routes.map((route) => {
-    const languages = Object.fromEntries(locales.map((locale) => [locale, `${siteUrl}/${locale}${route}`]))
-    return {
-      url: `${siteUrl}/en${route}`,
-      lastModified: new Date(),
-      changeFrequency: route === '' ? 'weekly' : 'monthly',
-      priority: route === '' ? 1 : 0.7,
-      alternates: { languages },
+  const entries: MetadataRoute.Sitemap = []
+  for (const { path, lastModified } of routes) {
+    const languages = Object.fromEntries(locales.map((locale) => [locale, `${siteUrl}/${locale}${path}`]))
+    for (const locale of locales) {
+      entries.push({
+        url: `${siteUrl}/${locale}${path}`,
+        ...(lastModified ? { lastModified } : {}),
+        changeFrequency: path === '' ? 'weekly' : 'monthly',
+        priority: path === '' ? 1 : 0.7,
+        alternates: { languages },
+      })
     }
-  })
+  }
+  return entries
 }
