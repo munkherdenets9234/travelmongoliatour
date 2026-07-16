@@ -467,6 +467,7 @@ export interface Translation {
     heading: string
     name_placeholder: string
     star_label: string
+    star_required: string
     tour_placeholder: string
     review_placeholder: string
     submit: string

@@ -533,6 +533,7 @@
     "heading": "여행 경험을 공유해 주세요",
     "name_placeholder": "이름",
     "star_label": "평점",
+    "star_required": "별점을 선택해 주세요.",
     "tour_placeholder": "어떤 투어를 이용하셨나요? (선택)",
     "review_placeholder": "다른 여행자들에게 여행 경험을 들려주세요…",
     "submit": "리뷰 제출",

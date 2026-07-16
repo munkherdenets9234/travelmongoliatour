@@ -533,6 +533,7 @@
     "heading": "Share your experience",
     "name_placeholder": "Your name",
     "star_label": "Your rating",
+    "star_required": "Please select a star rating.",
     "tour_placeholder": "Which tour did you take? (optional)",
     "review_placeholder": "Tell fellow travelers about your trip…",
     "submit": "Submit review",

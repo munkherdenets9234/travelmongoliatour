@@ -14,10 +14,15 @@ export default function ReviewForm({ tours }: { tours: ReviewFormTourOption[] })
   const rf = t.reviewForm
   const [star, setStar] = useState(0)
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [starError, setStarError] = useState(false)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    if (star < 1) return
+    if (star < 1) {
+      setStarError(true)
+      return
+    }
+    setStarError(false)
     setStatus('submitting')
     const form = new FormData(e.currentTarget)
 
@@ -56,7 +61,15 @@ export default function ReviewForm({ tours }: { tours: ReviewFormTourOption[] })
 
       <div className="flex flex-col items-center gap-2">
         <span className="text-warm-gray text-[11px] font-medium tracking-[0.06em] uppercase">{rf.star_label}</span>
-        <StarRatingInput value={star} onChange={setStar} label={rf.star_label} />
+        <StarRatingInput
+          value={star}
+          onChange={(value) => {
+            setStar(value)
+            setStarError(false)
+          }}
+          label={rf.star_label}
+        />
+        {starError && <p className="text-xs text-red-600">{rf.star_required}</p>}
       </div>
 
       <input name="name" required type="text" placeholder={rf.name_placeholder} className="border border-input-border rounded-sm px-3.5 py-3 text-sm" />
