@@ -47,14 +47,16 @@ export default function PartnersSection({ partners }: { partners: Partner[] }) {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-10 items-stretch">
-          <Link href={`/${locale}/partners/${partner.slug}`} className="relative flex-1 aspect-[4/3] lg:aspect-auto rounded-2xl overflow-hidden block">
-            <Image
-              src={partner.image}
-              alt={partner.name}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
+          <Link href={`/${locale}/partners/${partner.slug}`} className="relative flex-1 aspect-[4/3] lg:aspect-auto rounded-2xl overflow-hidden block bg-tan/30">
+            {partner.image && (
+              <Image
+                src={partner.image}
+                alt={partner.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            )}
           </Link>
 
           <div className="flex-[1.1] flex flex-col justify-center">

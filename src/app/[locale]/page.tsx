@@ -13,12 +13,21 @@ import { getAllArticles } from '@/lib/data/journal'
 import { getAllPartners } from '@/lib/data/partners'
 import { getAllReviews } from '@/lib/data/reviews'
 import { humanizeSlug } from '@/lib/format'
+import { isValidLocale } from '@/lib/i18n'
+import { notFound } from 'next/navigation'
 
-export default async function HomePage() {
-  const tours = await getAllTours()
-  const articles = await getAllArticles()
-  const partners = await getAllPartners()
-  const reviews = await getAllReviews()
+interface Props {
+  params: Promise<{ locale: string }>
+}
+
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params
+  if (!isValidLocale(locale)) notFound()
+
+  const tours = await getAllTours(locale)
+  const articles = await getAllArticles(locale)
+  const partners = await getAllPartners(locale)
+  const reviews = await getAllReviews(locale)
   const latestArticles = [...articles]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 3)

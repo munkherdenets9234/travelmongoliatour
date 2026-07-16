@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -8,10 +8,15 @@ import { locales } from '@/lib/i18n'
 import type { Locale } from '@/types/i18n'
 import { usePathname, useRouter } from 'next/navigation'
 
+const LOCALE_LABELS: Record<Locale, string> = { en: 'EN', mn: 'МН', ko: 'KO' }
+const LOCALE_NAMES: Record<Locale, string> = { en: 'English', mn: 'Монгол', ko: '한국어' }
+
 export default function Header() {
   const { t, locale } = useTranslation()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [langOpen, setLangOpen] = useState(false)
+  const langRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const router = useRouter()
 
@@ -26,10 +31,20 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [isHome])
 
+  useEffect(() => {
+    if (!langOpen) return
+    function onClickOutside(e: MouseEvent) {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false)
+    }
+    document.addEventListener('mousedown', onClickOutside)
+    return () => document.removeEventListener('mousedown', onClickOutside)
+  }, [langOpen])
+
   function switchLocale(next: Locale) {
     const segments = pathname.split('/')
     segments[1] = next
     router.push(segments.join('/'))
+    setLangOpen(false)
   }
 
   const navLinks = [
@@ -94,25 +109,47 @@ export default function Header() {
         {/* Right controls */}
         <div className="flex items-center gap-4">
           {/* Language switcher */}
-          <div className={`hidden sm:flex items-center gap-1 border rounded px-2 py-1 ${overlay ? 'border-cream/40' : 'border-border-strong'}`}>
-            {locales.map((l, i) => (
-              <button
-                key={l}
-                onClick={() => switchLocale(l)}
-                className={`text-xs font-semibold tracking-widest uppercase transition-colors px-1 ${
-                  locale === l
-                    ? overlay
-                      ? 'text-gold'
-                      : 'text-olive'
-                    : overlay
-                      ? 'text-cream/60 hover:text-cream'
-                      : 'text-warm-gray hover:text-ink'
-                }`}
+          <div ref={langRef} className="relative hidden sm:block">
+            <button
+              onClick={() => setLangOpen((o) => !o)}
+              aria-haspopup="listbox"
+              aria-expanded={langOpen}
+              className={`flex items-center gap-1.5 border rounded px-2.5 py-1.5 text-xs font-semibold tracking-widest uppercase transition-colors ${
+                overlay ? 'border-cream/40 text-cream' : 'border-border-strong text-ink'
+              }`}
+            >
+              {LOCALE_LABELS[locale]}
+              <svg
+                width="9"
+                height="9"
+                viewBox="0 0 10 10"
+                fill="none"
+                className={`transition-transform ${langOpen ? 'rotate-180' : ''}`}
               >
-                {l === 'en' ? 'EN' : 'МН'}
-                {i < locales.length - 1 && <span className={`ml-2 ${overlay ? 'text-cream/20' : 'text-border-strong'}`}>/</span>}
-              </button>
-            ))}
+                <path d="M2 3.5l3 3 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            {langOpen && (
+              <div
+                role="listbox"
+                className="absolute right-0 top-full mt-2 min-w-[140px] bg-cream border border-border-strong rounded-md shadow-[0_10px_26px_rgba(30,27,22,0.12)] overflow-hidden py-1 z-50"
+              >
+                {locales.map((l) => (
+                  <button
+                    key={l}
+                    role="option"
+                    aria-selected={locale === l}
+                    onClick={() => switchLocale(l)}
+                    className={`w-full flex items-center justify-between gap-3 px-3.5 py-2 text-xs font-medium text-left transition-colors ${
+                      locale === l ? 'text-olive bg-panel' : 'text-brown hover:bg-panel'
+                    }`}
+                  >
+                    <span>{LOCALE_NAMES[l]}</span>
+                    <span className="text-[10px] tracking-widest uppercase text-warm-gray">{LOCALE_LABELS[l]}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <Link
@@ -128,7 +165,7 @@ export default function Header() {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="lg:hidden w-8 h-8 flex flex-col justify-center gap-1.5 group"
-            aria-label="Menu"
+            aria-label={t.common.menu}
           >
             <span className={`block h-px transition-all duration-300 ${overlay ? 'bg-cream' : 'bg-ink'} ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
             <span className={`block h-px transition-all duration-300 ${overlay ? 'bg-cream' : 'bg-ink'} ${menuOpen ? 'opacity-0' : ''}`} />

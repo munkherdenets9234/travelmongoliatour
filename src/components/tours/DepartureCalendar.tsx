@@ -4,10 +4,9 @@ import { useMemo, useState, useTransition } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { buildCalendarGrid, monthLabel, shiftMonth } from '@/lib/calendar'
+import { intlLocale } from '@/lib/i18n'
 import type { DepartureWithTour } from '@/lib/data/departures'
-
-const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-const REGIONS = ['All tours', 'Gobi', 'Central', 'North', 'West']
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface Props {
   locale: string
@@ -17,10 +16,14 @@ interface Props {
 }
 
 export default function DepartureCalendar({ locale, initialYear, initialMonth, initialItems }: Props) {
+  const { t } = useTranslation()
+  const dc = t.departureCalendar
+  const WEEKDAYS = dc.weekdays
+  const REGIONS = dc.regions
   const [year, setYear] = useState(initialYear)
   const [month, setMonth] = useState(initialMonth)
   const [items, setItems] = useState(initialItems)
-  const [region, setRegion] = useState('All tours')
+  const [region, setRegion] = useState(REGIONS[0])
   const [selectedIso, setSelectedIso] = useState<string | null>(
     initialItems[0]?.date ?? null
   )
@@ -28,10 +31,13 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
 
   const grid = useMemo(() => buildCalendarGrid(year, month), [year, month])
 
-  const filteredItems = useMemo(
-    () => (region === 'All tours' ? items : items.filter((d) => d.tour.region === region.toLowerCase())),
-    [items, region]
-  )
+  const regionValues = ['', 'gobi', 'central', 'north', 'west']
+  const filteredItems = useMemo(() => {
+    const idx = REGIONS.indexOf(region)
+    const value = regionValues[idx] ?? ''
+    return value === '' ? items : items.filter((d) => d.tour.region === value)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items, region])
 
   const byDate = useMemo(() => {
     const map = new Map<string, DepartureWithTour[]>()
@@ -58,29 +64,30 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
 
   const selectedDeparturesRaw = selectedIso ? byDate.get(selectedIso) ?? [] : []
   const selectedDate = selectedIso ? new Date(selectedIso + 'T00:00:00Z') : null
+  const todayIso = useMemo(() => new Date().toISOString().slice(0, 10), [])
 
   return (
     <>
       <div className="flex flex-wrap items-end justify-between gap-6 container mx-auto px-6 sm:px-14 pt-8 pb-1">
         <div>
-          <div className="text-xs font-semibold tracking-[0.22em] uppercase text-olive">Join a group departure</div>
+          <div className="text-xs font-semibold tracking-[0.22em] uppercase text-olive">{dc.join_group_departure}</div>
           <h1 className="font-display text-5xl mt-3">
-            Share a <span className="italic font-normal">tour</span>
+            {dc.heading_prefix} <span className="italic font-normal">{dc.heading_italic}</span>
           </h1>
         </div>
         <div className="flex items-center gap-4">
-          <button onClick={() => goToMonth(-1)} className="w-10 h-10 rounded-full border border-border-strong flex items-center justify-center" aria-label="Previous month">
+          <button onClick={() => goToMonth(-1)} className="w-10 h-10 rounded-full border border-border-strong flex items-center justify-center" aria-label={dc.prev_month}>
             ‹
           </button>
-          <span className="font-display text-xl min-w-[150px] text-center">{monthLabel(year, month)}</span>
-          <button onClick={() => goToMonth(1)} className="w-10 h-10 rounded-full border border-ink flex items-center justify-center" aria-label="Next month">
+          <span className="font-display text-xl min-w-[150px] text-center">{monthLabel(year, month, locale)}</span>
+          <button onClick={() => goToMonth(1)} className="w-10 h-10 rounded-full border border-ink flex items-center justify-center" aria-label={dc.next_month}>
             ›
           </button>
         </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-2 container mx-auto px-6 sm:px-14 pt-4">
-        <span className="text-xs font-semibold tracking-widest uppercase text-warm-gray mr-1">Filter</span>
+        <span className="text-xs font-semibold tracking-widest uppercase text-warm-gray mr-1">{dc.filter}</span>
         {REGIONS.map((r) => (
           <button
             key={r}
@@ -107,6 +114,7 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
             {grid.map((cell) => {
               const deps = byDate.get(cell.iso) ?? []
               const selected = selectedIso === cell.iso
+              const isToday = cell.iso === todayIso
               return (
                 <button
                   key={cell.iso}
@@ -117,10 +125,15 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
                       ? 'bg-cream/40 border-border/60 cursor-default'
                       : selected
                         ? 'bg-panel border-2 border-olive'
-                        : 'bg-white border-border hover:border-border-strong'
+                        : isToday
+                          ? 'bg-white border-2 border-gold'
+                          : 'bg-white border-border hover:border-border-strong'
                   }`}
                 >
-                  <span className={`text-xs font-semibold ${!cell.inMonth ? 'text-border-strong' : selected ? 'text-olive' : 'text-ink'}`}>{cell.day}</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className={`text-xs font-semibold ${!cell.inMonth ? 'text-border-strong' : selected ? 'text-olive' : isToday ? 'text-gold' : 'text-ink'}`}>{cell.day}</span>
+                    {isToday && <span className="w-1.5 h-1.5 rounded-full bg-gold" />}
+                  </span>
                   {deps.map((d) => (
                     <span
                       key={d.id}
@@ -128,7 +141,7 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
                         selected ? 'bg-olive text-cream' : d.status === 'full' ? 'bg-tan text-[#a9824f]' : 'bg-[#eef0e6] text-[#5f5f38]'
                       }`}
                     >
-                      {d.tour.title.split(' ')[0]} · {d.status === 'full' ? 'full' : 'open'}
+                      {d.tour.title.split(' ')[0]} · {d.status === 'full' ? dc.full.toLowerCase() : dc.open.toLowerCase()}
                     </span>
                   ))}
                 </button>
@@ -146,21 +159,21 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
               {selectedDate && (
                 <div className="absolute left-4 bottom-3 text-cream">
                   <div className="text-[11px] font-medium tracking-widest uppercase text-cream/85">
-                    {selectedDate.toLocaleDateString('en-US', { weekday: 'long', timeZone: 'UTC' })}
+                    {selectedDate.toLocaleDateString(intlLocale(locale), { weekday: 'long', timeZone: 'UTC' })}
                   </div>
-                  <div className="font-display text-2xl">{selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' })}</div>
+                  <div className="font-display text-2xl">{selectedDate.toLocaleDateString(intlLocale(locale), { month: 'long', day: 'numeric', timeZone: 'UTC' })}</div>
                 </div>
               )}
             </div>
             <div className="p-5">
               {!selectedIso ? (
-                <p className="text-sm text-warm-gray">Select a highlighted day to see its departure.</p>
+                <p className="text-sm text-warm-gray">{dc.select_day}</p>
               ) : selectedDeparturesRaw.length === 0 ? (
-                <p className="text-sm text-warm-gray">No departures on this day yet.</p>
+                <p className="text-sm text-warm-gray">{dc.no_departures}</p>
               ) : (
                 <>
                   <div className="text-xs font-semibold tracking-widest uppercase text-warm-gray mb-3">
-                    {selectedDeparturesRaw.length} departure{selectedDeparturesRaw.length > 1 ? 's' : ''} this day
+                    {selectedDeparturesRaw.length} {selectedDeparturesRaw.length > 1 ? dc.departure_count_plural : dc.departure_count_singular}
                   </div>
                   <div className="flex flex-col gap-4">
                     {selectedDeparturesRaw.map((d) => (
@@ -170,17 +183,17 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
                             {d.tour.region} · {d.tour.type}
                           </span>
                           <span className={`text-[10px] font-semibold tracking-wide uppercase rounded px-2 py-1 ${d.status === 'full' ? 'bg-tan text-[#a9824f]' : 'bg-[#f0e7e0] text-[#a9824f]'}`}>
-                            {d.status === 'full' ? 'Full' : 'Open'}
+                            {d.status === 'full' ? dc.full : dc.open}
                           </span>
                         </div>
                         <div className="font-display text-xl font-semibold mt-2">{d.tour.title}</div>
                         <div className="text-xs text-brown mt-1">
-                          {d.tour.days} days · small group of {d.tour.maxTravellers} · English-speaking guide
+                          {d.tour.days} {dc.days_label} · {dc.small_group_of} {d.tour.maxTravellers} · {dc.english_speaking_guide}
                         </div>
                         <div className="flex items-baseline gap-2 my-3.5">
-                          <span className="text-xs text-warm-gray">from</span>
+                          <span className="text-xs text-warm-gray">{dc.from}</span>
                           <span className="font-display text-2xl">${d.tour.price.toLocaleString()}</span>
-                          <span className="text-xs text-warm-gray">/ person</span>
+                          <span className="text-xs text-warm-gray">{dc.per_person}</span>
                         </div>
                         <Link
                           href={`/${locale}/book?tour=${d.tour.slug}&date=${d.date}`}
@@ -188,13 +201,13 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
                             d.status === 'full' ? 'bg-border-strong text-white pointer-events-none' : 'bg-olive text-cream'
                           }`}
                         >
-                          {d.status === 'full' ? 'Fully booked' : 'Join this departure →'}
+                          {d.status === 'full' ? dc.fully_booked : dc.join_departure}
                         </Link>
                       </div>
                     ))}
                   </div>
                   <div className="flex items-center gap-2 mt-4 text-xs text-muted">
-                    <span className="text-olive">✓</span> Confirmed to run · guaranteed departure
+                    <span className="text-olive">✓</span> {dc.confirmed_note}
                   </div>
                 </>
               )}

@@ -1,5 +1,6 @@
 // Backed by the DigitalService API's `/partners` resource — see src/lib/api/client.ts.
 import { apiGet, ApiError } from '@/lib/api/client'
+import type { Locale } from '@/types/i18n'
 
 export interface PartnerProduct {
   name: string
@@ -46,15 +47,15 @@ function mapPartner(p: BackendPartner): Partner {
   }
 }
 
-export async function getAllPartners(): Promise<Partner[]> {
-  const { data } = await apiGet<BackendPartner[]>('/partners')
+export async function getAllPartners(locale: Locale): Promise<Partner[]> {
+  const { data } = await apiGet<BackendPartner[]>('/partners', { lang: locale })
   // The Go backend serializes an empty result set as `null`, not `[]`.
   return (data ?? []).map(mapPartner)
 }
 
-export async function getPartnerBySlug(slug: string): Promise<Partner | undefined> {
+export async function getPartnerBySlug(slug: string, locale: Locale): Promise<Partner | undefined> {
   try {
-    const { data } = await apiGet<BackendPartner>(`/partners/${slug}`)
+    const { data } = await apiGet<BackendPartner>(`/partners/${slug}`, { lang: locale })
     return mapPartner(data)
   } catch (err) {
     if (err instanceof ApiError && err.status === 404) return undefined

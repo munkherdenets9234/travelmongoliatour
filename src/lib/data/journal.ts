@@ -2,6 +2,7 @@
 // The backend's Blog model is simpler than this UI's shape (single HTML `content`
 // string, no category/readTime/featured/quote) — those are derived below.
 import { apiGet, ApiError } from '@/lib/api/client'
+import type { Locale } from '@/types/i18n'
 
 export interface JournalArticle {
   slug: string
@@ -98,8 +99,8 @@ function mapBlog(b: BackendBlog): JournalArticle {
   }
 }
 
-export async function getAllArticles(): Promise<JournalArticle[]> {
-  const { data } = await apiGet<BackendBlog[]>('/blogs', { limit: 100 })
+export async function getAllArticles(locale: Locale): Promise<JournalArticle[]> {
+  const { data } = await apiGet<BackendBlog[]>('/blogs', { limit: 100, lang: locale })
   // The Go backend serializes an empty result set as `null`, not `[]`.
   const mapped = (data ?? []).map(mapBlog)
 
@@ -116,8 +117,8 @@ export interface JournalFilters {
   pageSize?: number
 }
 
-export async function getArticles(filters: JournalFilters = {}) {
-  const all = await getAllArticles()
+export async function getArticles(locale: Locale, filters: JournalFilters = {}) {
+  const all = await getAllArticles(locale)
   const featured = all.find((a) => a.featured)
   let results = all.filter((a) => !a.featured)
   if (filters.category && filters.category !== 'all') {
@@ -131,9 +132,9 @@ export async function getArticles(filters: JournalFilters = {}) {
   return { featured, items, total: results.length, hasMore: items.length < results.length }
 }
 
-export async function getArticleBySlug(slug: string): Promise<JournalArticle | undefined> {
+export async function getArticleBySlug(slug: string, locale: Locale): Promise<JournalArticle | undefined> {
   try {
-    const { data } = await apiGet<BackendBlog>(`/blogs/${slug}`)
+    const { data } = await apiGet<BackendBlog>(`/blogs/${slug}`, { lang: locale })
     return mapBlog(data)
   } catch (err) {
     if (err instanceof ApiError && err.status === 404) return undefined
@@ -141,7 +142,7 @@ export async function getArticleBySlug(slug: string): Promise<JournalArticle | u
   }
 }
 
-export async function getRelatedArticles(slug: string, count = 3): Promise<JournalArticle[]> {
-  const all = await getAllArticles()
+export async function getRelatedArticles(slug: string, locale: Locale, count = 3): Promise<JournalArticle[]> {
+  const all = await getAllArticles(locale)
   return all.filter((a) => a.slug !== slug).slice(0, count)
 }

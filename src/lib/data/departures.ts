@@ -3,6 +3,7 @@
 // separate `/departures` endpoint, and the backend has no spots-left count, only
 // `available`.
 import { getAllTours, type Tour } from './tours'
+import type { Locale } from '@/types/i18n'
 
 export interface DepartureWithTour {
   id: string
@@ -12,8 +13,8 @@ export interface DepartureWithTour {
   tour: Tour
 }
 
-export async function getDepartureWithTour(month: string): Promise<DepartureWithTour[]> {
-  const tours = await getAllTours()
+export async function getDepartureWithTour(month: string, locale: Locale): Promise<DepartureWithTour[]> {
+  const tours = await getAllTours(locale)
   return tours.flatMap((tour) =>
     tour.departures
       .filter((dep) => dep.date.startsWith(month))

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import type { Car } from '@/lib/data/cars'
+import { useTranslation } from '@/hooks/useTranslation'
 import ReservationDialog from './ReservationDialog'
 
 interface Props {
@@ -13,13 +14,15 @@ interface Props {
 }
 
 export default function CarCard({ car, mode, pickupDate, returnDate }: Props) {
+  const { t } = useTranslation()
+  const cc = t.carCard
   const [open, setOpen] = useState(false)
 
   return (
     <>
       <article className="rounded-md overflow-hidden bg-white shadow-[0_10px_26px_rgba(30,27,22,0.09)]">
-        <div className="relative h-[180px]">
-          <Image src={car.image} alt={car.name} fill className="object-cover" />
+        <div className="relative h-[180px] bg-tan/30">
+          {car.image && <Image src={car.image} alt={car.name} fill className="object-cover" />}
         </div>
         <div className="p-5">
           <h3 className="font-display text-xl font-semibold">{car.name}</h3>
@@ -33,10 +36,10 @@ export default function CarCard({ car, mode, pickupDate, returnDate }: Props) {
           <div className="flex items-center justify-between">
             <span>
               <span className="font-display text-2xl">${car.pricePerDay}</span>
-              <span className="text-xs text-warm-gray">/day</span>
+              <span className="text-xs text-warm-gray">{cc.per_day}</span>
             </span>
             <button onClick={() => setOpen(true)} className="bg-olive text-cream rounded-sm px-4 py-2.5 text-xs font-semibold tracking-widest uppercase">
-              Reserve
+              {cc.reserve}
             </button>
           </div>
         </div>

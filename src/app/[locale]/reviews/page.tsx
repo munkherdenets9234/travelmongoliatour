@@ -36,13 +36,13 @@ export default async function ReviewsPage({ params, searchParams }: Props) {
   const tourSlug = one(sp.tour)
   const page = sp.page ? Math.max(1, Number(one(sp.page))) : 1
 
-  const [tours, all] = await Promise.all([getAllTours(), getReviews({ pageSize: 100 })])
+  const [tours, all] = await Promise.all([getAllTours(locale), getReviews(locale, { pageSize: 100 })])
   const tourTitleBySlug = new Map(tours.map((t) => [t.slug, t.title]))
   const distinctTourSlugs = Array.from(new Set(all.items.map((r) => r.tourSlug).filter(Boolean)))
   const totalAll = all.items.length
   const average = totalAll ? all.items.reduce((sum, r) => sum + r.star, 0) / totalAll : 0
 
-  const { items, total, pageSize } = await getReviews({ tour: tourSlug, page, pageSize: PAGE_SIZE })
+  const { items, total, pageSize } = await getReviews(locale, { tour: tourSlug, page, pageSize: PAGE_SIZE })
   const reviewItems = items.map((r) => ({
     id: r.id,
     customer: r.customer,

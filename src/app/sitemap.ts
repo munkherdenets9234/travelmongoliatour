@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { locales, siteUrl } from '@/lib/i18n'
+import { locales, siteUrl, defaultLocale } from '@/lib/i18n'
 import { getAllTours } from '@/lib/data/tours'
 import { getAllArticles } from '@/lib/data/journal'
 
@@ -17,7 +17,7 @@ const STATIC_ROUTES = [
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [tours, articles] = await Promise.all([getAllTours(), getAllArticles()])
+  const [tours, articles] = await Promise.all([getAllTours(defaultLocale), getAllArticles(defaultLocale)])
 
   const routes: { path: string; lastModified?: Date }[] = [
     ...STATIC_ROUTES.map((path) => ({ path })),
