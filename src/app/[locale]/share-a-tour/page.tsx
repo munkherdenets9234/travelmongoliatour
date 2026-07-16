@@ -19,14 +19,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-const DEFAULT_YEAR = 2026
-const DEFAULT_MONTH = 6
-
 export default async function ShareATourPage({ params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const items = await getDepartureWithTour(`${DEFAULT_YEAR}-${String(DEFAULT_MONTH).padStart(2, '0')}`, locale)
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = now.getMonth() + 1
 
-  return <DepartureCalendar locale={locale} initialYear={DEFAULT_YEAR} initialMonth={DEFAULT_MONTH} initialItems={items} />
+  const items = await getDepartureWithTour(`${year}-${String(month).padStart(2, '0')}`, locale)
+
+  return <DepartureCalendar locale={locale} initialYear={year} initialMonth={month} initialItems={items} />
 }
