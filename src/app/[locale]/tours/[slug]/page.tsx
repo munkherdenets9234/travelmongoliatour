@@ -78,16 +78,16 @@ export default async function TourDetailPage({ params }: Props) {
             <div className="flex-1 min-w-[220px]">
               <div className="text-xs font-semibold tracking-widest uppercase text-warm-gray mb-3">{td.highlights}</div>
               <div className="flex flex-col gap-2.5 text-sm text-brown">
-                {tour.highlights.map((h) => (
-                  <span key={h}>✦&nbsp;&nbsp;{h}</span>
+                {tour.highlights.map((h, i) => (
+                  <span key={i}>✦&nbsp;&nbsp;{h}</span>
                 ))}
               </div>
             </div>
             <div className="flex-1 min-w-[220px]">
               <div className="text-xs font-semibold tracking-widest uppercase text-warm-gray mb-3">{td.good_to_know}</div>
               <div className="flex flex-col gap-2.5 text-sm text-brown">
-                {tour.goodToKnow.map((g) => (
-                  <span key={g}>{g}</span>
+                {tour.goodToKnow.map((g, i) => (
+                  <span key={i}>{g}</span>
                 ))}
               </div>
             </div>
@@ -184,8 +184,8 @@ export default async function TourDetailPage({ params }: Props) {
         <div className="h-px bg-border mb-7" />
         <div className="font-display text-3xl mb-5">{td.whats_included}</div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {tour.inclusions.map((inc) => (
-            <div key={inc.title}>
+          {tour.inclusions.map((inc, i) => (
+            <div key={i}>
               <div className="w-10 h-10 rounded-full border border-olive text-olive flex items-center justify-center mb-3">✦</div>
               <div className="font-display text-base font-semibold">{inc.title}</div>
               <p className="text-sm text-muted mt-1">{inc.description}</p>
