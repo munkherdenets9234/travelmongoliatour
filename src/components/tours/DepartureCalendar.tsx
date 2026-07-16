@@ -63,6 +63,7 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
 
   const selectedDeparturesRaw = selectedIso ? byDate.get(selectedIso) ?? [] : []
   const selectedDate = selectedIso ? new Date(selectedIso + 'T00:00:00Z') : null
+  const todayIso = useMemo(() => new Date().toISOString().slice(0, 10), [])
 
   return (
     <>
@@ -112,6 +113,7 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
             {grid.map((cell) => {
               const deps = byDate.get(cell.iso) ?? []
               const selected = selectedIso === cell.iso
+              const isToday = cell.iso === todayIso
               return (
                 <button
                   key={cell.iso}
@@ -122,10 +124,15 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
                       ? 'bg-cream/40 border-border/60 cursor-default'
                       : selected
                         ? 'bg-panel border-2 border-olive'
-                        : 'bg-white border-border hover:border-border-strong'
+                        : isToday
+                          ? 'bg-white border-2 border-gold'
+                          : 'bg-white border-border hover:border-border-strong'
                   }`}
                 >
-                  <span className={`text-xs font-semibold ${!cell.inMonth ? 'text-border-strong' : selected ? 'text-olive' : 'text-ink'}`}>{cell.day}</span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className={`text-xs font-semibold ${!cell.inMonth ? 'text-border-strong' : selected ? 'text-olive' : isToday ? 'text-gold' : 'text-ink'}`}>{cell.day}</span>
+                    {isToday && <span className="w-1.5 h-1.5 rounded-full bg-gold" />}
+                  </span>
                   {deps.map((d) => (
                     <span
                       key={d.id}
