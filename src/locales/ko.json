@@ -528,6 +528,17 @@
     "reference_label": "참조번호:",
     "success_message": "울란바토르 팀의 담당자가 하루 안에 답변드립니다."
   },
+  "reviewForm": {
+    "cta": "리뷰 작성하기",
+    "heading": "여행 경험을 공유해 주세요",
+    "name_placeholder": "이름",
+    "star_label": "평점",
+    "tour_placeholder": "어떤 투어를 이용하셨나요? (선택)",
+    "review_placeholder": "다른 여행자들에게 여행 경험을 들려주세요…",
+    "submit": "리뷰 제출",
+    "success_heading": "감사합니다!",
+    "success_message": "리뷰가 등록되었습니다."
+  },
   "tourGallery": {
     "open_preview": "사진 미리보기 열기",
     "previous_photo": "이전 사진",

@@ -462,6 +462,17 @@ export interface Translation {
     reference_label: string
     success_message: string
   }
+  reviewForm: {
+    cta: string
+    heading: string
+    name_placeholder: string
+    star_label: string
+    tour_placeholder: string
+    review_placeholder: string
+    submit: string
+    success_heading: string
+    success_message: string
+  }
   tourGallery: {
     open_preview: string
     previous_photo: string

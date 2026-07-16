@@ -8,6 +8,7 @@ import { humanizeSlug } from '@/lib/format'
 import FilterChips from '@/components/ui/FilterChips'
 import StarRating from '@/components/ui/StarRating'
 import ExpandableQuote from '@/components/ui/ExpandableQuote'
+import ReviewForm from '@/components/forms/ReviewForm'
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -143,6 +144,10 @@ export default async function ReviewsPage({ params, searchParams }: Props) {
           )}
         </div>
       )}
+
+      <section className="px-6 pb-20">
+        <ReviewForm tours={tours.map((t) => ({ slug: t.slug, title: t.title }))} />
+      </section>
     </>
   )
 }

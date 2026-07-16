@@ -528,6 +528,17 @@
     "reference_label": "Лавлах дугаар:",
     "success_message": "Манай Улаанбаатар дахь баг нэг өдрийн дотор хариулна."
   },
+  "reviewForm": {
+    "cta": "Сэтгэгдэл бичих",
+    "heading": "Аяллынхаа сэтгэгдлийг хуваалцаарай",
+    "name_placeholder": "Таны нэр",
+    "star_label": "Үнэлгээ",
+    "tour_placeholder": "Аль аялалд явсан бэ? (заавал биш)",
+    "review_placeholder": "Аяллынхаа тухай бусад аялагчдад хуваалцана уу…",
+    "submit": "Сэтгэгдэл илгээх",
+    "success_heading": "Баярлалаа!",
+    "success_message": "Таны сэтгэгдэл нийтлэгдлээ."
+  },
   "tourGallery": {
     "open_preview": "Зургийг томоор харах",
     "previous_photo": "Өмнөх зураг",
