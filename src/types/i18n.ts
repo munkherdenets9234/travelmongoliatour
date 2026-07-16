@@ -1,4 +1,4 @@
-export type Locale = 'en' | 'mn'
+export type Locale = 'en' | 'mn' | 'ko'
 
 export interface NavT {
   tours: string

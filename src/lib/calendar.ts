@@ -1,3 +1,5 @@
+import { intlLocale } from './i18n'
+
 export interface CalendarCell {
   date: Date
   iso: string
@@ -31,8 +33,7 @@ export function buildCalendarGrid(year: number, month: number): CalendarCell[] {
 }
 
 export function monthLabel(year: number, month: number, locale: string = 'en') {
-  const intlLocale = locale === 'mn' ? 'mn-MN' : 'en-US'
-  return new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString(intlLocale, { month: 'long', year: 'numeric', timeZone: 'UTC' })
+  return new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString(intlLocale(locale), { month: 'long', year: 'numeric', timeZone: 'UTC' })
 }
 
 export function shiftMonth(year: number, month: number, delta: number) {

@@ -1,0 +1,539 @@
+{
+  "meta": {
+    "title": "E & S 디스커버리 몽골 — 프라이빗 몽골 여행 & 투어",
+    "description": "몽골의 유목 문화와 끝없는 초원, 오지 풍경을 신뢰할 수 있는 현지 전문가가 기획한 맞춤형 프라이빗 여행과 소규모 그룹 투어."
+  },
+  "common": {
+    "read_more": "더 보기",
+    "read_less": "간략히 보기",
+    "save": "저장",
+    "share": "공유",
+    "close": "닫기",
+    "menu": "메뉴",
+    "subscribe": "구독",
+    "from": "부터",
+    "per_person": "/ 인",
+    "sending": "전송 중…",
+    "error_generic": "문제가 발생했습니다 — 다시 시도해 주세요.",
+    "selected": "선택됨",
+    "select": "선택"
+  },
+  "nav": {
+    "tours": "투어",
+    "aboutMongolia": "몽골 소개",
+    "airport": "공항",
+    "carRental": "렌터카",
+    "journal": "저널",
+    "partners": "파트너",
+    "reviews": "후기",
+    "about": "회사 소개",
+    "contact": "문의",
+    "bookCta": "여행 예약",
+    "share": "투어 공유"
+  },
+  "hero": {
+    "eyebrow": "마지막 진정한 야생을 경험하다",
+    "title": "2004년부터 신뢰할 수 있는 현지 전문가와 함께하는 몽골",
+    "subtitle": "2004년부터 신뢰할 수 있는 현지 전문가가 기획한, 몽골의 유목 문화와 오지 풍경을 만나는 프라이빗 여행 & 소규모 그룹 투어.",
+    "cta_explore": "여행 둘러보기",
+    "cta_film": "영상 보기",
+    "scroll": "스크롤하여 더 보기"
+  },
+  "search": {
+    "destination_label": "목적지를 선택하세요",
+    "destination_placeholder": "목적지 선택",
+    "duration_label": "기간",
+    "duration_placeholder": "기간 무관",
+    "style_label": "여행 스타일",
+    "style_placeholder": "스타일 무관",
+    "cta": "둘러보기",
+    "destinations": ["테를지 국립공원", "고비 사막", "홉스골 호수", "알타이 산맥", "후스타이 누루"],
+    "durations": ["3–5일", "6–9일", "10–14일", "15일 이상"],
+    "styles": ["프라이빗 투어", "럭셔리 캠프", "문화 여행", "어드벤처", "포토그래피"]
+  },
+  "journeys": {
+    "eyebrow": "추천 여행",
+    "title": "정성껏 준비한 여행",
+    "view_all": "모든 여행 보기",
+    "days_label": "일",
+    "items": [
+      {
+        "id": "terelj",
+        "days": 2,
+        "title": "테를지 국립공원",
+        "description": "화강암 산과 유목민 가족, 고요한 자연.",
+        "badge": "프라이빗 투어",
+        "rating": 5.0,
+        "image": "/images/terelj.jpg"
+      },
+      {
+        "id": "gobi",
+        "days": 7,
+        "title": "고비 원정",
+        "description": "광활한 사막, 웅장한 협곡, 별이 쏟아지는 밤.",
+        "badge": "럭셔리 캠프",
+        "rating": 5.0,
+        "image": "/images/gobi.jpg"
+      },
+      {
+        "id": "nomadic",
+        "days": 5,
+        "title": "유목민의 유산",
+        "description": "유목민 가족과 함께 지내며 오랜 전통을 발견하세요.",
+        "badge": "문화 여행",
+        "rating": 5.0,
+        "image": "/images/nomadic.jpg"
+      },
+      {
+        "id": "khuvsgul",
+        "days": 6,
+        "title": "홉스골 호수",
+        "description": "오래된 타이가 숲으로 둘러싸인 맑고 신성한 호수.",
+        "badge": "어드벤처",
+        "rating": 5.0,
+        "image": "/images/khuvsgul.jpg"
+      }
+    ]
+  },
+  "tripadvisor": {
+    "description": "저희는 전 세계 여행자들이 우리의 고향에서 잊지 못할 모험을 즐길 수 있도록 도와왔으며, 언제나 전문성과 열정으로 임하고 있습니다."
+  },
+  "partners": {
+    "eyebrow": "추천 파트너",
+    "title": "신뢰하는 파트너",
+    "cta": "방문하기"
+  },
+  "partnerDetail": {
+    "eyebrow": "추천 파트너",
+    "offerings": "제공 서비스",
+    "testimonialEyebrow": "고객의 이야기",
+    "ctaEyebrow": "방문할 준비가 되셨나요?",
+    "ctaBook": "여행 예약"
+  },
+  "map": {
+    "eyebrow": "몽골은 다릅니다",
+    "title_line1": "모든 여행이",
+    "title_line2": "당신을 바꾸진 않습니다.",
+    "title_italic": "하지만 이 여행은 다릅니다.",
+    "description": "도착하는 순간부터 모든 것을 저희가 책임집니다. 당신은 그저 나타나기만 하면 됩니다 — 나머지는 저희가 정성과 정확함으로 처리합니다.",
+    "cta": "회사 소개",
+    "hover_hint": "목적지에 마우스를 올려보세요",
+    "destinations": [
+      { "id": "khuvsgul", "name": "홉스골", "subtitle": "북부 호수", "x": 52, "y": 18 },
+      { "id": "khustain", "name": "후스타이", "subtitle": "야생마", "x": 28, "y": 44 },
+      { "id": "terelj", "name": "테를지", "subtitle": "산과 자연", "x": 72, "y": 42 },
+      { "id": "gobi", "name": "고비", "subtitle": "사막과 사구", "x": 58, "y": 65 },
+      { "id": "altai", "name": "알타이", "subtitle": "서몽골", "x": 22, "y": 68 }
+    ]
+  },
+  "why": {
+    "eyebrow": "저희와 함께해야 하는 이유",
+    "items": [
+      {
+        "icon": "compass",
+        "title": "맞춤형 여행",
+        "description": "모든 일정은 당신을 위해 맞춤 설계됩니다."
+      },
+      {
+        "icon": "users",
+        "title": "현지 전문가",
+        "description": "몽골에서 나고 자란 저희가 가장 잘 압니다."
+      },
+      {
+        "icon": "mountain",
+        "title": "프라이빗 경험",
+        "description": "붐비는 버스는 없습니다. 오직 당신과 야생뿐입니다."
+      },
+      {
+        "icon": "leaf",
+        "title": "지속 가능한 관광",
+        "description": "지역 사회를 지원하고 우리 땅을 보전합니다."
+      }
+    ]
+  },
+  "reviews": {
+    "eyebrow": "검증된 후기",
+    "title": "전 세계 여행자들이 신뢰하는",
+    "title_italic": "하나의 몽골",
+    "reviews_label": "개의 후기",
+    "cta": "모든 후기 보기"
+  },
+  "reviewsPage": {
+    "eyebrow": "여행자 후기",
+    "travelers_label": "명의 여행자",
+    "title_suffix": "하나의 몽골.",
+    "reviews_label": "개의 후기",
+    "all_tours": "모든 투어",
+    "empty": "아직 후기가 없습니다.",
+    "prev": "← 이전",
+    "next": "다음 →"
+  },
+  "quote": {
+    "line1": "고요함에도",
+    "line2": "소리가",
+    "line3": "있습니다.",
+    "cta": "몽골 탐험하기"
+  },
+  "journal": {
+    "eyebrow": "여행 영감",
+    "view_all": "모든 기사 보기",
+    "items": [
+      {
+        "id": "best-time",
+        "category": "여행 가이드",
+        "title": "몽골 여행하기 가장 좋은 시기는 언제일까요?",
+        "read_time": 6,
+        "image": "/images/article-1.jpg"
+      },
+      {
+        "id": "10-things",
+        "category": "문화",
+        "title": "몰랐던 몽골에 관한 10가지 사실",
+        "read_time": 7,
+        "image": "/images/article-2.jpg"
+      },
+      {
+        "id": "horse-trekking",
+        "category": "어드벤처",
+        "title": "승마 트레킹 가이드: 여행을 위한 팁",
+        "read_time": 5,
+        "image": "/images/article-3.jpg"
+      }
+    ],
+    "read_label": "분 읽기"
+  },
+  "footer": {
+    "tagline": "마지막 위대한 야생을 가로지르는 프라이빗 맞춤 여행. 몽골 울란바토르.",
+    "exploreHeading": "둘러보기",
+    "companyHeading": "회사",
+    "links": {
+      "tours": "투어",
+      "aboutMongolia": "몽골 소개",
+      "airportTransfer": "공항 픽업",
+      "carRental": "렌터카",
+      "partners": "파트너",
+      "reviews": "후기",
+      "aboutUs": "회사 소개",
+      "journal": "저널",
+      "contact": "문의"
+    },
+    "newsletter": {
+      "heading": "뉴스레터",
+      "text": "초원에서 전하는 이야기, 일 년에 몇 차례.",
+      "placeholder": "이메일 주소"
+    },
+    "copyright": "© 2026 E and S Discovery Mongolia. All rights reserved."
+  },
+  "tourDetail": {
+    "breadcrumb_tours": "투어",
+    "days_label": "일",
+    "nights_label": "박",
+    "max_travellers": "최대",
+    "highlights": "하이라이트",
+    "good_to_know": "알아두면 좋은 정보",
+    "day_by_day": "일정표",
+    "day_label": "일차",
+    "activities": "액티비티",
+    "accommodation": "숙박",
+    "meals": "식사",
+    "traveller_singular": "명",
+    "traveller_plural": "명",
+    "book_now": "지금 예약",
+    "or": "또는",
+    "see_open_departures": "예정된 출발일 보기",
+    "free_cancellation": "출발 30일 전까지 무료 취소",
+    "whats_included": "포함 사항",
+    "you_may_also_like": "이런 여행도 좋아하실 거예요",
+    "view_all_tours": "모든 투어 보기 →"
+  },
+  "toursPage": {
+    "meta_title": "투어 — E & S 디스커버리 몽골",
+    "meta_description": "몽골의 땅과 그곳을 가장 잘 아는 사람들이 만든 소규모 및 프라이빗 원정 투어.",
+    "hero_eyebrow": "몽골을 가로지르는 여행",
+    "hero_title_prefix": "우리의",
+    "hero_title_italic": "투어",
+    "hero_subtext": "몽골의 땅과 그곳을 가장 잘 아는 사람들이 만든 소규모 및 프라이빗 원정 투어. 당신만의 여행을 찾아보세요.",
+    "journeys_found": "개의 여행",
+    "duration_chips": ["1–5일", "6–10일", "11일 이상"],
+    "region_chips": ["고비", "중앙", "북부", "서부"],
+    "type_chips": ["문화", "어드벤처", "축제", "그룹"],
+    "sort_chips": ["평점 높은 순", "가격 낮은 순", "가격 높은 순", "기간순"],
+    "filters": "필터",
+    "clear_all": "모두 지우기",
+    "duration": "기간",
+    "region": "지역",
+    "trip_type": "여행 유형",
+    "empty": "해당 조건에 맞는 투어가 아직 없습니다. 필터를 초기화해 보세요.",
+    "cta_eyebrow": "원하는 여행을 찾지 못하셨나요?",
+    "cta_heading_prefix": "모든 여행은",
+    "cta_heading_italic": "맞춤 제작이 가능합니다.",
+    "cta_button": "맞춤 여행 상담하기 →"
+  },
+  "journalPage": {
+    "meta_title": "저널 — 초원에서 전하는 이야기 — E & S 디스커버리 몽골",
+    "meta_description": "초원과 고비, 타이가에서 전하는 가이드, 문화, 팁, 그리고 이야기.",
+    "hero_eyebrow": "초원에서 전하는 이야기",
+    "hero_title_prefix": "더",
+    "hero_title_italic": "저널",
+    "category_all": "전체",
+    "categories": {
+      "guides": "가이드",
+      "culture": "문화",
+      "tips": "팁",
+      "stories": "이야기",
+      "food": "음식",
+      "adventure": "어드벤처"
+    },
+    "featured_prefix": "추천",
+    "read_article": "기사 읽기 →",
+    "load_more": "기사 더 보기"
+  },
+  "journalDetail": {
+    "share": "↗ 공유",
+    "save": "♡ 저장",
+    "cta_eyebrow": "직접 경험해 보세요",
+    "cta_heading_prefix": "이 가이드와 어울리는",
+    "cta_heading_italic": "투어.",
+    "browse_tours": "투어 둘러보기 →",
+    "keep_reading": "계속 읽기"
+  },
+  "bookPage": {
+    "meta_title": "여행 예약하기 — E & S 디스커버리 몽골",
+    "meta_description": "회원가입 없이 한 페이지에서 완료하는 몽골 여행 예약.",
+    "step_trip": "여행",
+    "step_traveller": "여행자",
+    "step_payment": "결제",
+    "heading_prefix": "당신의",
+    "heading_italic": "여행 예약하기"
+  },
+  "bookingForm": {
+    "no_tours": "현재 예약 가능한 투어가 없습니다.",
+    "success_heading": "예약 요청이 전송되었습니다",
+    "confirmation_label": "확인번호:",
+    "success_message_prefix": "저희 팀이 이메일로 연락드려",
+    "success_message_suffix": "예약을 확정해 드립니다.",
+    "section1": "1 · 여행 정보",
+    "tour_label": "투어",
+    "date_label": "날짜",
+    "travellers_label": "여행자 수",
+    "section2": "2 · 대표 여행자 정보",
+    "name_placeholder": "이름",
+    "email_placeholder": "이메일",
+    "country_placeholder": "국가",
+    "phone_placeholder": "전화번호",
+    "section3": "3 · 추가 옵션",
+    "section4": "4 · 요청 사항",
+    "notes_placeholder": "식이 요구사항, 접근성, 맞춤 일정 등…",
+    "adult_singular": "명",
+    "adult_plural": "명",
+    "order_summary": "주문 요약",
+    "total": "총액",
+    "deposit_label": "오늘 예약금 · 20%",
+    "pay_deposit": "예약금 결제 →",
+    "guest_checkout_note": "회원가입 불필요 · 비회원 예약"
+  },
+  "shareATour": {
+    "meta_title": "투어 공유 — 예정된 출발일 — E & S 디스커버리 몽골",
+    "meta_description": "그룹 출발 일정에 참여하세요 — 달력에서 날짜를 선택하고 다른 여행자들과 함께 떠나보세요."
+  },
+  "departureCalendar": {
+    "weekdays": ["월", "화", "수", "목", "금", "토", "일"],
+    "regions": ["모든 투어", "고비", "중앙", "북부", "서부"],
+    "join_group_departure": "그룹 출발에 참여하세요",
+    "heading_prefix": "투어",
+    "heading_italic": "공유하기",
+    "prev_month": "이전 달",
+    "next_month": "다음 달",
+    "filter": "필터",
+    "full": "마감",
+    "open": "가능",
+    "select_day": "달력에서 날짜를 선택하면 출발 정보를 볼 수 있습니다.",
+    "no_departures": "이 날에는 아직 출발 일정이 없습니다.",
+    "departure_count_singular": "개의 출발 일정",
+    "departure_count_plural": "개의 출발 일정",
+    "from": "부터",
+    "per_person": "/ 인",
+    "fully_booked": "예약 마감",
+    "join_departure": "이 출발에 참여하기 →",
+    "confirmed_note": "출발 확정 · 보장된 출발",
+    "days_label": "일",
+    "small_group_of": "소규모 그룹",
+    "english_speaking_guide": "영어 가능 가이드"
+  },
+  "about": {
+    "meta_title": "회사 소개 — 초원에서 태어난 현지 팀 — E & S 디스커버리 몽골",
+    "meta_description": "2009년부터 몽골인이 소유하고 운영 — 40명의 가이드, 운전기사, 여행 기획자로 구성된 팀.",
+    "since_label": "2009년부터",
+    "heading_prefix": "초원에서 태어난",
+    "heading_italic": "현지 팀",
+    "body1": "저희는 랜드크루저 한 대와 몽골을 가장 잘 경험하는 방법은 그곳에 사는 사람들과 함께하는 것이라는 믿음으로 시작했습니다. 15년이 지난 지금, 저희는 40명의 가이드, 운전기사, 여행 기획자로 이루어진 팀입니다 — 모두 몽골에서 태어났고, 여전히 지평선을 조금은 사랑하는 사람들입니다.",
+    "body2": "저희가 기획하는 모든 여행은 오랫동안 함께해 온 유목민 가족과 캠프를 지원합니다.",
+    "stats": [
+      { "value": "15+", "label": "년간의 가이드 경험" },
+      { "value": "8,000+", "label": "명의 여행자" },
+      { "value": "40", "label": "명의 현지 가이드" },
+      { "value": "4.9★", "label": "평균 평점" }
+    ],
+    "beliefs_eyebrow": "저희의 신념",
+    "beliefs_heading": "여행하는 방식",
+    "values": [
+      { "title": "현지 우선", "text": "몽골인이 소유하고 운영합니다. 당신의 여행은 당신을 맞이하는 가족과 캠프를 직접 지원합니다." },
+      { "title": "소규모 맞춤 여행", "text": "붐비는 인파도, 정해진 획일적 일정도 없습니다. 모든 여행은 당신을 중심으로 설계됩니다." },
+      { "title": "자연을 배려하는 여행", "text": "저영향 캠프와 초원을 처음 그대로 남기겠다는 다짐." }
+    ],
+    "credentials_heading": "신뢰와 인증",
+    "credentials": ["몽골 관광청", "ASTA 회원", "여행자가 선택한 업체", "친환경 인증"]
+  },
+  "aboutMongolia": {
+    "meta_title": "몽골 소개 — 영원한 푸른 하늘의 땅 — E & S 디스커버리 몽골",
+    "meta_description": "서유럽 크기의 국토에 350만 명이 채 되지 않는 인구 — 지리, 유목 문화, 역사와 야생동물.",
+    "sections": [
+      { "id": "geography", "label": "지리" },
+      { "id": "climate", "label": "기후와 계절" },
+      { "id": "culture", "label": "유목 문화" },
+      { "id": "history", "label": "역사" },
+      { "id": "naadam", "label": "나담 축제" },
+      { "id": "ger", "label": "게르 생활" },
+      { "id": "wildlife", "label": "야생동물" }
+    ],
+    "facts": [
+      { "value": "156만", "label": "㎢의 국토" },
+      { "value": "260+", "label": "일의 맑은 날씨" },
+      { "value": "~25%", "label": "여전히 유목 생활" },
+      { "value": "1206", "label": "칭기스 칸의 통일" }
+    ],
+    "hero_eyebrow": "영원한 푸른 하늘의 땅",
+    "hero_heading_prefix": "몽골",
+    "hero_heading_italic": "소개",
+    "hero_subtext": "서유럽 크기의 국토에 350만 명이 채 되지 않는 인구 — 마지막 남은 광활한 대지이자 유목 문화가 살아 숨쉬는 심장부.",
+    "geography_heading": "지리",
+    "geography_body": "남쪽의 고비 사막부터 북쪽의 타이가 숲과 빙하까지, 몽골은 놀라울 만큼 다양한 풍경을 품고 있습니다. 서쪽으로는 광활한 초원이 알타이 산맥을 향해 펼쳐지고, 몽골의 전형적인 지평선을 이루는 중앙 초원은 수백 킬로미터에 걸쳐 끊임없이 이어집니다. 몽골은 세계에서 인구 밀도가 가장 낮은 주권 국가 중 하나로 남아 있습니다.",
+    "climate_heading": "기후와 계절",
+    "climate_body": "몽골은 세계에서 가장 대륙성 기후가 강한 나라입니다 — 봄과 가을이 거의 없이, 길고 혹독한 겨울과 짧고 강렬한 여름이 이어집니다. 여름(6월–8월)은 따뜻한 날씨와 푸른 초원, 나담 축제를 선사하며, 9월이 되면 첫눈이 내리기 전 북부가 황금빛으로 물듭니다. 겨울은 장관이지만 혹독하여 영하 20도 아래로 떨어지고, 7월 최고 기온은 30도에 이릅니다. 대부분의 여행은 5월–9월 사이에 이루어집니다.",
+    "history_heading": "역사",
+    "history_body": "1206년 칭기스 칸은 다투던 초원의 부족들을 통일하여 몽골 제국을 세웠고, 전성기에는 한반도부터 헝가리까지 뻗어나가며 역사상 가장 광대한 대륙 제국을 이루었습니다. 현재의 하르호린 인근에 있던 수도 카라코룸은 한때 세계의 교차로였습니다. 이후 수 세기에 걸친 만주족의 지배와 소비에트 연방과의 사회주의 동맹을 거쳐, 1990년 몽골의 평화로운 민주 혁명이 오늘날 여행자들을 맞이하는 나라의 문을 열었습니다.",
+    "culture_heading": "유목 문화",
+    "culture_body": "몽골인의 약 4분의 1은 여전히 계절에 따라 목초지를 옮겨 다니며 유목 생활을 하고 있습니다. 손님을 향한 환대는 신성하게 여겨지며, 여행자는 언제나 따뜻한 소금 우유차와 함께 게르로 환영받습니다. 이동과 가족, 대지가 만들어내는 이 리듬이 모든 것의 바탕이 되며, 저희의 여행은 바로 그것을 그곳에 사는 사람들의 속도로 함께 나누기 위해 만들어졌습니다.",
+    "culture_quote": "초원은 인내를 가르칩니다 — 지평선은 결코 서두르지 않습니다.",
+    "naadam_heading": "나담 축제",
+    "naadam_body": "매년 7월에 열리는 나담은 몽골 최대의 국가적 축제입니다 — 씨름, 활쏘기, 경마로 이루어진 \"남자의 세 가지 경기\"가 전국 각지, 특히 울란바토르를 중심으로 펼쳐집니다. 몽골 문화를 가장 생생하게 만날 수 있는 한 주이며, 저희의 축제 일정은 그 한가운데로 당신을 안내합니다.",
+    "ger_heading": "게르 생활",
+    "ger_body": "몽골 밖에서는 유르트로 알려진 게르는 이동 생활에 맞춰 설계된 펠트와 천으로 만든 거주 공간입니다 — 한 시간 안에 세우거나 걷을 수 있고, 영하 30도의 겨울을 견디며 여름에는 시원함을 유지합니다. 중앙의 난로부터 손님을 위해 마련된 문 맞은편의 상석까지, 내부의 모든 것에는 정해진 자리가 있습니다. 구경꾼처럼 스쳐 지나가는 대신 가족의 게르에 머무는 것이야말로 저희 여행 대부분의 핵심입니다.",
+    "wildlife_heading": "야생동물",
+    "wildlife_body": "몽골의 텅 빈 대지는 다른 곳에서는 사라진 종들의 안식처입니다. 고비에는 눈표범과 야생 쌍봉낙타, 그리고 지구상 마지막 진정한 야생마인 재도입된 프르제발스키말이 서식합니다. 서부에서는 카자흐 사냥꾼들이 훈련시킨 황금독수리를 볼 수 있고, 북부 타이가의 순록 유목민들은 사육된 무리와 함께 살아갑니다. 홉스골 호수와 주변 숲에는 아이벡스, 아르갈리 양, 그리고 은밀한 늑대들이 서식합니다.",
+    "cta_eyebrow": "직접 경험할 준비가 되셨나요?",
+    "cta_heading_prefix": "우리의 몽골",
+    "cta_heading_italic": "여행을 둘러보세요.",
+    "cta_button": "모든 투어 보기 →"
+  },
+  "airportTransfers": {
+    "meta_title": "공항 픽업 서비스 — E & S 디스커버리 몽골",
+    "meta_description": "도착 로비에서 기다리는 익숙한 얼굴. 항공편을 추적하며 지연되어도 기다려 드립니다.",
+    "hero_eyebrow": "칭기스칸 국제공항 · 도어 투 도어",
+    "hero_heading_prefix": "공항",
+    "hero_heading_italic": "픽업 서비스",
+    "hero_subtext": "도착 로비에서 기다리는 익숙한 얼굴. 항공편을 추적하며 지연되어도 기다려 드립니다 — 긴 여정 후 스트레스 없이.",
+    "steps": [
+      { "n": "01", "title": "항공편으로 예약하세요", "text": "항공편 번호만 입력하시면 나머지는 저희가 처리합니다 — 주소를 알 필요가 없습니다." },
+      { "n": "02", "title": "저희가 추적하고 기다립니다", "text": "지연되셨나요? 기사님이 자동으로 일정을 조정하고 무료로 도착 로비에서 기다립니다." },
+      { "n": "03", "title": "곧바로 게르까지", "text": "현지 사정을 잘 아는 기사와 함께 호텔이나 투어 시작 지점까지 도어 투 도어로 이동합니다." }
+    ]
+  },
+  "airportTransferForm": {
+    "flight_number": "항공편 번호",
+    "flight_number_placeholder": "OM-302",
+    "arrival_datetime": "도착 날짜 및 시간",
+    "passengers": "탑승 인원",
+    "adult_suffix_singular": "명",
+    "adult_suffix_plural": "명",
+    "name": "이름",
+    "name_placeholder": "이름",
+    "email": "이메일",
+    "email_placeholder": "you@email.com",
+    "choose_service_eyebrow": "서비스를 선택하세요",
+    "choose_service_heading": "세 가지 도착 방법",
+    "tiers": [
+      { "name": "스탠다드 픽업", "desc": "프라이빗 세단 · 최대 3인", "features": ["항공편 추적", "도착 로비에서 대기"] },
+      { "name": "미트 앤 그리트", "desc": "이름 팻말을 든 가이드 · 최대 6인", "features": ["입국장 내 전담 안내", "유심 카드 & 웰컴 키트", "생수 & 와이파이"] },
+      { "name": "VIP & 라운지", "desc": "프라이빗 라운지 · 랜드크루저 · 4인", "features": ["패스트트랙 & 라운지 이용", "럭셔리 랜드크루저"] }
+    ],
+    "most_popular": "가장 인기",
+    "per_vehicle": "차량당",
+    "book_transfer": "픽업 예약하기 →",
+    "success_heading": "픽업 요청이 접수되었습니다",
+    "confirmation_label": "확인번호:",
+    "success_message": "항공편 도착 전 이메일로 기사님 정보를 안내해 드립니다."
+  },
+  "rentACar": {
+    "meta_title": "4×4 렌트 — 렌터카 — E & S 디스커버리 몽골",
+    "meta_description": "잘 정비된 원정용 차량 — 직접 운전하거나 경험 많은 현지 기사 가이드를 추가하세요.",
+    "hero_eyebrow": "길 없는 초원을 위한 차량",
+    "hero_heading_prefix": "4×4",
+    "hero_heading_italic": "렌트하기",
+    "hero_subtext": "잘 정비된 원정용 차량 — 직접 운전하거나 경험 많은 현지 기사 가이드를 추가하세요.",
+    "with_driver": "기사 포함",
+    "self_drive": "직접 운전",
+    "all_vehicles": "모든 차량",
+    "type_chips": ["SUV", "밴", "푸르곤", "세단"],
+    "need_fleet_heading": "단체 차량이 필요하신가요?",
+    "need_fleet_text": "그룹 원정을 위한 여러 대의 차량과 기사, 지원 인력을 제공합니다.",
+    "ask_us": "문의하기 →",
+    "insurance_note": "보험 및 무제한 주행거리 포함",
+    "roadside_note": "24시간 긴급 출동 지원",
+    "camping_note": "루프탑 텐트 & 캠핑 장비 추가 가능"
+  },
+  "carCard": {
+    "per_day": "/일",
+    "reserve": "예약"
+  },
+  "carSearchRail": {
+    "pickup_date": "픽업 날짜",
+    "return_date": "반납 날짜"
+  },
+  "reservationDialog": {
+    "success_heading": "예약이 접수되었습니다",
+    "confirmation_label": "확인번호:",
+    "success_message_prefix": "저희가 이메일로",
+    "success_message_suffix": "렌트를 곧 확정해 드립니다.",
+    "reserve_eyebrow": "예약",
+    "confirm_reservation": "예약 확정하기 →",
+    "name_placeholder": "이름",
+    "email_placeholder": "이메일",
+    "phone_placeholder": "전화번호 (선택)"
+  },
+  "contact": {
+    "meta_title": "문의하기 — E & S 디스커버리 몽골",
+    "meta_description": "꿈꾸는 여행을 알려주시면 울란바토르 팀의 담당자가 하루 안에 답변드립니다.",
+    "eyebrow": "여러분의 이야기를 듣고 싶습니다",
+    "heading_prefix": "문의",
+    "heading_italic": "하기",
+    "subtext": "축제든, 고비 사막 횡단이든, 가족 여행이든 꿈꾸시는 여행을 알려주세요 — 울란바토르 팀의 담당자가 하루 안에 답변드립니다.",
+    "offices": [
+      { "title": "전화" },
+      { "title": "이메일" },
+      { "title": "방문" }
+    ],
+    "map_title": "E and S Discovery Mongolia 사무실 위치"
+  },
+  "contactForm": {
+    "name_placeholder": "이름",
+    "email_placeholder": "이메일",
+    "phone_placeholder": "전화번호 (선택)",
+    "subjects": ["투어 문의", "렌터카", "공항 픽업", "일반 문의"],
+    "message_placeholder": "날짜, 인원, 원하시는 경험 등 여행에 대해 알려주세요…",
+    "send_message": "메시지 보내기 →",
+    "success_heading": "메시지가 전송되었습니다",
+    "reference_label": "참조번호:",
+    "success_message": "울란바토르 팀의 담당자가 하루 안에 답변드립니다."
+  },
+  "tourGallery": {
+    "open_preview": "사진 미리보기 열기",
+    "previous_photo": "이전 사진",
+    "next_photo": "다음 사진",
+    "view_photo": "사진 보기",
+    "close_preview": "미리보기 닫기"
+  },
+  "sectionNav": {
+    "on_this_page": "이 페이지에서"
+  }
+}

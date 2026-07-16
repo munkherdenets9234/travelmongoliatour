@@ -4,6 +4,7 @@ import { useMemo, useState, useTransition } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { buildCalendarGrid, monthLabel, shiftMonth } from '@/lib/calendar'
+import { intlLocale } from '@/lib/i18n'
 import type { DepartureWithTour } from '@/lib/data/departures'
 import { useTranslation } from '@/hooks/useTranslation'
 
@@ -158,9 +159,9 @@ export default function DepartureCalendar({ locale, initialYear, initialMonth, i
               {selectedDate && (
                 <div className="absolute left-4 bottom-3 text-cream">
                   <div className="text-[11px] font-medium tracking-widest uppercase text-cream/85">
-                    {selectedDate.toLocaleDateString(locale === 'mn' ? 'mn-MN' : 'en-US', { weekday: 'long', timeZone: 'UTC' })}
+                    {selectedDate.toLocaleDateString(intlLocale(locale), { weekday: 'long', timeZone: 'UTC' })}
                   </div>
-                  <div className="font-display text-2xl">{selectedDate.toLocaleDateString(locale === 'mn' ? 'mn-MN' : 'en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' })}</div>
+                  <div className="font-display text-2xl">{selectedDate.toLocaleDateString(intlLocale(locale), { month: 'long', day: 'numeric', timeZone: 'UTC' })}</div>
                 </div>
               )}
             </div>

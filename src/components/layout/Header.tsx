@@ -8,6 +8,8 @@ import { locales } from '@/lib/i18n'
 import type { Locale } from '@/types/i18n'
 import { usePathname, useRouter } from 'next/navigation'
 
+const LOCALE_LABELS: Record<Locale, string> = { en: 'EN', mn: 'МН', ko: 'KO' }
+
 export default function Header() {
   const { t, locale } = useTranslation()
   const [scrolled, setScrolled] = useState(false)
@@ -109,7 +111,7 @@ export default function Header() {
                       : 'text-warm-gray hover:text-ink'
                 }`}
               >
-                {l === 'en' ? 'EN' : 'МН'}
+                {LOCALE_LABELS[l]}
                 {i < locales.length - 1 && <span className={`ml-2 ${overlay ? 'text-cream/20' : 'text-border-strong'}`}>/</span>}
               </button>
             ))}
