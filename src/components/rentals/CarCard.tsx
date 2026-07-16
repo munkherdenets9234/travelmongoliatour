@@ -21,8 +21,8 @@ export default function CarCard({ car, mode, pickupDate, returnDate }: Props) {
   return (
     <>
       <article className="rounded-md overflow-hidden bg-white shadow-[0_10px_26px_rgba(30,27,22,0.09)]">
-        <div className="relative h-[180px]">
-          <Image src={car.image} alt={car.name} fill className="object-cover" />
+        <div className="relative h-[180px] bg-tan/30">
+          {car.image && <Image src={car.image} alt={car.name} fill className="object-cover" />}
         </div>
         <div className="p-5">
           <h3 className="font-display text-xl font-semibold">{car.name}</h3>

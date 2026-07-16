@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${article.title} — E & S Discovery Mongolia Journal`,
     description: article.excerpt,
     alternates: { canonical: `/${locale}/journal/${slug}` },
-    openGraph: { title: article.title, description: article.excerpt, images: [article.image] },
+    openGraph: { title: article.title, description: article.excerpt, images: article.image ? [article.image] : undefined },
   }
 }
 
@@ -37,8 +37,8 @@ export default async function JournalPostPage({ params }: Props) {
   return (
     <>
       {/* HERO */}
-      <section className="relative h-[460px]">
-        <Image src={article.image} alt={article.title} fill className="object-cover" priority />
+      <section className="relative h-[460px] bg-tan/30">
+        {article.image && <Image src={article.image} alt={article.title} fill className="object-cover" priority />}
         <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-ink/35" />
         <div className="absolute left-0 right-0 bottom-0 container mx-auto px-6 sm:px-14 pb-11 max-w-3xl">
           <div className="text-xs font-semibold tracking-wide uppercase text-gold capitalize">

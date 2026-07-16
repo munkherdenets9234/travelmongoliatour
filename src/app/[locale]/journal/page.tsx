@@ -75,8 +75,8 @@ export default async function JournalPage({ params, searchParams }: Props) {
             href={`/${locale}/journal/${featured.slug}`}
             className="grid grid-cols-1 sm:grid-cols-[1.3fr_1fr] rounded-lg overflow-hidden bg-ink text-cream shadow-[0_16px_40px_rgba(30,27,22,0.16)]"
           >
-            <div className="relative h-[360px]">
-              <Image src={featured.image} alt={featured.title} fill className="object-cover" />
+            <div className="relative h-[360px] bg-tan/30">
+              {featured.image && <Image src={featured.image} alt={featured.title} fill className="object-cover" />}
             </div>
             <div className="p-8 sm:p-10 flex flex-col justify-center">
               <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-gold">{t.featured_prefix} · {featured.category}</div>

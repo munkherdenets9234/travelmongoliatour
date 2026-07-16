@@ -13,14 +13,16 @@ export default function JourneyCard({ item, daysLabel, price, href }: Props) {
   const card = (
       <article className="relative overflow-hidden rounded-md cursor-pointer h-[420px] flex-shrink-0 w-full shadow-[0_10px_26px_rgba(30,27,22,0.09)]">
         {/* Image */}
-        <div className="absolute inset-0">
-          <Image
-            src={item.image}
-            alt={item.title}
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, 33vw"
-          />
+        <div className="absolute inset-0 bg-tan/30">
+          {item.image && (
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+          )}
         </div>
 
         {/* Gradient */}

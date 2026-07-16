@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${partner.name} — E & S Discovery Mongolia Partners`,
     description: partner.description,
     alternates: { canonical: `/${locale}/partners/${slug}` },
-    openGraph: { title: partner.name, description: partner.description, images: [partner.image] },
+    openGraph: { title: partner.name, description: partner.description, images: partner.image ? [partner.image] : undefined },
   }
 }
 
@@ -70,8 +70,8 @@ export default async function PartnerDetailPage({ params }: Props) {
         </div>
       )}
 
-      <section className="relative h-[440px] mt-6">
-        <Image src={partner.image} alt={partner.name} fill className="object-cover" priority />
+      <section className="relative h-[440px] mt-6 bg-tan/30">
+        {partner.image && <Image src={partner.image} alt={partner.name} fill className="object-cover" priority />}
         <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-ink/35" />
         <div className="absolute left-0 right-0 bottom-0 container mx-auto px-6 sm:px-14 pb-11">
           <div className="text-xs font-semibold tracking-[0.24em] uppercase text-cream/85">{d.eyebrow}</div>
@@ -89,8 +89,8 @@ export default async function PartnerDetailPage({ params }: Props) {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {partner.products.map((product) => (
               <div key={product.name} className="rounded-md overflow-hidden bg-white shadow-[0_10px_26px_rgba(30,27,22,0.08)]">
-                <div className="relative h-[150px]">
-                  <Image src={product.image} alt={product.name} fill className="object-cover" />
+                <div className="relative h-[150px] bg-tan/30">
+                  {product.image && <Image src={product.image} alt={product.name} fill className="object-cover" />}
                 </div>
                 <div className="p-4">
                   <div className="font-display text-xl">{product.name}</div>

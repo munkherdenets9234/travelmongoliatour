@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${tour.title} — E & S Discovery Mongolia`,
     description: metaDescription,
     alternates: { canonical: `/${locale}/tours/${slug}` },
-    openGraph: { title: tour.title, description: metaDescription, images: [tour.image] },
+    openGraph: { title: tour.title, description: metaDescription, images: tour.image ? [tour.image] : undefined },
   }
 }
 

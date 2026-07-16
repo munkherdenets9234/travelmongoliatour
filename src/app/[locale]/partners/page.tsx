@@ -43,14 +43,16 @@ export default async function PartnersIndexPage({ params }: Props) {
               href={`/${locale}/partners/${partner.slug}`}
               className="group rounded-lg overflow-hidden bg-panel border border-border block"
             >
-              <div className="relative h-[220px]">
-                <Image
-                  src={partner.image}
-                  alt={partner.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                />
+              <div className="relative h-[220px] bg-tan/30">
+                {partner.image && (
+                  <Image
+                    src={partner.image}
+                    alt={partner.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                )}
               </div>
               <div className="p-6">
                 <p className="text-olive text-[10px] font-semibold tracking-[0.2em] uppercase mb-2">{partner.tag}</p>

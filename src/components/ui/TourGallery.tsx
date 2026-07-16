@@ -7,7 +7,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 export default function TourGallery({ images, title }: { images: string[]; title: string }) {
   const { t } = useTranslation()
   const tg = t.tourGallery
-  const slides = images
+  const slides = images.filter(Boolean)
   const [active, setActive] = useState(0)
   const [lightbox, setLightbox] = useState<number | null>(null)
 

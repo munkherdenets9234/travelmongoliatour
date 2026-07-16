@@ -147,8 +147,8 @@ export default function BookingForm({ tours, initialSlug, initialDate, initialAd
       {/* SUMMARY */}
       <aside className="w-full lg:w-[340px] flex-none">
         <div className="bg-white border border-tan rounded-md shadow-[0_14px_34px_rgba(30,27,22,0.1)] overflow-hidden">
-          <div className="relative h-[150px]">
-            <Image src={tour.image} alt={tour.title} fill className="object-cover" />
+          <div className="relative h-[150px] bg-tan/30">
+            {tour.image && <Image src={tour.image} alt={tour.title} fill className="object-cover" />}
             <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
             <div className="absolute left-4 bottom-3 text-cream">
               <div className="font-display text-xl">{tour.title}</div>
