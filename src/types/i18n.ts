@@ -220,6 +220,8 @@ export interface Translation {
     whats_included: string
     you_may_also_like: string
     view_all_tours: string
+    best_season_label: string
+    difficulty_label: string
   }
   toursPage: {
     meta_title: string

@@ -244,7 +244,9 @@
     "free_cancellation": "Free cancellation up to 30 days before",
     "whats_included": "What's included",
     "you_may_also_like": "You may also like",
-    "view_all_tours": "View all tours →"
+    "view_all_tours": "View all tours →",
+    "best_season_label": "Best season",
+    "difficulty_label": "Difficulty"
   },
   "toursPage": {
     "meta_title": "Our Tours — E & S Discovery Mongolia",

@@ -36,6 +36,13 @@ export default async function TourDetailPage({ params }: Props) {
   const t = getTranslation(locale)
   const td = t.tourDetail
 
+  const goodToKnow = [
+    tour.goodToKnow.bestSeason ? `${td.best_season_label} · ${tour.goodToKnow.bestSeason}` : undefined,
+    tour.goodToKnow.difficulty ? `${td.difficulty_label} · ${tour.goodToKnow.difficulty}` : undefined,
+    tour.goodToKnow.accommodation,
+    tour.goodToKnow.mealPlan,
+  ].filter((v): v is string => Boolean(v))
+
   return (
     <>
       {/* BREADCRUMB + TITLE */}
@@ -86,7 +93,7 @@ export default async function TourDetailPage({ params }: Props) {
             <div className="flex-1 min-w-[220px]">
               <div className="text-xs font-semibold tracking-widest uppercase text-warm-gray mb-3">{td.good_to_know}</div>
               <div className="flex flex-col gap-2.5 text-sm text-brown">
-                {tour.goodToKnow.map((g, i) => (
+                {goodToKnow.map((g, i) => (
                   <span key={i}>{g}</span>
                 ))}
               </div>

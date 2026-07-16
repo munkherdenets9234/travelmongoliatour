@@ -66,7 +66,13 @@ export interface Tour {
   /** Full tour overview as HTML, authored via the admin's rich text editor. */
   description: string
   highlights: string[]
-  goodToKnow: string[]
+  /** Raw fields for the "Good to know" panel — labels are localized by the page, not baked in here. */
+  goodToKnow: {
+    bestSeason?: string
+    difficulty?: string
+    accommodation?: string
+    mealPlan?: string
+  }
   itinerary: TourItinerary[]
   inclusions: TourInclusion[]
   guide: { name: string; note: string }
@@ -129,12 +135,12 @@ function mapDestinationToTour(d: Destination): Tour {
 
   // rating and guide have no backend field yet — static placeholders until the
   // Destination model grows one.
-  const goodToKnow = [
-    d.best_seasons?.length ? `Best season · ${d.best_seasons.join('–')}` : undefined,
-    d.difficulty ? `Difficulty · ${d.difficulty}` : undefined,
-    d.accommodation || undefined,
-    d.meal_plan || undefined,
-  ].filter((v): v is string => Boolean(v))
+  const goodToKnow = {
+    bestSeason: d.best_seasons?.length ? d.best_seasons.join('–') : undefined,
+    difficulty: d.difficulty || undefined,
+    accommodation: d.accommodation || undefined,
+    mealPlan: d.meal_plan || undefined,
+  }
 
   return {
     id: d.id,

@@ -244,7 +244,9 @@
     "free_cancellation": "30 хоногийн өмнө үнэгүй цуцлах боломжтой",
     "whats_included": "Юу багтсан бэ",
     "you_may_also_like": "Танд таалагдаж магадгүй",
-    "view_all_tours": "Бүх аяллыг үзэх →"
+    "view_all_tours": "Бүх аяллыг үзэх →",
+    "best_season_label": "Хамгийн тохиромжтой улирал",
+    "difficulty_label": "Хүндрэлийн түвшин"
   },
   "toursPage": {
     "meta_title": "Бидний аяллууд — E & S Discovery Mongolia",

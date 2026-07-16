@@ -244,7 +244,9 @@
     "free_cancellation": "출발 30일 전까지 무료 취소",
     "whats_included": "포함 사항",
     "you_may_also_like": "이런 여행도 좋아하실 거예요",
-    "view_all_tours": "모든 투어 보기 →"
+    "view_all_tours": "모든 투어 보기 →",
+    "best_season_label": "최적의 계절",
+    "difficulty_label": "난이도"
   },
   "toursPage": {
     "meta_title": "투어 — E & S 디스커버리 몽골",
