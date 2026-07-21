@@ -21,7 +21,7 @@ export default function PartnersSection({ partners }: { partners: Partner[] }) {
     <section className="py-24 bg-panel">
       <div className="container mx-auto px-6">
         <div className="flex items-baseline justify-between mb-10">
-          <p className="text-olive/80 text-[10px] tracking-[0.3em] uppercase">{p.eyebrow}</p>
+          <p className="text-olive text-[10px] tracking-[0.3em] uppercase">{p.eyebrow}</p>
           {partners.length > 1 && (
             <div className="flex items-center gap-3">
               <button
@@ -60,7 +60,7 @@ export default function PartnersSection({ partners }: { partners: Partner[] }) {
           </Link>
 
           <div className="flex-[1.1] flex flex-col justify-center">
-            <p className="text-olive/80 text-[10px] tracking-[0.24em] uppercase mb-3">{partner.tag}</p>
+            <p className="text-olive text-[10px] tracking-[0.24em] uppercase mb-3">{partner.tag}</p>
             <Link href={`/${locale}/partners/${partner.slug}`}>
               <h2 className="text-ink font-display text-3xl sm:text-4xl font-medium mb-4 hover:text-olive transition-colors">{partner.title}</h2>
             </Link>
@@ -83,9 +83,11 @@ export default function PartnersSection({ partners }: { partners: Partner[] }) {
               <button
                 key={item.id}
                 onClick={() => setIndex(i)}
-                className={`w-2 h-2 rounded-full transition-colors ${i === index ? 'bg-ink' : 'bg-ink/20'}`}
+                className="w-6 h-6 flex items-center justify-center"
                 aria-label={`Show ${item.name}`}
-              />
+              >
+                <span className={`w-2 h-2 rounded-full transition-colors ${i === index ? 'bg-ink' : 'bg-ink/20'}`} />
+              </button>
             ))}
           </div>
         )}

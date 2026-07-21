@@ -1,9 +1,6 @@
-'use client'
+import type { Translation } from '@/types/i18n'
 
-import { useTranslation } from '@/hooks/useTranslation'
-
-export default function QuoteSection() {
-  const { t } = useTranslation()
+export default function QuoteSection({ t }: { t: Translation }) {
   const q = t.quote
 
   return (

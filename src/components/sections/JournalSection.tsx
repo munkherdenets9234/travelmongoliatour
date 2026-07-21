@@ -1,12 +1,8 @@
-'use client'
-
 import Link from 'next/link'
-import { useTranslation } from '@/hooks/useTranslation'
 import ArticleCard from '@/components/ui/ArticleCard'
-import type { ArticleItem } from '@/types/i18n'
+import type { ArticleItem, Translation, Locale } from '@/types/i18n'
 
-export default function JournalSection({ items }: { items: ArticleItem[] }) {
-  const { t, locale } = useTranslation()
+export default function JournalSection({ items, t, locale }: { items: ArticleItem[]; t: Translation; locale: Locale }) {
   const j = t.journal
 
   return (

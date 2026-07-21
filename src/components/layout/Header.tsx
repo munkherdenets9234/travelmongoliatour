@@ -62,8 +62,8 @@ export default function Header() {
 
   return (
     <header
-      className={`${overlay ? 'absolute' : 'sticky'} top-0 left-0 right-0 z-50 transition-colors duration-500 ${
-        overlay ? 'bg-transparent py-6' : 'bg-cream/95 backdrop-blur-md border-b border-border py-4'
+      className={`sticky top-0 left-0 right-0 z-50 py-5 transition-colors duration-500 ${
+        overlay ? 'bg-transparent' : 'bg-cream/95 backdrop-blur-md border-b border-border'
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">

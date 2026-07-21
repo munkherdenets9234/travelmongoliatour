@@ -13,7 +13,7 @@ import { getAllArticles } from '@/lib/data/journal'
 import { getAllPartners } from '@/lib/data/partners'
 import { getAllReviews } from '@/lib/data/reviews'
 import { humanizeSlug } from '@/lib/format'
-import { isValidLocale } from '@/lib/i18n'
+import { getTranslation, isValidLocale } from '@/lib/i18n'
 import { notFound } from 'next/navigation'
 
 interface Props {
@@ -24,6 +24,7 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
+  const t = getTranslation(locale)
   const tours = await getAllTours(locale)
   const articles = await getAllArticles(locale)
   const partners = await getAllPartners(locale)
@@ -50,16 +51,16 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      <HeroSection />
+      <HeroSection t={t} locale={locale} />
       <SearchBar tours={searchTours} />
       <FeaturedJourneys items={featuredItems} />
-      <TripAdvisorSection />
+      <TripAdvisorSection t={t} />
       <MapSection tours={mapTours} />
-      <WhySection />
-      <ReviewsSection reviews={reviewItems} />
+      <WhySection t={t} />
+      <ReviewsSection reviews={reviewItems} t={t} locale={locale} />
       <PartnersSection partners={partners} />
-      <QuoteSection />
-      <JournalSection items={latestArticles} />
+      <QuoteSection t={t} />
+      <JournalSection items={latestArticles} t={t} locale={locale} />
     </>
   )
 }

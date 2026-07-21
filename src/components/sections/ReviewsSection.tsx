@@ -1,9 +1,7 @@
-'use client'
-
 import Link from 'next/link'
-import { useTranslation } from '@/hooks/useTranslation'
 import StarRating from '@/components/ui/StarRating'
 import ExpandableQuote from '@/components/ui/ExpandableQuote'
+import type { Translation, Locale } from '@/types/i18n'
 
 export interface ReviewDisplayItem {
   id: string
@@ -13,8 +11,7 @@ export interface ReviewDisplayItem {
   source: string
 }
 
-export default function ReviewsSection({ reviews }: { reviews: ReviewDisplayItem[] }) {
-  const { t, locale } = useTranslation()
+export default function ReviewsSection({ reviews, t, locale }: { reviews: ReviewDisplayItem[]; t: Translation; locale: Locale }) {
   const r = t.reviews
 
   if (reviews.length === 0) return null
@@ -24,7 +21,7 @@ export default function ReviewsSection({ reviews }: { reviews: ReviewDisplayItem
   return (
     <section className="py-24 bg-white">
       <div className="container mx-auto px-6 text-center">
-        <p className="text-olive/80 text-[10px] tracking-[0.3em] uppercase mb-4">{r.eyebrow}</p>
+        <p className="text-olive text-[10px] tracking-[0.3em] uppercase mb-4">{r.eyebrow}</p>
         <h2 className="text-ink font-display text-3xl sm:text-4xl font-medium mb-8">
           {r.title} <span className="italic">{r.title_italic}</span>
         </h2>

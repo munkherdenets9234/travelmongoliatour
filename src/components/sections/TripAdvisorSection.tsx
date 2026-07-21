@@ -1,7 +1,5 @@
-'use client'
-
 import Image from 'next/image'
-import { useTranslation } from '@/hooks/useTranslation'
+import type { Translation } from '@/types/i18n'
 
 function TripAdvisorBadge() {
   return (
@@ -53,8 +51,7 @@ function TripAdvisorBadge() {
   )
 }
 
-export default function TripAdvisorSection() {
-  const { t } = useTranslation()
+export default function TripAdvisorSection({ t }: { t: Translation }) {
   const ta = t.tripadvisor
 
   return (

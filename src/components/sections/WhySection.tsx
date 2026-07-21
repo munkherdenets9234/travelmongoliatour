@@ -1,6 +1,4 @@
-'use client'
-
-import { useTranslation } from '@/hooks/useTranslation'
+import type { Translation } from '@/types/i18n'
 
 const icons: Record<string, React.ReactNode> = {
   compass: (
@@ -29,14 +27,13 @@ const icons: Record<string, React.ReactNode> = {
   ),
 }
 
-export default function WhySection() {
-  const { t } = useTranslation()
+export default function WhySection({ t }: { t: Translation }) {
   const w = t.why
 
   return (
     <section className="py-24 bg-cream">
       <div className="container mx-auto px-6">
-        <p className="text-olive/80 text-[10px] tracking-[0.3em] uppercase mb-12 text-center">{w.eyebrow}</p>
+        <p className="text-olive text-[10px] tracking-[0.3em] uppercase mb-12 text-center">{w.eyebrow}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {w.items.map((item) => (
             <div key={item.title} className="flex flex-col items-start gap-4">

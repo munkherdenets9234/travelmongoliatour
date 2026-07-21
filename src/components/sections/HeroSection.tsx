@@ -1,18 +1,20 @@
-'use client'
-
-import { useTranslation } from '@/hooks/useTranslation'
+import Image from 'next/image'
 import Link from 'next/link'
+import type { Translation, Locale } from '@/types/i18n'
 
-export default function HeroSection() {
-  const { t, locale } = useTranslation()
+export default function HeroSection({ t, locale }: { t: Translation; locale: Locale }) {
   const h = t.hero
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+    <section className="relative -mt-20 min-h-screen flex flex-col justify-center overflow-hidden">
       {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/hero.jpg')" }}
+      <Image
+        src="/images/hero.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
       />
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent" />

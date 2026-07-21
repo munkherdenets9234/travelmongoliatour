@@ -46,7 +46,7 @@ export default function SearchBar({ tours }: { tours: SearchTour[] }) {
         <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-border">
           {/* Destination */}
           <div className="p-5 md:p-6">
-            <label className="block text-[10px] tracking-[0.2em] uppercase text-warm-gray mb-2">
+            <label htmlFor="search-destination" className="block text-[10px] tracking-[0.2em] uppercase text-warm-gray mb-2">
               {s.destination_label}
             </label>
             <div className="flex items-center gap-2">
@@ -54,6 +54,7 @@ export default function SearchBar({ tours }: { tours: SearchTour[] }) {
                 <path d="M7 1C4.79 1 3 2.79 3 5c0 3.5 4 8 4 8s4-4.5 4-8c0-2.21-1.79-4-4-4zm0 5.5A1.5 1.5 0 115 5a1.5 1.5 0 012 1.5z" fill="currentColor" />
               </svg>
               <select
+                id="search-destination"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
                 className="w-full text-sm text-brown bg-transparent outline-none appearance-none cursor-pointer"
@@ -69,7 +70,7 @@ export default function SearchBar({ tours }: { tours: SearchTour[] }) {
 
           {/* Duration */}
           <div className="p-5 md:p-6">
-            <label className="block text-[10px] tracking-[0.2em] uppercase text-warm-gray mb-2">
+            <label htmlFor="search-duration" className="block text-[10px] tracking-[0.2em] uppercase text-warm-gray mb-2">
               {s.duration_label}
             </label>
             <div className="flex items-center gap-2">
@@ -78,6 +79,7 @@ export default function SearchBar({ tours }: { tours: SearchTour[] }) {
                 <path d="M1 6h12M4 1v2M10 1v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
               </svg>
               <select
+                id="search-duration"
                 value={duration}
                 onChange={(e) => setDuration(e.target.value)}
                 className="w-full text-sm text-brown bg-transparent outline-none appearance-none cursor-pointer"
@@ -93,7 +95,7 @@ export default function SearchBar({ tours }: { tours: SearchTour[] }) {
 
           {/* Style */}
           <div className="p-5 md:p-6">
-            <label className="block text-[10px] tracking-[0.2em] uppercase text-warm-gray mb-2">
+            <label htmlFor="search-style" className="block text-[10px] tracking-[0.2em] uppercase text-warm-gray mb-2">
               {s.style_label}
             </label>
             <div className="flex items-center gap-2">
@@ -102,6 +104,7 @@ export default function SearchBar({ tours }: { tours: SearchTour[] }) {
                 <path d="M1 13c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
               </svg>
               <select
+                id="search-style"
                 value={style}
                 onChange={(e) => setStyle(e.target.value)}
                 className="w-full text-sm text-brown bg-transparent outline-none appearance-none cursor-pointer"

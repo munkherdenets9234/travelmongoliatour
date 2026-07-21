@@ -22,7 +22,7 @@ export default function FeaturedJourneys({ items }: { items: JourneyItem[] }) {
         {/* Header */}
         <div className="flex items-end justify-between mb-12">
           <div>
-            <p className="text-olive/80 text-[10px] tracking-[0.3em] uppercase mb-3">{j.eyebrow}</p>
+            <p className="text-olive text-[10px] tracking-[0.3em] uppercase mb-3">{j.eyebrow}</p>
             <h2 className="text-ink text-3xl sm:text-4xl md:text-5xl">{j.title}</h2>
           </div>
           <div className="hidden sm:flex items-center gap-4">
@@ -61,10 +61,10 @@ export default function FeaturedJourneys({ items }: { items: JourneyItem[] }) {
 
         {/* Mobile controls */}
         <div className="sm:hidden flex items-center justify-center gap-4 mt-8">
-          <button onClick={prev} disabled={index === 0} className="w-10 h-10 rounded-full border border-border-strong flex items-center justify-center disabled:opacity-30">
+          <button onClick={prev} disabled={index === 0} aria-label="Previous" className="w-10 h-10 rounded-full border border-border-strong flex items-center justify-center disabled:opacity-30">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
-          <button onClick={next} disabled={index >= max} className="w-10 h-10 rounded-full border border-border-strong flex items-center justify-center disabled:opacity-30">
+          <button onClick={next} disabled={index >= max} aria-label="Next" className="w-10 h-10 rounded-full border border-border-strong flex items-center justify-center disabled:opacity-30">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
         </div>

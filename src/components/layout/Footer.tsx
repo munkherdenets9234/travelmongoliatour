@@ -1,11 +1,9 @@
-'use client'
-
 import Link from 'next/link'
 import Image from 'next/image'
-import { useTranslation } from '@/hooks/useTranslation'
+import NewsletterForm from './NewsletterForm'
+import type { Translation, Locale } from '@/types/i18n'
 
-export default function Footer() {
-  const { t, locale } = useTranslation()
+export default function Footer({ t, locale }: { t: Translation; locale: Locale }) {
   const f = t.footer
 
   const exploreLinks = [
@@ -72,16 +70,7 @@ export default function Footer() {
             <div className="max-w-[230px]">
               <h4 className="text-cream/50 text-xs font-semibold tracking-widest uppercase mb-4">{f.newsletter.heading}</h4>
               <p className="text-cream/60 text-sm leading-relaxed mb-3">{f.newsletter.text}</p>
-              <form className="flex border border-cream/30 rounded-sm overflow-hidden" onSubmit={(e) => e.preventDefault()}>
-                <input
-                  type="email"
-                  placeholder={f.newsletter.placeholder}
-                  className="flex-1 min-w-0 bg-transparent px-3 py-2.5 text-sm text-cream placeholder:text-cream/50 focus:outline-none"
-                />
-                <button type="submit" className="bg-cream text-ink px-4 py-2.5 text-xs font-semibold" aria-label={t.common.subscribe}>
-                  →
-                </button>
-              </form>
+              <NewsletterForm placeholder={f.newsletter.placeholder} subscribeLabel={t.common.subscribe} />
             </div>
           </div>
         </div>

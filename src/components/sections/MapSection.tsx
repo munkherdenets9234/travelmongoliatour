@@ -85,7 +85,7 @@ export default function MapSection({ tours }: { tours: MapTour[] }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Text */}
           <div>
-            <p className="text-olive/80 text-[10px] tracking-[0.3em] uppercase mb-6">{m.eyebrow}</p>
+            <p className="text-olive text-[10px] tracking-[0.3em] uppercase mb-6">{m.eyebrow}</p>
             <h2 className="text-ink text-4xl sm:text-5xl leading-tight mb-2">
               {m.title_line1}
               <br />
@@ -133,6 +133,7 @@ export default function MapSection({ tours }: { tours: MapTour[] }) {
                     key={dest.id}
                     style={{ left: `${dest.x}%`, top: `${dest.y}%` }}
                     className="absolute -translate-x-1/2 -translate-y-1/2 group"
+                    aria-label={`${dest.name} — ${dest.subtitle}`}
                     onMouseEnter={() => setHovered(dest)}
                     onMouseLeave={() => setHovered(null)}
                   >

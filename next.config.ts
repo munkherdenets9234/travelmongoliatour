@@ -12,6 +12,15 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "11mb",
     },
   },
+  async rewrites() {
+    return {
+      // Serves the default locale at "/" without an HTTP redirect round-trip
+      // (canonical tag on the [locale] pages still points search engines to "/en").
+      beforeFiles: [{ source: "/", destination: "/en" }],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
 };
 
 export default nextConfig;

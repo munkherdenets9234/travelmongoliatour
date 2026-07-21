@@ -74,6 +74,8 @@ export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
+  const t = getTranslation(locale)
+
   return (
     <html lang={locale} className={`${manrope.variable} ${cormorant.variable} scroll-smooth`}>
       <body className="antialiased bg-cream text-ink" style={{ fontFamily: 'var(--font-manrope)' }}>
@@ -83,7 +85,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         />
         <Header />
         <main>{children}</main>
-        <Footer />
+        <Footer t={t} locale={locale} />
       </body>
     </html>
   )
