@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Manrope, Cormorant_Garamond } from 'next/font/google'
+import Script from 'next/script'
 import { notFound } from 'next/navigation'
 import { isValidLocale, getTranslation, locales, siteUrl } from '@/lib/i18n'
 import { organizationSchema } from '@/lib/seo'
@@ -79,6 +80,18 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale} className={`${manrope.variable} ${cormorant.variable} scroll-smooth`}>
       <body className="antialiased bg-cream text-ink" style={{ fontFamily: 'var(--font-manrope)' }}>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-PBYNLSGTW7"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-PBYNLSGTW7');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
