@@ -196,6 +196,7 @@ export interface Translation {
       heading: string
       text: string
       placeholder: string
+      success: string
     }
     copyright: string
   }

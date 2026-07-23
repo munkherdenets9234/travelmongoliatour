@@ -220,7 +220,8 @@
     "newsletter": {
       "heading": "뉴스레터",
       "text": "초원에서 전하는 이야기, 일 년에 몇 차례.",
-      "placeholder": "이메일 주소"
+      "placeholder": "이메일 주소",
+      "success": "감사합니다 — 구독이 완료되었습니다!"
     },
     "copyright": "© 2026 E and S Discovery Mongolia. All rights reserved."
   },

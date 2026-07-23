@@ -70,7 +70,12 @@ export default function Footer({ t, locale }: { t: Translation; locale: Locale }
             <div className="max-w-[230px]">
               <h4 className="text-cream/50 text-xs font-semibold tracking-widest uppercase mb-4">{f.newsletter.heading}</h4>
               <p className="text-cream/60 text-sm leading-relaxed mb-3">{f.newsletter.text}</p>
-              <NewsletterForm placeholder={f.newsletter.placeholder} subscribeLabel={t.common.subscribe} />
+              <NewsletterForm
+                placeholder={f.newsletter.placeholder}
+                subscribeLabel={t.common.subscribe}
+                successMessage={f.newsletter.success}
+                errorMessage={t.common.error_generic}
+              />
             </div>
           </div>
         </div>

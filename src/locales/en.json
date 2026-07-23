@@ -220,7 +220,8 @@
     "newsletter": {
       "heading": "Newsletter",
       "text": "Stories from the steppe, a few times a year.",
-      "placeholder": "Email address"
+      "placeholder": "Email address",
+      "success": "Thanks — you're subscribed!"
     },
     "copyright": "© 2026 E and S Discovery Mongolia. All rights reserved."
   },
