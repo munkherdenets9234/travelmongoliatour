@@ -19,8 +19,8 @@ export function organizationSchema() {
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+976-7000-0000',
-      email: 'hello@esdiscovery.mn',
+      telephone: '+976-9400-6739',
+      email: 'info@travel-mongolia-tour.com',
       contactType: 'customer service',
     },
   }

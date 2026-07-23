@@ -513,6 +513,7 @@
     "offices": [
       { "title": "전화" },
       { "title": "이메일" },
+      { "title": "WhatsApp" },
       { "title": "방문" }
     ],
     "map_title": "E and S Discovery Mongolia 사무실 위치"

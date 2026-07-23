@@ -4,8 +4,8 @@ import { isValidLocale, getTranslation } from '@/lib/i18n'
 import ContactForm from '@/components/forms/ContactForm'
 
 const OFFICE_ADDRESS = 'Seoul Street, Ulaanbaatar, Mongolia'
-const OFFICE_ICONS = ['☎', '✉', '◎']
-const OFFICE_VALUES = ['+976 7000 0000', 'hello@esdiscovery.mn', 'Seoul St, Ulaanbaatar']
+const OFFICE_ICONS = ['☎', '✉', '💬', '◎']
+const OFFICE_VALUES = ['+976 9400 6739', 'info@travel-mongolia-tour.com', '+976-9400-6739', 'Seoul St, Ulaanbaatar']
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -42,7 +42,7 @@ export default async function ContactPage({ params }: Props) {
         <ContactForm />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-[820px] mx-auto px-6 py-9">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-[980px] mx-auto px-6 py-9">
         {offices.map((o) => (
           <div key={o.title} className="bg-white border border-tan rounded-md p-6 text-center">
             <div className="w-11 h-11 rounded-full border border-olive text-olive flex items-center justify-center mx-auto mb-3.5">{o.icon}</div>
