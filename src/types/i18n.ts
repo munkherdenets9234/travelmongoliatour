@@ -220,6 +220,7 @@ export interface Translation {
     see_open_departures: string
     free_cancellation: string
     whats_included: string
+    whats_not_included: string
     you_may_also_like: string
     view_all_tours: string
     best_season_label: string

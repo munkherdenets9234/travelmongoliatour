@@ -75,6 +75,7 @@ export interface Tour {
   }
   itinerary: TourItinerary[]
   inclusions: TourInclusion[]
+  exclusions: string[]
   guide: { name: string; note: string }
   departures: { date: string; available: boolean }[]
 }
@@ -172,6 +173,7 @@ function mapDestinationToTour(d: Destination): Tour {
       meals: day.meals ?? [],
     })),
     inclusions: (d.inclusions ?? []).map((title) => ({ title, description: '' })),
+    exclusions: d.exclusions ?? [],
     guide: { name: 'Your local guide', note: 'Assigned on booking' },
     departures: (d.departures ?? []).map((dep) => ({ date: dep.start_date.slice(0, 10), available: dep.available })),
   }

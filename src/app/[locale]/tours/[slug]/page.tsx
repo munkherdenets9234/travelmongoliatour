@@ -210,6 +210,22 @@ export default async function TourDetailPage({ params }: Props) {
         </div>
       </div>
 
+      {/* EXCLUSIONS */}
+      {tour.exclusions.length > 0 && (
+        <div className="container mx-auto px-6 sm:px-14 pb-10">
+          <div className="h-px bg-border mb-7" />
+          <div className="font-display text-3xl mb-5">{td.whats_not_included}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {tour.exclusions.map((item, i) => (
+              <div key={i} className="flex items-start gap-3">
+                <span className="text-warm-gray mt-0.5">✕</span>
+                <span className="text-sm text-muted">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* RELATED */}
       <div className="container mx-auto px-6 sm:px-14 pb-12">
         <div className="flex items-baseline justify-between mb-5">
