@@ -53,6 +53,7 @@ export interface ChipLabel {
 export interface StatItem {
   value: string
   label: string
+  key?: string
 }
 
 export interface ValueItem {
@@ -335,6 +336,7 @@ export interface Translation {
     meta_title: string
     meta_description: string
     since_label: string
+    since_year: number
     heading_prefix: string
     heading_italic: string
     body1: string

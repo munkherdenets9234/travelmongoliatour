@@ -365,17 +365,18 @@
   },
   "about": {
     "meta_title": "회사 소개 — 초원에서 태어난 현지 팀 — E & S 디스커버리 몽골",
-    "meta_description": "2009년부터 몽골인이 소유하고 운영 — 40명의 가이드, 운전기사, 여행 기획자로 구성된 팀.",
-    "since_label": "2009년부터",
+    "meta_description": "2017년부터 몽골인이 소유하고 운영 — 40명의 가이드, 운전기사, 여행 기획자로 구성된 팀.",
+    "since_label": "2017년부터",
+    "since_year": 2017,
     "heading_prefix": "초원에서 태어난",
     "heading_italic": "현지 팀",
     "body1": "저희는 랜드크루저 한 대와 몽골을 가장 잘 경험하는 방법은 그곳에 사는 사람들과 함께하는 것이라는 믿음으로 시작했습니다. 15년이 지난 지금, 저희는 40명의 가이드, 운전기사, 여행 기획자로 이루어진 팀입니다 — 모두 몽골에서 태어났고, 여전히 지평선을 조금은 사랑하는 사람들입니다.",
     "body2": "저희가 기획하는 모든 여행은 오랫동안 함께해 온 유목민 가족과 캠프를 지원합니다.",
     "stats": [
-      { "value": "15+", "label": "년간의 가이드 경험" },
-      { "value": "8,000+", "label": "명의 여행자" },
-      { "value": "40", "label": "명의 현지 가이드" },
-      { "value": "4.9★", "label": "평균 평점" }
+      { "key": "years_guiding", "value": "15+", "label": "년간의 가이드 경험" },
+      { "key": "travellers_hosted", "value": "8,000+", "label": "명의 여행자" },
+      { "key": "local_guides", "value": "40", "label": "명의 현지 가이드" },
+      { "key": "average_rating", "value": "4.9★", "label": "평균 평점" }
     ],
     "beliefs_eyebrow": "저희의 신념",
     "beliefs_heading": "여행하는 방식",

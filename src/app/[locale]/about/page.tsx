@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { getAllReviews } from '@/lib/data/reviews'
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -23,6 +24,16 @@ export default async function AboutPage({ params }: Props) {
   if (!isValidLocale(locale)) notFound()
   const t = getTranslation(locale).about
 
+  const reviews = await getAllReviews(locale)
+  const averageRating = reviews.length > 0 ? reviews.reduce((sum, r) => sum + r.star, 0) / reviews.length : null
+  const yearsGuiding = new Date().getFullYear() - t.since_year
+
+  const stats = t.stats.map((s) => {
+    if (s.key === 'years_guiding') return { ...s, value: `${yearsGuiding}+` }
+    if (s.key === 'average_rating' && averageRating !== null) return { ...s, value: `${averageRating.toFixed(1)}★` }
+    return s
+  })
+
   return (
     <>
       {/* STORY HERO */}
@@ -42,7 +53,7 @@ export default async function AboutPage({ params }: Props) {
 
       {/* STATS */}
       <div className="bg-ink text-cream container mx-auto px-6 sm:px-14 py-11 flex flex-wrap gap-8 justify-between">
-        {t.stats.map((s) => (
+        {stats.map((s) => (
           <div key={s.label} className="text-center flex-1 min-w-[120px]">
             <div className="font-display text-4xl text-gold">{s.value}</div>
             <div className="text-xs font-medium tracking-widest uppercase text-cream/70 mt-1">{s.label}</div>

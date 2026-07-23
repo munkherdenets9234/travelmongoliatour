@@ -365,17 +365,18 @@
   },
   "about": {
     "meta_title": "About Us — A Local Team Born on the Steppe — E & S Discovery Mongolia",
-    "meta_description": "Mongolian-owned and staffed since 2009 — a team of forty guides, drivers and travel designers.",
-    "since_label": "Since 2009",
+    "meta_description": "Mongolian-owned and staffed since 2017 — a team of forty guides, drivers and travel designers.",
+    "since_label": "Since 2017",
+    "since_year": 2017,
     "heading_prefix": "A local team,",
     "heading_italic": "born on the steppe",
     "body1": "We started with one Land Cruiser and a belief that the best way to see Mongolia is with the people who call it home. Fifteen years later we're a team of forty guides, drivers and travel designers — all Mongolian-born, all still a little in love with the horizon.",
     "body2": "Every journey we build supports the herder families and camps we've worked with for years.",
     "stats": [
-      { "value": "15+", "label": "Years guiding" },
-      { "value": "8,000+", "label": "Travellers hosted" },
-      { "value": "40", "label": "Local guides" },
-      { "value": "4.9★", "label": "Average rating" }
+      { "key": "years_guiding", "value": "15+", "label": "Years guiding" },
+      { "key": "travellers_hosted", "value": "8,000+", "label": "Travellers hosted" },
+      { "key": "local_guides", "value": "40", "label": "Local guides" },
+      { "key": "average_rating", "value": "4.9★", "label": "Average rating" }
     ],
     "beliefs_eyebrow": "What we believe",
     "beliefs_heading": "How we travel",
