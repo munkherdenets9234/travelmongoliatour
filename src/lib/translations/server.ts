@@ -6,6 +6,9 @@ import type { Locale, Translation } from '@/types/i18n'
 import { mergeOverrides } from './merge.mjs'
 
 const LOG_INTERVAL_MS = 60_000
+// Every page render depends on this call; if the backend accepts the connection
+// and hangs, fall back to the shipped wording quickly instead of blocking.
+const FETCH_TIMEOUT_MS = 2000
 const lastLogged = new Map<string, number>()
 
 function logOnce(locale: Locale, err: unknown) {
@@ -19,7 +22,7 @@ function logOnce(locale: Locale, err: unknown) {
 export async function getTranslation(locale: Locale): Promise<Translation> {
   const shipped = shippedTranslation(locale)
   try {
-    const { data } = await apiGet<Record<string, Record<string, unknown>>>('/translations', { lang: locale })
+    const { data } = await apiGet<Record<string, Record<string, unknown>>>('/translations', { lang: locale }, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) })
     return mergeOverrides(shipped, data ?? {})
   } catch (err) {
     logOnce(locale, err)

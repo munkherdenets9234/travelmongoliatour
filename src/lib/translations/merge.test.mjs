@@ -75,6 +75,14 @@ test('keeps risky text as a plain string', () => {
   assert.equal(typeof out.hero.title, 'string')
 })
 
+test('ignores prototype-pollution keys', () => {
+  const overrides = JSON.parse('{"__proto__":{"polluted":"y"},"hero":{"__proto__":"x","constructor":"y","prototype":"z"}}')
+  const out = mergeOverrides(shipped(), overrides)
+  assert.equal(Object.prototype.polluted, undefined)
+  assert.equal({}.polluted, undefined)
+  assert.deepEqual(out, shipped())
+})
+
 test('flattenTranslation keeps arrays as single leaves and paths relative to the page', () => {
   const flat = flattenTranslation(shipped())
   assert.deepEqual(flat, {
