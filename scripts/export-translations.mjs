@@ -15,7 +15,7 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { flattenTranslation } from '../src/lib/translations/merge.mjs'
-import { pushPages, tooLarge } from '../src/lib/translations/push.mjs'
+import { filterEntries, pushPages, tooLarge } from '../src/lib/translations/push.mjs'
 
 const rootDir = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
 const LOCALES = ['en', 'mn', 'ko']
@@ -44,6 +44,8 @@ async function loadEnvFile(file) {
 }
 
 const isObject = (v) => v !== null && typeof v === 'object' && !Array.isArray(v)
+
+let skippedEntries = 0
 
 async function buildPages() {
   const raw = {}
@@ -82,6 +84,15 @@ async function buildPages() {
       }
       entries.push({ path: p, values })
     }
+    const valid = filterEntries(page, entries, (note) => {
+      skippedEntries++
+      console.error(note)
+    })
+    if (valid.length === 0) {
+      console.error(`skip page "${page}": no storable entries`)
+      continue
+    }
+    entries.splice(0, entries.length, ...valid)
     const big = tooLarge(entries)
     if (big) {
       console.error(`skip page "${page}": ${big}`)
@@ -130,11 +141,11 @@ if (push) {
 
 if (dryRun) {
   console.log(
-    `Dry run: ${total} pages, would import ${counts.wouldImport}, would skip ${counts.skipped}, too large ${counts.tooLarge}, failed ${counts.failed}`,
+    `Dry run: ${total} pages, would import ${counts.wouldImport}, would skip ${counts.skipped}, too large ${counts.tooLarge}, failed ${counts.failed}, skipped entries ${skippedEntries}`,
   )
 } else {
   console.log(
-    `Summary: ${total} pages, imported ${counts.imported}, skipped ${counts.skipped}, too large ${counts.tooLarge}, failed ${counts.failed}`,
+    `Summary: ${total} pages, imported ${counts.imported}, skipped ${counts.skipped}, too large ${counts.tooLarge}, failed ${counts.failed}, skipped entries ${skippedEntries}`,
   )
 }
 process.exit(counts.failed > 0 ? 1 : 0)

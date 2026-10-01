@@ -5,6 +5,46 @@
 export const MAX_ENTRIES = 1000
 export const MAX_BODY_BYTES = 512 * 1024
 
+const MAX_STRING = 5000
+const MAX_ITEMS = 100
+const MAX_KEYS = 20
+const KEY_RE = /^[A-Za-z0-9_-]{1,64}$/
+
+// Mirrors the server's value rule. Returns null when storable, else a reason.
+export function validateValue(value) {
+  if (typeof value === 'string') return value.length <= MAX_STRING ? null : `string longer than ${MAX_STRING} characters`
+  if (!Array.isArray(value)) return 'value is not a string or an array'
+  if (value.length > MAX_ITEMS) return `array has more than ${MAX_ITEMS} items`
+  if (value.every((i) => typeof i === 'string')) {
+    return value.every((i) => i.length <= MAX_STRING) ? null : `array item longer than ${MAX_STRING} characters`
+  }
+  for (const item of value) {
+    if (item === null || typeof item !== 'object' || Array.isArray(item)) return 'array mixes strings with other items'
+    const keys = Object.keys(item)
+    if (keys.length > MAX_KEYS) return `array object has more than ${MAX_KEYS} fields`
+    for (const k of keys) {
+      if (!KEY_RE.test(k)) return 'array object has an invalid field name'
+      if (typeof item[k] !== 'string') return 'array object has a non-string field'
+      if (item[k].length > MAX_STRING) return `array object field longer than ${MAX_STRING} characters`
+    }
+  }
+  return null
+}
+
+// Drops any entry that fails validation in any language (never a partial entry).
+export function filterEntries(page, entries, onSkip) {
+  return entries.filter((entry) => {
+    for (const [lang, value] of Object.entries(entry.values)) {
+      const reason = validateValue(value)
+      if (reason) {
+        onSkip(`skipped ${page}.${entry.path}: ${reason} (${lang})`)
+        return false
+      }
+    }
+    return true
+  })
+}
+
 const noun = (n) => `${n} ${n === 1 ? 'entry' : 'entries'}`
 
 export function tooLarge(entries) {
