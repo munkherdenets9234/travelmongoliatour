@@ -3,7 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getArticleBySlug, getRelatedArticles } from '@/lib/data/journal'
-import { isValidLocale, getTranslation, intlLocale } from '@/lib/i18n'
+import { isValidLocale, intlLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import ArticleCard from '@/components/ui/ArticleCard'
 
 interface Props {
@@ -31,7 +32,7 @@ export default async function JournalPostPage({ params }: Props) {
   const article = await getArticleBySlug(slug, locale)
   if (!article) notFound()
   const related = await getRelatedArticles(slug, locale)
-  const t = getTranslation(locale)
+  const t = await getTranslation(locale)
   const jd = t.journalDetail
 
   return (

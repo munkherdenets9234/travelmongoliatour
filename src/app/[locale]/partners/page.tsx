@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import { getAllPartners } from '@/lib/data/partners'
 
 interface Props {
@@ -23,7 +24,7 @@ export default async function PartnersIndexPage({ params }: Props) {
   if (!isValidLocale(locale)) notFound()
 
   const partners = await getAllPartners(locale)
-  const t = getTranslation(locale)
+  const t = await getTranslation(locale)
   const p = t.partners
 
   return (

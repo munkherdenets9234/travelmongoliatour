@@ -2,10 +2,12 @@ import type { Metadata } from 'next'
 import { Manrope, Cormorant_Garamond } from 'next/font/google'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
-import { isValidLocale, getTranslation, locales, siteUrl } from '@/lib/i18n'
+import { isValidLocale, locales, siteUrl } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import { organizationSchema } from '@/lib/seo'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import TranslationProvider from '@/components/TranslationProvider'
 import '../globals.css'
 
 const manrope = Manrope({
@@ -36,7 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   if (!isValidLocale(locale)) return {}
 
-  const { meta } = getTranslation(locale)
+  const { meta } = await getTranslation(locale)
   const path = locale === 'en' ? '/en' : `/${locale}`
 
   return {
@@ -75,7 +77,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const t = getTranslation(locale)
+  const t = await getTranslation(locale)
 
   return (
     <html lang={locale} className={`${manrope.variable} ${cormorant.variable} scroll-smooth`}>
@@ -96,9 +98,11 @@ export default async function LocaleLayout({ children, params }: Props) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
         />
-        <Header />
-        <main>{children}</main>
-        <Footer t={t} locale={locale} />
+        <TranslationProvider value={t}>
+          <Header />
+          <main>{children}</main>
+          <Footer t={t} locale={locale} />
+        </TranslationProvider>
       </body>
     </html>
   )

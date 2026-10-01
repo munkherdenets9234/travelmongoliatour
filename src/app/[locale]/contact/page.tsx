@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import ContactForm from '@/components/forms/ContactForm'
 
 const OFFICE_ADDRESS = 'Seoul Street, Ulaanbaatar, Mongolia'
@@ -14,7 +15,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   if (!isValidLocale(locale)) return {}
-  const t = getTranslation(locale).contact
+  const t = (await getTranslation(locale)).contact
   return {
     title: t.meta_title,
     description: t.meta_description,
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ContactPage({ params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
-  const t = getTranslation(locale).contact
+  const t = (await getTranslation(locale)).contact
   const offices = t.offices.map((o, i) => ({ icon: OFFICE_ICONS[i], value: OFFICE_VALUES[i], title: o.title }))
 
   return (

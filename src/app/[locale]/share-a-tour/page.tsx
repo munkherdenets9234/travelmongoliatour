@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import { getDepartureWithTour } from '@/lib/data/departures'
 import DepartureCalendar from '@/components/tours/DepartureCalendar'
 
@@ -11,7 +12,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   if (!isValidLocale(locale)) return {}
-  const t = getTranslation(locale).shareATour
+  const t = (await getTranslation(locale)).shareATour
   return {
     title: t.meta_title,
     description: t.meta_description,

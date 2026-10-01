@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import { getArticles } from '@/lib/data/journal'
 import ArticleCard from '@/components/ui/ArticleCard'
 import FilterChips from '@/components/ui/FilterChips'
@@ -15,7 +16,8 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   if (!isValidLocale(locale)) return {}
-  const t = getTranslation(locale).journalPage
+  const tr = await getTranslation(locale)
+  const t = tr.journalPage
   return {
     title: t.meta_title,
     description: t.meta_description,
@@ -33,7 +35,8 @@ export default async function JournalPage({ params, searchParams }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
   const sp = await searchParams
-  const t = getTranslation(locale).journalPage
+  const tr = await getTranslation(locale)
+  const t = tr.journalPage
 
   const category = one(sp.category) ?? 'all'
   const page = sp.page ? Number(one(sp.page)) : 1
@@ -84,7 +87,7 @@ export default async function JournalPage({ params, searchParams }: Props) {
               <p className="text-sm text-cream/70 leading-relaxed mt-4">{featured.excerpt}</p>
               <div className="flex items-center gap-4 mt-6">
                 <span className="bg-cream text-ink rounded-sm px-6 py-3 text-xs font-semibold tracking-widest uppercase">{t.read_article}</span>
-                <span className="text-xs text-cream/60">{featured.readTime} {getTranslation(locale).journal.read_label}</span>
+                <span className="text-xs text-cream/60">{featured.readTime} {tr.journal.read_label}</span>
               </div>
             </div>
           </Link>
@@ -94,7 +97,7 @@ export default async function JournalPage({ params, searchParams }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 container mx-auto px-6 sm:px-14 pt-9 pb-5">
         {items.map((a) => (
           <Link key={a.slug} href={`/${locale}/journal/${a.slug}`}>
-            <ArticleCard item={{ id: a.slug, category: a.category, title: a.title, read_time: a.readTime, image: a.image }} readLabel={getTranslation(locale).journal.read_label} />
+            <ArticleCard item={{ id: a.slug, category: a.category, title: a.title, read_time: a.readTime, image: a.image }} readLabel={tr.journal.read_label} />
           </Link>
         ))}
       </div>

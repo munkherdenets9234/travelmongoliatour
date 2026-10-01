@@ -23,7 +23,7 @@ export function intlLocale(locale: string): string {
   return INTL_LOCALES[locale as Locale] ?? INTL_LOCALES[defaultLocale]
 }
 
-export function getTranslation(locale: Locale): Translation {
+export function shippedTranslation(locale: Locale): Translation {
   return translations[locale] ?? translations[defaultLocale]
 }
 

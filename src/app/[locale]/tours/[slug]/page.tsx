@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getTourBySlug, getRelatedTours } from '@/lib/data/tours'
-import { isValidLocale, siteUrl, getTranslation } from '@/lib/i18n'
+import { isValidLocale, siteUrl } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import { tourSchema, breadcrumbSchema } from '@/lib/seo'
 import JourneyCard from '@/components/ui/JourneyCard'
 import TourGallery from '@/components/ui/TourGallery'
@@ -34,7 +35,7 @@ export default async function TourDetailPage({ params }: Props) {
   const tour = await getTourBySlug(slug, locale)
   if (!tour) notFound()
   const related = await getRelatedTours(slug, locale)
-  const t = getTranslation(locale)
+  const t = await getTranslation(locale)
   const td = t.tourDetail
 
   const goodToKnow = [

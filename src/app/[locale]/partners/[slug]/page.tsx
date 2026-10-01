@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import { getAllPartners, getPartnerBySlug } from '@/lib/data/partners'
 import { getReviews } from '@/lib/data/reviews'
 import { getAllTours } from '@/lib/data/tours'
@@ -49,7 +50,7 @@ export default async function PartnerDetailPage({ params }: Props) {
   const tourTitleBySlug = new Map(tours.map((tr) => [tr.slug, tr.title]))
   const testimonial = testimonials.items[0]
 
-  const t = getTranslation(locale)
+  const t = await getTranslation(locale)
   const d = t.partnerDetail
 
   return (
