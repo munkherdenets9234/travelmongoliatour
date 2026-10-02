@@ -54,10 +54,17 @@ export function tooLarge(entries) {
   return null
 }
 
-export async function pushPages({ pages, fetchImpl, baseUrl, headers, dryRun = false, log = console.log }) {
-  const counts = { imported: 0, skipped: 0, tooLarge: 0, failed: 0, wouldImport: 0 }
+// Deep copy of a JSON-shaped value, so a copy can never alias the original.
+export const clone = (v) => JSON.parse(JSON.stringify(v))
 
-  const call = async (method, apiPath, body) => {
+// Default import: every entry carries base = a deep copy of values.
+export function withBase(entries) {
+  return entries.map((e) => ({ ...e, base: clone(e.values) }))
+}
+
+// Shared by pushPages and syncPages. Never put headers in a message.
+export function createCall({ fetchImpl, baseUrl, headers }) {
+  return async (method, apiPath, body) => {
     const res = await fetchImpl(`${baseUrl}${apiPath}`, {
       method,
       headers: { 'Content-Type': 'application/json', ...headers },
@@ -71,6 +78,26 @@ export async function pushPages({ pages, fetchImpl, baseUrl, headers, dryRun = f
     }
     return { ok: res.ok, status: res.status, json }
   }
+}
+
+// Strict read of a page's stored entries: 2xx, JSON, success === true and an
+// array data.entries. Returns { entries } or { failure } (a log reason).
+export async function readEntries(call, page) {
+  try {
+    const got = await call('GET', `/admin/translations/${encodeURIComponent(page)}`)
+    if (!got.ok) return { failure: `GET returned ${got.status}` }
+    if (got.json?.success !== true || !Array.isArray(got.json.data?.entries)) {
+      return { failure: 'GET returned an unexpected response; not writing' }
+    }
+    return { entries: got.json.data.entries }
+  } catch (err) {
+    return { failure: `GET ${err.code ?? err.name}` }
+  }
+}
+
+export async function pushPages({ pages, fetchImpl, baseUrl, headers, dryRun = false, log = console.log }) {
+  const counts = { imported: 0, skipped: 0, tooLarge: 0, failed: 0, wouldImport: 0 }
+  const call = createCall({ fetchImpl, baseUrl, headers })
 
   for (const [page, entries] of Object.entries(pages)) {
     const big = tooLarge(entries)
@@ -80,25 +107,13 @@ export async function pushPages({ pages, fetchImpl, baseUrl, headers, dryRun = f
       continue
     }
 
-    let existing
-    try {
-      const got = await call('GET', `/admin/translations/${encodeURIComponent(page)}`)
-      if (!got.ok) {
-        log(`${page}: failed (GET returned ${got.status})`)
-        counts.failed++
-        continue
-      }
-      if (got.json?.success !== true || !Array.isArray(got.json.data?.entries)) {
-        log(`${page}: failed (GET returned an unexpected response; not writing)`)
-        counts.failed++
-        continue
-      }
-      existing = got.json.data.entries
-    } catch (err) {
-      log(`${page}: failed (GET ${err.code ?? err.name})`)
+    const read = await readEntries(call, page)
+    if (read.failure) {
+      log(`${page}: failed (${read.failure})`)
       counts.failed++
       continue
     }
+    const existing = read.entries
 
     if (existing.length > 0) {
       log(dryRun ? `would skip ${page} (already has ${noun(existing.length)})` : `${page}: skipped (already has entries)`)

@@ -2,10 +2,19 @@
 // Exports the shipped site wording (src/locales/{en,mn,ko}.json) per page, and
 // optionally imports it into the DigitalService admin translations store.
 //
-//   node scripts/export-translations.mjs             print { page: [{ path, values }] } JSON
+//   node scripts/export-translations.mjs             print { page: [{ path, values, base }] } JSON
 //   node scripts/export-translations.mjs --dry-run   print per-page import decisions (no network)
 //   node scripts/export-translations.mjs --push      import pages that have no entries yet
 //   node scripts/export-translations.mjs --push --dry-run   same decisions, reads state, writes nothing
+//   node scripts/export-translations.mjs --push --sync   migrate and refresh pages that already have entries
+//   node scripts/export-translations.mjs --push --sync --dry-run   same decisions, reads state, writes nothing
+//
+// Every imported entry carries base = the shipped wording at import time. --sync
+// needs --push: for each page it attaches a base to stored entries that have
+// none, refreshes values nobody edited to the current shipped wording, keeps
+// values a person edited (refreshing only their base), adds new paths, and
+// leaves stored paths that are no longer shipped alone. A page whose current
+// state cannot be read cleanly is never written.
 //
 // --push needs TENANT_API_KEY and ADMIN_TOKEN (and optionally API_BASE_URL) in the
 // environment or .env.local, exactly like scripts/seed-backend.mjs. A page that
@@ -15,7 +24,8 @@ import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { flattenTranslation } from '../src/lib/translations/merge.mjs'
-import { filterEntries, pushPages, tooLarge } from '../src/lib/translations/push.mjs'
+import { filterEntries, pushPages, tooLarge, withBase } from '../src/lib/translations/push.mjs'
+import { syncPages } from '../src/lib/translations/sync.mjs'
 
 const rootDir = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
 const LOCALES = ['en', 'mn', 'ko']
@@ -25,6 +35,12 @@ const PATH_RE = /^[A-Za-z0-9_.-]{1,200}$/
 const args = new Set(process.argv.slice(2))
 const push = args.has('--push')
 const dryRun = args.has('--dry-run')
+const sync = args.has('--sync')
+
+if (sync && !push) {
+  console.error('--sync needs --push')
+  process.exit(1)
+}
 
 async function loadEnvFile(file) {
   try {
@@ -92,7 +108,7 @@ async function buildPages() {
       console.error(`skip page "${page}": no storable entries`)
       continue
     }
-    entries.splice(0, entries.length, ...valid)
+    entries.splice(0, entries.length, ...withBase(valid))
     const big = tooLarge(entries)
     if (big) {
       console.error(`skip page "${page}": ${big}`)
@@ -129,7 +145,9 @@ if (push) {
 
 const total = Object.keys(pages).length
 let counts
-if (push) {
+if (push && sync) {
+  counts = await syncPages({ pages, fetchImpl, baseUrl, headers, dryRun })
+} else if (push) {
   counts = await pushPages({ pages, fetchImpl, baseUrl, headers, dryRun })
 } else {
   counts = { imported: 0, skipped: 0, tooLarge: 0, failed: 0, wouldImport: 0 }
@@ -139,7 +157,14 @@ if (push) {
   }
 }
 
-if (dryRun) {
+if (sync) {
+  const tail = `too large ${counts.tooLarge}, failed ${counts.failed}, skipped entries ${skippedEntries}`
+  console.log(
+    dryRun
+      ? `Dry run: ${total} pages, would sync ${counts.wouldSync}, unchanged ${counts.unchanged}, ${tail}`
+      : `Summary: ${total} pages, created ${counts.created}, synced ${counts.synced}, unchanged ${counts.unchanged}, skipped ${counts.skipped}, ${tail}`,
+  )
+} else if (dryRun) {
   console.log(
     `Dry run: ${total} pages, would import ${counts.wouldImport}, would skip ${counts.skipped}, too large ${counts.tooLarge}, failed ${counts.failed}, skipped entries ${skippedEntries}`,
   )
