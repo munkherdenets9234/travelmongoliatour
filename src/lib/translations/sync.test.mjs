@@ -130,7 +130,7 @@ test('planSync does not mutate inputs and does not alias them', () => {
   assert.deepEqual(shipped, h0)
 })
 
-function harness(getResponses, { dryRun = false, putOk = true } = {}) {
+function harness(getResponses, { dryRun = false, putOk = true, putResponse = null } = {}) {
   const calls = []
   const bodies = []
   let gets = 0
@@ -142,7 +142,8 @@ function harness(getResponses, { dryRun = false, putOk = true } = {}) {
       return r
     }
     bodies.push(JSON.parse(init.body))
-    return putOk ? json({ success: true, data: {} }) : json({ success: false }, 500)
+    if (putResponse) return putResponse(init)
+    return putOk ? json({ success: true, data: { saved: true, entries: bodies.at(-1).entries.length } }) : json({ success: false }, 500)
   }
   const lines = []
   return (pages) =>
@@ -179,7 +180,7 @@ test('syncPages dry-run makes no PUT and counts changes', async () => {
   const r = await harness([ok([{ path: 'title', values: { en: 'old' }, base: { en: 'old' } }])], { dryRun: true })(shipped)
   assert.equal(r.counts.wouldSync, 1)
   assert.deepEqual(r.calls, ['GET'])
-  assert.deepEqual(r.lines, ['would sync hero (1 changes)'])
+  assert.deepEqual(r.lines, ['would sync hero (1 change)'])
 })
 
 test('syncPages creates a page that has no stored entries with base set', async () => {
@@ -249,4 +250,116 @@ test('syncPages skips a merged list that is too large', async () => {
   const r = await harness([ok([{ path: 'a', values: { en: 'x' } }])])({ hero: big })
   assert.equal(r.counts.tooLarge, 1)
   assert.deepEqual(r.calls, ['GET'])
+})
+
+const oldStored = [{ path: 'title', values: { en: 'old' }, base: { en: 'old' } }]
+
+test('syncPages fails when the PUT is 200 with success:false even if the re-read count matches', async () => {
+  const r = await harness([ok(oldStored), ok(oldStored)], { putResponse: () => json({ success: false }) })(shipped)
+  assert.equal(r.counts.failed, 1)
+  assert.equal(r.counts.synced, 0)
+})
+
+test('syncPages fails when the PUT reports a different saved count', async () => {
+  const r = await harness([ok(oldStored), ok(oldStored)], {
+    putResponse: () => json({ success: true, data: { saved: true, entries: 7 } }),
+  })(shipped)
+  assert.equal(r.counts.failed, 1)
+  assert.deepEqual(r.calls, ['GET', 'PUT'])
+})
+
+test('syncPages fails the create path when the PUT response does not confirm', async () => {
+  const r = await harness([ok([]), ok(shipped.hero)], { putResponse: () => json({ success: false }) })(shipped)
+  assert.equal(r.counts.failed, 1)
+  assert.equal(r.counts.created, 0)
+})
+
+test('syncPages dry-run applies the size guard to the merged list', async () => {
+  const big = Array.from({ length: 1001 }, (_, i) => ({ path: `p${i}`, values: { en: 'x' }, base: { en: 'x' } }))
+  const r = await harness([ok(oldStored)], { dryRun: true })({ hero: big })
+  assert.equal(r.counts.tooLarge, 1)
+  assert.equal(r.counts.wouldSync, 0)
+  const c = await harness([ok([])], { dryRun: true })({ hero: big })
+  assert.equal(c.counts.tooLarge, 1)
+  assert.equal(c.counts.wouldCreate, 0)
+})
+
+test('syncPages dry-run on an empty page counts wouldCreate', async () => {
+  const r = await harness([ok([])], { dryRun: true })(shipped)
+  assert.equal(r.counts.wouldCreate, 1)
+  assert.equal(r.counts.wouldSync, 0)
+})
+
+test('planSync: an extra field and base:null on a stored-only entry give changed:false', () => {
+  const stored = [{ path: 'gone', values: { en: 'g' }, base: null, v: 1, flag: true }]
+  const r = planSync(stored, [])
+  assert.equal(r.changed, false)
+})
+
+test('planSync ignores blank shipped languages and a second pass is unchanged', () => {
+  const sh = [
+    { path: 'a', values: { en: 'x', mn: '   ', ko: [''] } },
+    { path: 'b', values: { en: '', mn: [{ t: ' ' }] } },
+  ]
+  const first = planSync([], sh)
+  assert.deepEqual(first.entries, [{ path: 'a', values: { en: 'x' }, base: { en: 'x' } }])
+  assert.equal(planSync(first.entries, sh).changed, false)
+  const stored = [{ path: 'a', values: { en: 'x' }, base: { en: 'x' } }]
+  assert.equal(planSync(stored, sh).changed, false)
+})
+
+test('planSync merges a repeated shipped path into one entry', () => {
+  const r = planSync([], [
+    { path: 'a', values: { en: 'x' } },
+    { path: 'a', values: { mn: 'y' } },
+  ])
+  assert.deepEqual(r.entries, [{ path: 'a', values: { en: 'x', mn: 'y' }, base: { en: 'x', mn: 'y' } }])
+  const stored = [{ path: 'a', values: { en: 'x' }, base: { en: 'x' } }]
+  const s = planSync(stored, [
+    { path: 'a', values: { mn: 'y' } },
+    { path: 'a', values: { ko: 'z' } },
+  ])
+  assert.deepEqual(s.entries[0], { path: 'a', values: { en: 'x' }, base: { en: 'x', mn: 'y', ko: 'z' } })
+})
+
+// A fake store: GET returns what the last PUT saved.
+function store(initial) {
+  let saved = initial
+  const calls = []
+  const fetchImpl = async (url, init) => {
+    calls.push(init.method)
+    if (init.method === 'PUT') {
+      saved = JSON.parse(init.body).entries
+      return json({ success: true, data: { saved: true, entries: saved.length } })
+    }
+    return ok(saved)
+  }
+  return {
+    calls,
+    run: (pages) => syncPages({ pages, fetchImpl, baseUrl: 'http://x', headers, log: () => {} }),
+  }
+}
+
+for (const [name, initial, ship] of [
+  ['refresh', [{ path: 'title', values: { en: 'old' }, base: { en: 'old' } }], { en: 'new' }],
+  ['edited', [{ path: 'title', values: { en: 'mine' }, base: { en: 'old' } }], { en: 'new' }],
+  ['new path', [{ path: 'other', values: { en: 'o' }, base: { en: 'o' } }], { en: 'new' }],
+  ['migration', [{ path: 'title', values: { en: 'mine' } }], { en: 'new' }],
+]) {
+  test(`syncPages is idempotent through the store: ${name}`, async () => {
+    const st = store(initial)
+    const pages = { hero: [{ path: 'title', values: ship, base: ship }] }
+    const first = await st.run(pages)
+    assert.equal(first.synced, 1)
+    st.calls.length = 0
+    const second = await st.run(pages)
+    assert.equal(second.unchanged, 1)
+    assert.deepEqual(st.calls, ['GET'])
+  })
+}
+
+test('syncPages fails the page when the re-GET throws', async () => {
+  const r = await harness([ok(oldStored), new Error('boom')])(shipped)
+  assert.equal(r.counts.failed, 1)
+  assert.match(r.lines.join(' '), /may already be applied/)
 })

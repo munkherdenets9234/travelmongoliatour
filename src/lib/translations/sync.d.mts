@@ -9,6 +9,7 @@ export type SyncCounts = {
   tooLarge: number
   failed: number
   wouldSync: number
+  wouldCreate: number
 }
 
 export function valuesEqual(a: unknown, b: unknown): boolean
