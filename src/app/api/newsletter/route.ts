@@ -1,18 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { apiPost } from '@/lib/api/client'
+import { guardPost, jsonError, upstreamFailure, cleanEmail, GENERIC_ERRORS } from '@/lib/api/guard'
 
 export async function POST(request: NextRequest) {
-  const body = await request.json().catch(() => null)
+  const g = await guardPost(request, 'newsletter', { success: true })
+  if (!g.ok) return g.response
 
-  if (!body || typeof body.email !== 'string' || !body.email) {
-    return NextResponse.json({ error: 'Missing required email field' }, { status: 400 })
-  }
+  const email = cleanEmail(g.body.email)
+  if (!email.ok) return jsonError(400, GENERIC_ERRORS.invalid)
 
   try {
     // Idempotent on the backend — resubmitting the same email is a no-op, not a duplicate error.
-    await apiPost('/newsletter', { email: body.email })
+    await apiPost('/newsletter', { email: email.value }, undefined, g.ip)
     return NextResponse.json({ success: true }, { status: 201 })
   } catch (err) {
-    return NextResponse.json({ error: err instanceof Error ? err.message : 'Subscription failed' }, { status: 502 })
+    return upstreamFailure('newsletter', err)
   }
 }

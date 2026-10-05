@@ -30,12 +30,14 @@ function apiKey() {
   return key
 }
 
-async function request<T>(path: string, init: RequestInit = {}, token?: string): Promise<{ data: T; meta?: ApiEnvelope<T>['meta'] }> {
+async function request<T>(path: string, init: RequestInit = {}, token?: string, visitorIp?: string): Promise<{ data: T; meta?: ApiEnvelope<T>['meta'] }> {
   const headers: Record<string, string> = {
     'X-API-Key': apiKey(),
     ...(init.headers as Record<string, string> | undefined),
   }
   if (token) headers['Authorization'] = `Bearer ${token}`
+  // The backend sees only this server as the caller; it honours this header for trusted callers only.
+  if (visitorIp && visitorIp !== 'unknown') headers['X-Visitor-IP'] = visitorIp
 
   const res = await fetch(`${baseUrl()}${path}`, { ...init, headers })
   const json = (await res.json().catch(() => null)) as ApiEnvelope<T> | null
@@ -68,8 +70,8 @@ export function apiGet<T>(
   return request<T>(`${path}${toQueryString(searchParams)}`, { ...init, method: 'GET', next: { revalidate: 300 } })
 }
 
-export function apiPost<T>(path: string, body: unknown, token?: string) {
-  return request<T>(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }, token)
+export function apiPost<T>(path: string, body: unknown, token?: string, visitorIp?: string) {
+  return request<T>(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }, token, visitorIp)
 }
 
 export function apiPut<T>(path: string, body: unknown, token?: string) {

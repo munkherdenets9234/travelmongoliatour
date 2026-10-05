@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { apiPost } from '@/lib/api/client'
+import {
+  guardPost, jsonError, upstreamFailure, fakeConfirmation, cleanString, cleanEmail, cleanDate, cleanChoice, cleanInt, GENERIC_ERRORS,
+} from '@/lib/api/guard'
 
 interface TransferResponse {
   id: string
@@ -14,32 +17,40 @@ function mapTier(tier: string): 'standard' | 'premium' | 'vip' {
 }
 
 export async function POST(request: NextRequest) {
-  const body = await request.json().catch(() => null)
+  const g = await guardPost(request, 'airport-transfers', { confirmationId: fakeConfirmation('AT') })
+  if (!g.ok) return g.response
+  const body = g.body
 
-  if (!body || !body.name || !body.email || !body.flightNumber) {
-    return NextResponse.json({ error: 'Missing required transfer fields' }, { status: 400 })
+  const name = cleanString(body.name, { min: 1, max: 100 })
+  const email = cleanEmail(body.email)
+  const flight = cleanString(body.flightNumber, { min: 2, max: 12 })
+  const tier = cleanChoice(body.tier, ['standard', 'meet-greet', 'vip'])
+  const arrival = cleanDate(body.arrivalDateTime)
+  const passengers = cleanInt(body.passengers ?? 1, { min: 1, max: 20 })
+  if (![name, email, flight, tier, arrival, passengers].every((f) => f.ok) || !/^[A-Za-z0-9 -]+$/.test(flight.value)) {
+    return jsonError(400, GENERIC_ERRORS.invalid)
   }
 
   try {
     const { data } = await apiPost<TransferResponse>('/airport-transfers', {
       customer: {
-        name: body.name,
-        email: body.email,
+        name: name.value,
+        email: email.value,
         phone: '',
         nationality: '',
         notes: '',
       },
       transfer: {
-        tier: mapTier(body.tier),
-        flight_number: body.flightNumber,
-        arrival_at: body.arrivalDateTime ? new Date(body.arrivalDateTime).toISOString() : new Date().toISOString(),
-        passengers: Number(body.passengers) || 1,
+        tier: mapTier(tier.value),
+        flight_number: flight.value,
+        arrival_at: arrival.value,
+        passengers: passengers.value,
         notes: '',
       },
-    })
+    }, undefined, g.ip)
 
-    return NextResponse.json({ confirmationId: data.confirmation_id, received: body }, { status: 201 })
+    return NextResponse.json({ confirmationId: data.confirmation_id }, { status: 201 })
   } catch (err) {
-    return NextResponse.json({ error: err instanceof Error ? err.message : 'Transfer request failed' }, { status: 502 })
+    return upstreamFailure('airport-transfers', err)
   }
 }
