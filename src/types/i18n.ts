@@ -82,7 +82,76 @@ export interface OfficeItem {
   title: string
 }
 
+export interface CareersT {
+  meta: { title: string; description: string }
+  nav: string
+  hero: { eyebrow: string; title: string; description: string }
+  opening: {
+    season_label: string
+    title: string
+    description: string
+    requirements_heading: string
+    requirements: string[]
+    apply: string
+  }
+  form: {
+    meta: { title: string; description: string }
+    title: string
+    intro: string
+    steps_label: string
+    step_of: string
+    yes: string
+    no: string
+    optional: string
+    choose: string
+    none: string
+    add_row: string
+    remove_row: string
+    sections: Record<'personal' | 'languages' | 'experience' | 'knowledge' | 'driving' | 'availability' | 'references' | 'uploads', string>
+    fields: Record<string, string>
+    placeholders: Record<string, string>
+    help: Record<string, string>
+    files: {
+      heading: string
+      choose: string
+      replace: string
+      remove: string
+      no_file: string
+      allowed_types: string
+      max_size: string
+      max_files: string
+      summary: string
+      required: string
+      private_note: string
+      hints: Record<string, string>
+    }
+  }
+  options: {
+    gender: Record<string, string>
+    language: Record<string, string>
+    levelMn: Record<string, string>
+    levelOther: Record<string, string>
+    region: Record<string, string>
+    tourType: Record<string, string>
+    tripLength: Record<string, string>
+    fileKind: Record<string, string>
+    month: Record<string, string>
+  }
+  errors: Record<string, string>
+  consent: {
+    label: string
+    notice: string
+    required_marker: string
+    submit: string
+    submitting: string
+    back: string
+    next: string
+    success: { heading: string; message: string; referenceLabel: string }
+  }
+}
+
 export interface Translation {
+  careers: CareersT
   meta: {
     title: string
     description: string

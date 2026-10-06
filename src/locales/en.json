@@ -553,5 +553,255 @@
   },
   "sectionNav": {
     "on_this_page": "On this page"
+  },
+  "careers": {
+    "meta": {
+      "title": "Careers | Guide recruitment | E and S Discovery Mongolia",
+      "description": "Join our team of guides. Apply for the Summer guide 2027 opening with E and S Discovery Mongolia."
+    },
+    "nav": "Careers",
+    "hero": {
+      "eyebrow": "Careers",
+      "title": "Guide the Mongolia you love",
+      "description": "We are looking for warm, reliable and well-travelled guides to lead small groups across Mongolia."
+    },
+    "opening": {
+      "season_label": "Season 2027",
+      "title": "Summer guide 2027",
+      "description": "Lead private and group journeys across Mongolia during the 2027 summer season.",
+      "requirements_heading": "Requirements",
+      "requirements": [
+        "Aged 18 or over",
+        "Fluent Mongolian and good English; other languages are an advantage",
+        "Good knowledge of Mongolia and its regions",
+        "Guiding or tourism experience is an advantage",
+        "Available for part or all of the summer season"
+      ],
+      "apply": "Apply now"
+    },
+    "form": {
+      "meta": {
+        "title": "Guide application | E and S Discovery Mongolia",
+        "description": "Apply to work as a guide with E and S Discovery Mongolia."
+      },
+      "title": "Guide application: Summer guide 2027",
+      "intro": "Please fill in all eight sections. It takes about 10 minutes. Fields marked * are required.",
+      "steps_label": "Application sections",
+      "step_of": "Step {current} of {total}",
+      "yes": "Yes",
+      "no": "No",
+      "optional": "optional",
+      "choose": "Choose",
+      "none": "Not spoken",
+      "add_row": "Add another",
+      "remove_row": "Remove",
+      "sections": {
+        "personal": "Personal information",
+        "languages": "Languages",
+        "experience": "Guiding experience",
+        "knowledge": "Knowledge of Mongolia",
+        "driving": "Driving skills",
+        "availability": "Availability",
+        "references": "Previous employers / references",
+        "uploads": "Upload"
+      },
+      "fields": {
+        "full_name": "Full name (surname, given name)",
+        "nickname": "English name / nickname",
+        "birth_date": "Date of birth",
+        "gender": "Gender",
+        "phone": "Phone number",
+        "email": "Email",
+        "address": "Home address",
+        "emergency_name": "Emergency contact person",
+        "emergency_phone": "Emergency contact phone",
+        "language": "Language",
+        "level": "Level",
+        "other_language_name": "Language name",
+        "years": "Years worked as a guide",
+        "previous_companies": "Companies you worked for before",
+        "tour_types": "Tour types",
+        "main_directions": "Directions you worked most",
+        "largest_group": "Largest group you have led (people)",
+        "regions": "Which regions do you know well?",
+        "regions_other": "Other regions",
+        "has_license": "Do you hold a driver license?",
+        "license_class": "License class",
+        "years_driving": "Years of driving",
+        "can_drive_4x4": "Can you drive a 4x4?",
+        "long_distance": "Long-distance driving experience",
+        "has_own_vehicle": "Do you own a vehicle?",
+        "vehicles": "Which vehicles can you drive?",
+        "months": "Months you are available",
+        "days": "Notes on available days",
+        "trip_lengths": "Days you can work (trip length)",
+        "full_season": "Can you work the whole season?",
+        "booked_trips": "Do you already have trips booked?",
+        "reference_name": "Name",
+        "reference_position": "Position",
+        "reference_contact": "Phone / email"
+      },
+      "placeholders": {
+        "full_name": "e.g. Bat-Erdene Dorj",
+        "nickname": "e.g. Eric",
+        "phone": "+976 9911 2233",
+        "email": "name@example.com",
+        "address": "District, city / aimag",
+        "emergency_name": "Full name and relationship",
+        "emergency_phone": "+976 ...",
+        "other_language_name": "e.g. German",
+        "previous_companies": "Company names, one per line",
+        "main_directions": "e.g. Gobi, Khuvsgul",
+        "license_class": "e.g. B, C",
+        "vehicles": "e.g. Land Cruiser, Hyundai Starex, UAZ",
+        "days": "e.g. weekends only, not available 10-20 July",
+        "booked_trips": "Dates and details of trips already booked, if any",
+        "reference_contact": "+976 ... or name@example.com"
+      },
+      "help": {
+        "full_name": "As written on your ID card.",
+        "birth_date": "You must be 18 or over.",
+        "languages": "Mongolian and English are required. Choose a level for each language you speak.",
+        "tour_types": "Select all that apply.",
+        "regions": "Select all that apply.",
+        "months": "Select every month you can work.",
+        "trip_lengths": "Select the trip lengths you are happy to lead.",
+        "references": "Up to 5 people or organisations we can ask about your work.",
+        "years": "Enter 0 if you are new to guiding.",
+        "driving": "Driving details are only needed if you hold a license."
+      },
+      "files": {
+        "heading": "Documents",
+        "choose": "Choose file",
+        "replace": "Replace file",
+        "remove": "Remove",
+        "no_file": "No file chosen",
+        "allowed_types": "JPG, PNG, PDF",
+        "max_size": "Max 10 MB per file",
+        "max_files": "Max 8 files in total",
+        "summary": "Allowed types: JPG, PNG, PDF. Max size 10 MB per file. Max 8 files.",
+        "required": "required",
+        "private_note": "Stored privately and seen only by recruiting staff.",
+        "hints": {
+          "photo": "A clear, recent head-and-shoulders photo.",
+          "id_card": "Front and back on one page or image. Stored privately and seen only by recruiting staff.",
+          "driver_license": "Front and back on one page or image. Stored privately and seen only by recruiting staff.",
+          "guide_certificate": "Guide or training certificates. Up to 3 files.",
+          "cv": "Your current CV. Required.",
+          "first_aid": "If you have one."
+        }
+      }
+    },
+    "options": {
+      "gender": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other",
+        "undisclosed": "Prefer not to say"
+      },
+      "language": {
+        "mn": "Mongolian",
+        "en": "English",
+        "ko": "Korean",
+        "zh": "Chinese",
+        "ja": "Japanese",
+        "ru": "Russian",
+        "fr": "French",
+        "es": "Spanish",
+        "other": "Other"
+      },
+      "levelMn": {
+        "native": "Native",
+        "good": "Good",
+        "intermediate": "Intermediate"
+      },
+      "levelOther": {
+        "native": "Native",
+        "fluent": "Fluent",
+        "intermediate": "Intermediate",
+        "basic": "Basic"
+      },
+      "region": {
+        "gobi": "Gobi",
+        "central": "Central Mongolia",
+        "khuvsgul": "Khuvsgul",
+        "western": "Western Mongolia",
+        "eastern": "Eastern Mongolia",
+        "ulaanbaatar_terelj": "Ulaanbaatar & Terelj",
+        "other": "Other"
+      },
+      "tourType": {
+        "private": "Private tour",
+        "group": "Group tour",
+        "vip": "VIP tour",
+        "adventure_4x4": "Adventure / 4x4",
+        "cultural": "Cultural tour",
+        "hiking_trekking": "Hiking / trekking",
+        "festival": "Festival tour",
+        "business_corporate": "Business / corporate tour"
+      },
+      "tripLength": {
+        "d1_3": "1-3 days",
+        "d4_7": "4-7 days",
+        "d8_14": "8-14 days",
+        "d15_plus": "15+ days"
+      },
+      "fileKind": {
+        "photo": "Portrait photo",
+        "id_card": "ID card",
+        "driver_license": "Driver license",
+        "guide_certificate": "Guide certificate / training certificate",
+        "cv": "CV",
+        "first_aid": "First Aid certificate (if any)"
+      },
+      "month": {
+        "1": "January",
+        "2": "February",
+        "3": "March",
+        "4": "April",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "August",
+        "9": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+      }
+    },
+    "errors": {
+      "required": "This field is required.",
+      "invalid_email": "Enter a valid email address.",
+      "invalid_phone": "Enter a valid phone number (7 to 15 digits).",
+      "under_18": "You must be at least 18 years old to apply.",
+      "invalid_choice": "Please check this value.",
+      "too_long": "This text is too long (max 2000 characters).",
+      "too_many": "Too many entries (max 5).",
+      "file_type": "Only JPG, PNG or PDF files are allowed.",
+      "file_size": "The file must be between 1 byte and 10 MB.",
+      "file_count": "You can upload at most 8 files.",
+      "duplicate_kind": "Only one file is allowed here (guide certificates: up to 3).",
+      "duplicate": "We already received an application with this email in the last 24 hours.",
+      "rate_limited": "Too many attempts. Please wait a few minutes and try again.",
+      "unavailable": "The application form is temporarily unavailable. Please try again later.",
+      "too_large": "Your files are too large to send together. Please reduce their size and try again.",
+      "generic": "Something went wrong. Please try again.",
+      "file_unreadable": "A document could not be read. Export it again as a valid PDF, JPG or PNG and re-upload it.",
+      "fix_errors": "Please fix the highlighted fields."
+    },
+    "consent": {
+      "label": "I confirm the information is true and I agree that E and S Discovery Mongolia may store and use it to assess my application.",
+      "notice": "ID card and driver license scans are stored privately, visible only to authorised recruiting staff, and used only for guide recruitment.",
+      "required_marker": "* required",
+      "submit": "Submit application",
+      "submitting": "Sending...",
+      "back": "Back",
+      "next": "Next",
+      "success": {
+        "heading": "Application received",
+        "message": "Thank you for applying. Our recruiting team will review your application and contact you if we would like to continue.",
+        "referenceLabel": "Reference:"
+      }
+    }
   }
 }
