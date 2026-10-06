@@ -13,7 +13,6 @@ export const MAX_NUMBER = 1000
 
 // Extension and declared type only; the server sniffs the bytes.
 export const ALLOWED_FILE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'pdf']
-export const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'application/pdf']
 
 export const FILE_KINDS = ['photo', 'id_card', 'driver_license', 'guide_certificate', 'cv', 'first_aid']
 export const FILE_KIND_LIMITS = { guide_certificate: 3 }

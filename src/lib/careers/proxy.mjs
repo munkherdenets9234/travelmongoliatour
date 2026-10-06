@@ -1,9 +1,9 @@
 // Pure helpers for the guide-application proxy route. No I/O, no logging.
 
-const FILE_KINDS = ['photo', 'id_card', 'driver_license', 'guide_certificate', 'cv', 'first_aid']
+import { FILE_KINDS, MAX_FILES } from './validate.mjs'
+
 const FILE_FIELD = new RegExp(`^file_(?:${FILE_KINDS.join('|')}|guide_certificate_[1-3])$`)
 const MAX_DATA_CHARS = 256 * 1024
-const MAX_FILES = 8
 
 // Unknown or malformed length is rejected: the proxy must not read a body it cannot bound.
 export function checkBodySize(contentLength, maxBytes) {

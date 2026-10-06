@@ -155,8 +155,8 @@ test('mapSubmitFailure decides by status', () => {
 })
 
 test('mapSubmitFailure routes 400/422 hints', () => {
-  assert.deepEqual(mapSubmitFailure(422, 'email'), { code: 'generic', field: 'personal.email' })
-  assert.deepEqual(mapSubmitFailure(400, 'consent_at'), { code: 'generic', field: 'consent' })
+  assert.deepEqual(mapSubmitFailure(422, 'email'), { code: 'invalid_choice', field: 'personal.email' })
+  assert.deepEqual(mapSubmitFailure(400, 'consent_at'), { code: 'invalid_choice', field: 'consent' })
   assert.deepEqual(mapSubmitFailure(422, 'files.cv'), { code: 'file_unreadable', field: 'files.cv' })
   assert.deepEqual(mapSubmitFailure(422), { code: 'generic', field: '' })
   assert.deepEqual(mapSubmitFailure(400, 42), { code: 'generic', field: '' })

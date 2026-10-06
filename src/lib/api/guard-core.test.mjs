@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import {
   cleanString, cleanEmail, cleanPhone, cleanChoice, cleanInt, cleanDate,
-  isHoneypotTripped, createRateLimiter, visitorIp, redactForLog,
+  isHoneypotTripped, createRateLimiter, visitorIp, redactForLog, fakeConfirmation,
 } from './guard-core.mjs'
 
 test('cleanString trims, bounds length, rejects non-strings and control chars', () => {
@@ -133,4 +133,15 @@ test('redactForLog hides emails, tokens and long numbers and truncates', () => {
   assert.ok(!out.includes('a@b.com') && !out.includes(token) && !out.includes('12345678'))
   assert.equal(redactForLog('x '.repeat(500)).length, 200)
   assert.equal(redactForLog(undefined), '')
+})
+
+test('fakeConfirmation looks like a real id: prefix plus 6 uppercase hex chars', () => {
+  const seen = new Set()
+  for (let i = 0; i < 50; i++) {
+    const id = fakeConfirmation('GA')
+    assert.match(id, /^GA-[0-9A-F]{6}$/)
+    seen.add(id)
+  }
+  assert.ok(seen.size > 1)
+  assert.match(fakeConfirmation('CT'), /^CT-[0-9A-F]{6}$/)
 })

@@ -148,7 +148,8 @@ export function mapSubmitFailure(status, fieldHint) {
   if (status === 409) return { code: 'duplicate', field: 'personal.email' }
   if (status === 400 || status === 422) {
     const field = normalizeServerField(fieldHint)
-    return { code: field.startsWith('files') ? 'file_unreadable' : 'generic', field }
+    if (!field) return { code: 'generic', field }
+    return { code: field.startsWith('files') ? 'file_unreadable' : 'invalid_choice', field }
   }
   if (status === 413) return { code: 'too_large', field: '' }
   if (status === 429) return { code: 'rate_limited', field: '' }

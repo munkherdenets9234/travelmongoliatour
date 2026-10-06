@@ -12,8 +12,10 @@ interface GuideApplicationResponse {
 // serverless bodies are capped near 4.5 MB, so this ceiling only matters when self-hosted.
 const MAX_BODY_BYTES = 8 * 10 * 1024 * 1024 + 1024 * 1024
 
-// Module-level, per server instance: 5 submissions per visitor, refilling over 10 minutes.
-const limiter = createRateLimiter({ capacity: 5, refillPerSec: 5 / 600 })
+// Module-level, per server instance: 10 submissions per visitor, refilling over 10 minutes.
+// The burst is generous because CGNAT mobile carriers put many visitors behind one IP.
+// Only requests that pass the cheap local checks (content type, size) consume a token.
+const limiter = createRateLimiter({ capacity: 10, refillPerSec: 10 / 600 })
 
 // Fixed codes only. Backend message text is never relayed; the form shows its own copy.
 const PASSTHROUGH: Record<number, string> = {
@@ -28,15 +30,15 @@ const PASSTHROUGH: Record<number, string> = {
 export async function POST(request: NextRequest) {
   const ip = getVisitorIp(request)
 
-  const rl = limiter.take(`guide-applications:${ip}`)
-  if (!rl.allowed) {
-    return jsonError(429, GENERIC_ERRORS.rateLimited, { 'Retry-After': String(rl.retryAfterSec) })
-  }
-
   const contentType = request.headers.get('content-type') ?? ''
   if (!contentType.toLowerCase().startsWith('multipart/form-data')) return jsonError(415, GENERIC_ERRORS.invalid)
 
   if (!checkBodySize(request.headers.get('content-length'), MAX_BODY_BYTES)) return jsonError(413, GENERIC_ERRORS.invalid)
+
+  const rl = limiter.take(`guide-applications:${ip}`)
+  if (!rl.allowed) {
+    return jsonError(429, GENERIC_ERRORS.rateLimited, { 'Retry-After': String(rl.retryAfterSec) })
+  }
 
   let incoming: FormData
   try {

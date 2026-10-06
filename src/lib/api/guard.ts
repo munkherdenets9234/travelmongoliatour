@@ -55,7 +55,3 @@ export function upstreamFailure(route: string, err: unknown) {
   }
   return jsonError(502, GENERIC_ERRORS.upstream)
 }
-
-export function fakeConfirmation(prefix: string) {
-  return `${prefix}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`
-}

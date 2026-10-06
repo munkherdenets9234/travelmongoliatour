@@ -5,7 +5,6 @@ export const MAX_REFERENCES: number
 export const MIN_AGE: number
 export const MAX_NUMBER: number
 export const ALLOWED_FILE_EXTENSIONS: readonly string[]
-export const ALLOWED_FILE_TYPES: readonly string[]
 export const FILE_KINDS: readonly string[]
 export const FILE_KIND_LIMITS: Readonly<Record<string, number>>
 export const GENDERS: readonly string[]

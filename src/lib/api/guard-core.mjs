@@ -107,6 +107,14 @@ export function visitorIp(getHeader) {
   return ipLike(real) ? real : 'unknown'
 }
 
+// Honeypot reply id. Real ids are `<prefix>-` plus the last 6 hex chars of a Mongo
+// ObjectID, uppercased, so the fake is 6 random uppercase hex chars to match.
+export function fakeConfirmation(prefix) {
+  const bytes = globalThis.crypto.getRandomValues(new Uint8Array(3))
+  const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('').toUpperCase()
+  return `${prefix}-${hex}`
+}
+
 export const GENERIC_ERRORS = {
   invalid: 'Please check the form and try again.',
   rateLimited: 'Too many requests. Please wait a moment and try again.',
