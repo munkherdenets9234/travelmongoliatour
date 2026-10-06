@@ -3,6 +3,7 @@ export const MAX_FILES: number
 export const MAX_TEXT: number
 export const MAX_REFERENCES: number
 export const MIN_AGE: number
+export const MAX_NUMBER: number
 export const ALLOWED_FILE_EXTENSIONS: readonly string[]
 export const ALLOWED_FILE_TYPES: readonly string[]
 export const FILE_KINDS: readonly string[]

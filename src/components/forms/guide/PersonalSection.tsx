@@ -15,7 +15,6 @@ export default function PersonalSection({ t, index, value, onChange, errors }: P
   const f = t.form.fields
   const ph = t.form.placeholders
   const set = (key: keyof GuideState['personal']) => (v: string) => onChange({ ...value, [key]: v })
-  const today = new Date().toISOString().slice(0, 10)
 
   return (
     <Section id="personal" index={index} title={t.form.sections.personal}>
@@ -31,7 +30,7 @@ export default function PersonalSection({ t, index, value, onChange, errors }: P
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <TextField
           name="personal.birth_date" label={f.birth_date} value={value.birth_date} onChange={set('birth_date')}
-          type="date" max={today} help={t.form.help.birth_date} error={errors['personal.birth_date']}
+          type="date" help={t.form.help.birth_date} error={errors['personal.birth_date']}
           required autoComplete="bday"
         />
         <SelectField

@@ -95,14 +95,13 @@ interface SelectFieldProps {
   placeholder: string
   error?: string
   required?: boolean
-  labelHidden?: boolean
 }
 
-export function SelectField({ name, label, value, onChange, options, placeholder, error, required, labelHidden }: SelectFieldProps) {
+export function SelectField({ name, label, value, onChange, options, placeholder, error, required }: SelectFieldProps) {
   const id = fieldId(name)
   return (
     <div>
-      <label htmlFor={id} className={labelHidden ? 'sr-only' : labelCls}>
+      <label htmlFor={id} className={labelCls}>
         {label}
         {required && <span aria-hidden="true"> *</span>}
       </label>
@@ -177,8 +176,8 @@ export function CheckGroup({ name, legend, options, selected, onToggle, error, h
 }
 
 export function CheckboxField({
-  name, label, checked, onChange, error,
-}: { name: string; label: ReactNode; checked: boolean; onChange: (v: boolean) => void; error?: string }) {
+  name, label, checked, onChange, error, required,
+}: { name: string; label: ReactNode; checked: boolean; onChange: (v: boolean) => void; error?: string; required?: boolean }) {
   const id = fieldId(name)
   return (
     <div>
@@ -189,11 +188,15 @@ export function CheckboxField({
           type="checkbox"
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}
+          aria-required={required || undefined}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy(id, false, !!error)}
           className={`w-5 h-5 mt-0.5 shrink-0 accent-olive ${focusCls}`}
         />
-        <span>{label}</span>
+        <span>
+          {label}
+          {required && <span aria-hidden="true"> *</span>}
+        </span>
       </label>
       <ErrorText id={`${id}-err`} message={error} />
     </div>

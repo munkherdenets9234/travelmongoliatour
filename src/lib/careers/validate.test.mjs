@@ -326,3 +326,12 @@ test('exported constants match the backend lists exactly', () => {
   assert.deepEqual([...LANGUAGE_LEVELS_MN], ['native', 'good', 'intermediate'])
   assert.deepEqual([...LANGUAGE_LEVELS_OTHER], ['native', 'fluent', 'intermediate', 'basic'])
 })
+
+test('numeric fields are capped to 0..1000 and NaN is rejected', () => {
+  const run = (v) => validateApplication(v, [], NOW).errors
+  assert.equal(run({ experience: { years: 1001 } })['experience.years'], 'invalid_choice')
+  assert.equal(run({ experience: { years: NaN } })['experience.years'], 'invalid_choice')
+  assert.equal(run({ experience: { years: 1000 } })['experience.years'], undefined)
+  assert.equal(run({ experience: { largest_group: 5000 } })['experience.largest_group'], 'invalid_choice')
+  assert.equal(run({ driving: { has_license: true, years_driving: 2000 } })['driving.years_driving'], 'invalid_choice')
+})

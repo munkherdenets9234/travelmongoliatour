@@ -33,7 +33,7 @@ function num(v) {
   const s = trim(v)
   if (s === '') return undefined
   const n = Number(s)
-  return Number.isFinite(n) ? Math.trunc(n) : undefined
+  return Number.isFinite(n) ? Math.trunc(n) : NaN // NaN is rejected by the validator
 }
 
 // Form state -> the shape validateApplication expects (the backend model, with
@@ -49,7 +49,7 @@ export function buildPayload(state, locale) {
     const row = state.languages[code]
     if (!row) continue
     const other = trim(row.other_name)
-    if (row.level === '' && other === '') continue
+    if (row.level === '') continue // inactive row; its name field is hidden, so stale text is dropped
     const entry = { language: code, level: row.level }
     if (code === 'other') entry.other_name = other
     languages.push(entry)
@@ -96,7 +96,7 @@ export function buildPayload(state, locale) {
       largest_group: num(x.largest_group),
     },
     regions: [...state.regions],
-    regions_other: trim(state.regions_other),
+    ...(state.regions.includes('other') ? { regions_other: trim(state.regions_other) } : {}),
     driving,
     availability: {
       months: [...a.months].sort((m, n) => m - n),

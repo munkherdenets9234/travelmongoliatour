@@ -165,7 +165,7 @@ export default function GuideApplicationForm() {
   }
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate className="flex flex-col gap-6">
+    <form ref={formRef} method="post" onSubmit={onSubmit} noValidate className="flex flex-col gap-6">
       <SectionNav t={c} />
       <PersonalSection t={c} index={1} value={state.personal} onChange={patch('personal')} errors={errors} />
       <LanguagesSection t={c} index={2} value={state.languages} onChange={patch('languages')} errors={errors} />
@@ -181,7 +181,7 @@ export default function GuideApplicationForm() {
 
       <div className="bg-white border border-tan rounded-lg p-5 sm:p-7 flex flex-col gap-4">
         <CheckboxField
-          name="consent" label={c.consent.label} checked={state.consent}
+          name="consent" label={c.consent.label} checked={state.consent} required
           onChange={patch('consent')} error={errors['consent']}
         />
         <p className="text-xs text-warm-gray">{c.consent.notice}</p>
@@ -194,7 +194,6 @@ export default function GuideApplicationForm() {
         <button
           type="submit"
           disabled={submitting}
-          aria-disabled={submitting}
           className="bg-olive text-cream rounded-sm py-3.5 text-xs font-semibold tracking-widest uppercase disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-olive"
         >
           {submitting ? c.consent.submitting : c.consent.submit}

@@ -37,7 +37,7 @@ export default function LanguagesSection({ t, index, value, onChange, errors }: 
             const required = REQUIRED.includes(code)
             const levels = code === 'mn' ? LANGUAGE_LEVELS_MN : LANGUAGE_LEVELS_OTHER
             const levelMap = code === 'mn' ? t.options.levelMn : t.options.levelOther
-            const label = `${t.options.language[code]}${required ? ' *' : ''}`
+            const label = t.options.language[code]
             return (
               <div key={code} className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
                 <SelectField
@@ -45,10 +45,11 @@ export default function LanguagesSection({ t, index, value, onChange, errors }: 
                   label={label}
                   value={row.level}
                   onChange={(v) => setRow(code, { level: v })}
+                  required={required}
                   placeholder={required ? t.form.choose : t.form.none}
                   options={levels.map((l) => ({ value: l, label: levelMap[l] }))}
                 />
-                {code === 'other' && (
+                {code === 'other' && row.level !== '' && (
                   <TextField
                     name="languages.other_name"
                     label={t.form.fields.other_language_name}

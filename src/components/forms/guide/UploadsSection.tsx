@@ -28,18 +28,21 @@ export default function UploadsSection({ t, index, files, onChange, errors }: Pr
   return (
     <Section id="uploads" index={index} title={t.form.sections.uploads}>
       <p className={helpCls}>{ft.summary}</p>
+      <div data-field="files" tabIndex={-1} className="flex flex-col gap-5">
       <ErrorText id={`${fieldId('files')}-err`} message={errors['files'] ?? errors['files.kind']} />
       {FILE_KINDS.map((kind) => {
         const key = `files.${kind}`
         const id = fieldId(key)
         const list = files[kind] ?? []
-        const multi = (FILE_KIND_LIMITS[kind] ?? 1) > 1
+        const cap = FILE_KIND_LIMITS[kind] ?? 1
+        const multi = cap > 1
+        const full = multi && list.length >= cap
         const error = errors[key]
         const required = REQUIRED_KINDS.includes(kind)
         const pick = (picked: FileList | null) => {
           if (!picked || picked.length === 0) return
           const chosen = Array.from(picked)
-          onChange({ ...files, [kind]: multi ? [...list, ...chosen] : [chosen[0]] })
+          onChange({ ...files, [kind]: multi ? [...list, ...chosen].slice(0, cap) : [chosen[0]] })
         }
         return (
           <div key={kind} data-field={key} tabIndex={-1} className="border border-tan rounded-md p-4">
@@ -69,6 +72,7 @@ export default function UploadsSection({ t, index, files, onChange, errors }: Pr
                 </div>
               ))}
             </div>
+            {!full && (
             <div className="mt-3">
               <input
                 id={id}
@@ -88,10 +92,12 @@ export default function UploadsSection({ t, index, files, onChange, errors }: Pr
                 {list.length > 0 && !multi ? ft.replace : ft.choose}
               </label>
             </div>
+            )}
             <ErrorText id={`${id}-err`} message={error} />
           </div>
         )
       })}
+      </div>
     </Section>
   )
 }

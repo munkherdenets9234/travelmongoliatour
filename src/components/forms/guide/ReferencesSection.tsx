@@ -23,9 +23,16 @@ export default function ReferencesSection({ t, index, value, onChange, errors }:
   return (
     <Section id="references" index={index} title={`${t.form.sections.references} (${t.form.optional})`}>
       <p className={helpCls}>{t.form.help.references}</p>
-      <div data-field="references" tabIndex={-1} className="flex flex-col gap-5">
+      <div
+        data-field="references"
+        tabIndex={-1}
+        role="group"
+        aria-describedby={groupError ? `${fieldId('references')}-err` : undefined}
+        className="flex flex-col gap-5"
+      >
         {value.map((row, i) => (
-          <div key={i} className="border border-tan rounded-md p-4 flex flex-col gap-4">
+          <fieldset key={i} className="border border-tan rounded-md p-4 flex flex-col gap-4 min-w-0">
+            <legend className="text-sm font-medium text-brown px-1">{`${t.form.sections.references} ${i + 1}`}</legend>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <TextField
                 name={`references.${i}.name`} label={f.reference_name} value={row.name}
@@ -45,7 +52,7 @@ export default function ReferencesSection({ t, index, value, onChange, errors }:
                 {t.form.remove_row}
               </button>
             </div>
-          </div>
+          </fieldset>
         ))}
       </div>
       <ErrorText id={`${fieldId('references')}-err`} message={groupError} />

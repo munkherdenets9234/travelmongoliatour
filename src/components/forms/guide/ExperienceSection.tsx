@@ -69,10 +69,12 @@ export function KnowledgeSection({ t, index, regions, regionsOther, onRegions, o
         onToggle={(v) => onRegions(toggle(regions, v))}
         error={errors['regions']}
       />
-      <TextField
-        name="regions_other" label={t.form.fields.regions_other} value={regionsOther}
-        onChange={onRegionsOther} error={errors['regions_other']}
-      />
+      {regions.includes('other') && (
+        <TextField
+          name="regions_other" label={t.form.fields.regions_other} value={regionsOther}
+          onChange={onRegionsOther} error={errors['regions_other']}
+        />
+      )}
     </Section>
   )
 }

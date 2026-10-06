@@ -61,11 +61,28 @@ test('unanswered license is omitted so validation flags it; no license sends onl
   assert.deepEqual(buildPayload(s, 'en').driving, { has_license: false })
 })
 
-test('language row without a level is kept so the validator can flag it', () => {
+test('inactive other-language row (no level) is dropped with its stale name', () => {
   const s = emptyState()
   s.languages.other.other_name = 'German'
   const p = buildPayload(s, 'en')
-  assert.equal(validateApplication(p, [], NOW).errors['languages.level'], 'invalid_choice')
+  assert.equal(p.languages.some((l) => l.language === 'other'), false)
+})
+
+test('regions_other is sent only when other is ticked', () => {
+  const s = emptyState()
+  s.regions = ['gobi']
+  s.regions_other = 'stale'
+  assert.equal('regions_other' in buildPayload(s, 'en'), false)
+  s.regions = ['gobi', 'other']
+  assert.equal(buildPayload(s, 'en').regions_other, 'stale')
+})
+
+test('non-numeric or oversized numbers are rejected by the validator', () => {
+  const s = emptyState()
+  s.experience.years = '5000'
+  assert.equal(validateApplication(buildPayload(s, 'en'), [], NOW).errors['experience.years'], 'invalid_choice')
+  s.experience.years = 'abc'
+  assert.equal(validateApplication(buildPayload(s, 'en'), [], NOW).errors['experience.years'], 'invalid_choice')
 })
 
 test('buildSubmitForm: data, consent_at, honeypot always present; no consent field', () => {

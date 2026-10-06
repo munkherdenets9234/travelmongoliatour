@@ -9,6 +9,7 @@ export const MAX_FILES = 8
 export const MAX_TEXT = 2000
 export const MAX_REFERENCES = 5
 export const MIN_AGE = 18
+export const MAX_NUMBER = 1000
 
 // Extension and declared type only; the server sniffs the bytes.
 export const ALLOWED_FILE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'pdf']
@@ -53,6 +54,7 @@ export function normalizeServerField(hint) {
   return h
 }
 
+const numOK = (n) => n >= 0 && n <= MAX_NUMBER
 const str = (v) => (typeof v === 'string' ? v : '')
 const blank = (v) => str(v).trim() === ''
 const len = (v) => [...str(v)].length
@@ -157,8 +159,8 @@ export function validateApplication(values, files, now = new Date()) {
 
   // experience
   const e = v.experience ?? {}
-  if (typeof e.years === 'number' && e.years < 0) set('experience.years', 'invalid_choice')
-  if (typeof e.largest_group === 'number' && e.largest_group < 0) set('experience.largest_group', 'invalid_choice')
+  if (typeof e.years === 'number' && !numOK(e.years)) set('experience.years', 'invalid_choice')
+  if (typeof e.largest_group === 'number' && !numOK(e.largest_group)) set('experience.largest_group', 'invalid_choice')
   if (isList(e.tour_types).some((t) => !TOUR_TYPES.includes(t))) set('experience.tour_types', 'invalid_choice')
   cap('experience.previous_companies', e.previous_companies)
   cap('experience.main_directions', e.main_directions)
@@ -179,7 +181,7 @@ export function validateApplication(values, files, now = new Date()) {
     if (d.long_distance === true) set('driving.long_distance', 'invalid_choice')
     if (d.has_own_vehicle === true) set('driving.has_own_vehicle', 'invalid_choice')
     if (!blank(d.vehicles)) set('driving.vehicles', 'invalid_choice')
-  } else if (typeof d.years_driving === 'number' && d.years_driving < 0) {
+  } else if (typeof d.years_driving === 'number' && !numOK(d.years_driving)) {
     set('driving.years_driving', 'invalid_choice')
   }
   cap('driving.license_class', d.license_class)
