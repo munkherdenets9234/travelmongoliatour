@@ -82,7 +82,8 @@ export async function getCars(filters: CarFilters = {}): Promise<Car[]> {
 export async function getCarBySlug(slug: string): Promise<Car | undefined> {
   try {
     const { data } = await apiGet<BackendCar>(`/cars/${slug}`)
-    return mapCar(data)
+    const car = mapCar(data)
+    return car.visible ? car : undefined
   } catch (err) {
     if (err instanceof ApiError && err.status === 404) return undefined
     throw err
