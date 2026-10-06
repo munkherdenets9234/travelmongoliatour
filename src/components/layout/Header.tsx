@@ -63,7 +63,7 @@ export default function Header() {
   return (
     <header
       className={`sticky top-0 left-0 right-0 z-50 py-5 transition-colors duration-500 ${
-        overlay ? 'bg-transparent' : 'bg-cream/95 backdrop-blur-md border-b border-border'
+        overlay ? 'bg-transparent' : 'bg-cream border-b border-border'
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
@@ -176,7 +176,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="lg:hidden bg-cream/98 backdrop-blur-md border-t border-border mt-4">
+        <div className="lg:hidden bg-cream border-t border-border mt-4">
           <nav className="container mx-auto px-6 py-6 flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link

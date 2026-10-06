@@ -803,5 +803,11 @@
         "referenceLabel": "Reference:"
       }
     }
+  },
+  "guideBanner": {
+    "eyebrow": "Careers",
+    "heading": "Become a guide with E & S Discovery",
+    "text": "We are recruiting English-, Korean- and Mongolian-speaking guides. Apply in a few minutes.",
+    "cta": "See open roles"
   }
 }

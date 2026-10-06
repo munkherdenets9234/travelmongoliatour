@@ -6,6 +6,7 @@ import { isValidLocale } from '@/lib/i18n'
 import { getTranslation } from '@/lib/translations/server'
 import JourneyCard from '@/components/ui/JourneyCard'
 import FilterChips from '@/components/ui/FilterChips'
+import GuideBanner from '@/components/tours/GuideBanner'
 import { notFound } from 'next/navigation'
 
 interface Props {
@@ -100,6 +101,8 @@ export default async function ToursPage({ params, searchParams }: Props) {
           ))}
         </div>
       </div>
+
+      <GuideBanner locale={locale} />
 
       {/* BODY */}
       <div className="flex flex-col lg:flex-row gap-10 container mx-auto px-6 sm:px-14 py-8">

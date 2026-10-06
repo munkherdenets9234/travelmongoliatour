@@ -42,7 +42,7 @@ export default async function HomePage({ params }: Props) {
     .filter((t) => t.location.lat !== 0 || t.location.lng !== 0)
     .map((t) => ({ slug: t.slug, title: t.title, subtitle: `${t.days} days · ${t.region}`, lat: t.location.lat, lng: t.location.lng }))
   const tourTitleBySlug = new Map(tours.map((t) => [t.slug, t.title]))
-  const reviewItems = reviews.map((r) => ({
+  const reviewItems = reviews.slice(0, 3).map((r) => ({
     id: r.id,
     customer: r.customer,
     star: r.star,

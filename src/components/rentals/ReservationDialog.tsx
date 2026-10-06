@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import type { Car } from '@/lib/data/cars'
 import { useTranslation } from '@/hooks/useTranslation'
+import { dateBounds, withinBounds } from '@/lib/rentals/availability.mjs'
 
 interface Props {
   car: Car
@@ -16,12 +17,17 @@ export default function ReservationDialog({ car, mode, pickupDate, returnDate, o
   const { t } = useTranslation()
   const rd = t.reservationDialog
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const bounds = dateBounds(car, mode)
   const [confirmationId, setConfirmationId] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setStatus('submitting')
     const form = new FormData(e.currentTarget)
+    if (!withinBounds(bounds, String(form.get('pickupDate') ?? ''), String(form.get('returnDate') ?? ''))) {
+      setStatus('error')
+      return
+    }
+    setStatus('submitting')
 
     try {
       const res = await fetch('/api/rentals', {
@@ -78,6 +84,8 @@ export default function ReservationDialog({ car, mode, pickupDate, returnDate, o
                   type="date"
                   defaultValue={pickupDate}
                   required
+                  min={bounds.min}
+                  max={bounds.max}
                   onClick={(e) => e.currentTarget.showPicker?.()}
                   className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white cursor-pointer"
                 />
@@ -86,6 +94,8 @@ export default function ReservationDialog({ car, mode, pickupDate, returnDate, o
                   type="date"
                   defaultValue={returnDate}
                   required
+                  min={bounds.min}
+                  max={bounds.max}
                   onClick={(e) => e.currentTarget.showPicker?.()}
                   className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white cursor-pointer"
                 />
