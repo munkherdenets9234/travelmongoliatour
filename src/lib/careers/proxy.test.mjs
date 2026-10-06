@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { checkBodySize, clientIp, createRateLimiter, buildForwardForm } from './proxy.mjs'
+import { checkBodySize, fieldFromMessage, buildForwardForm } from './proxy.mjs'
 
 const MAX = 1000
 
@@ -21,66 +21,16 @@ test('checkBodySize rejects missing, NaN, negative and non-numeric lengths', () 
   assert.equal(checkBodySize(Infinity, MAX), false)
 })
 
-const h = (obj) => new Headers(obj)
-
-test('clientIp takes the first plausible x-forwarded-for entry', () => {
-  assert.equal(clientIp(h({ 'x-forwarded-for': '203.0.113.7, 10.0.0.1' })), '203.0.113.7')
-  assert.equal(clientIp(h({ 'x-forwarded-for': '2001:db8::1' })), '2001:db8::1')
-  assert.equal(clientIp(h({ 'x-forwarded-for': '  198.51.100.4  ' })), '198.51.100.4')
+test('fieldFromMessage returns the field path before the first colon', () => {
+  assert.equal(fieldFromMessage('personal.email: invalid'), 'personal.email')
+  assert.equal(fieldFromMessage('files.cv: required'), 'files.cv')
+  assert.equal(fieldFromMessage('name: too long: really'), 'name')
 })
 
-test('clientIp falls back to x-real-ip then null', () => {
-  assert.equal(clientIp(h({ 'x-real-ip': '192.0.2.9' })), '192.0.2.9')
-  assert.equal(clientIp(h({})), null)
-  assert.equal(clientIp(h({ 'x-forwarded-for': '' })), null)
-})
-
-test('clientIp never trusts garbage', () => {
-  assert.equal(clientIp(h({ 'x-forwarded-for': '<script>alert(1)</script>' })), null)
-  assert.equal(clientIp(h({ 'x-forwarded-for': 'a'.repeat(60) })), null)
-  assert.equal(clientIp(h({ 'x-forwarded-for': 'not an ip', 'x-real-ip': '192.0.2.9' })), '192.0.2.9')
-  assert.equal(clientIp(h({ 'x-forwarded-for': 'bad', 'x-real-ip': 'also bad!' })), null)
-  const raw = { get: (n) => (n === 'x-forwarded-for' ? '1.2.3.4\r\nX-Evil: 1' : null) }
-  assert.equal(clientIp(raw), null)
-})
-
-test('rate limiter allows max per window then blocks, per key', () => {
-  let t = 0
-  const rl = createRateLimiter({ max: 2, windowMs: 1000, now: () => t })
-  assert.equal(rl.allow('a'), true)
-  assert.equal(rl.allow('a'), true)
-  assert.equal(rl.allow('a'), false)
-  assert.equal(rl.allow('b'), true)
-})
-
-test('rate limiter window rolls over', () => {
-  let t = 0
-  const rl = createRateLimiter({ max: 1, windowMs: 1000, now: () => t })
-  assert.equal(rl.allow('a'), true)
-  assert.equal(rl.allow('a'), false)
-  t = 999
-  assert.equal(rl.allow('a'), false)
-  t = 1000
-  assert.equal(rl.allow('a'), true)
-})
-
-test('rate limiter caps tracked keys, evicting the oldest', () => {
-  let t = 0
-  const rl = createRateLimiter({ max: 1, windowMs: 1_000_000, now: () => t, maxKeys: 3 })
-  for (const k of ['a', 'b', 'c', 'd']) rl.allow(k)
-  assert.equal(rl.size(), 3)
-  // 'a' was evicted, so it starts a fresh window; 'd' is still tracked and blocked.
-  assert.equal(rl.allow('d'), false)
-  assert.equal(rl.allow('a'), true)
-})
-
-test('rate limiter drops expired keys on sweep', () => {
-  let t = 0
-  const rl = createRateLimiter({ max: 1, windowMs: 100, now: () => t, maxKeys: 100 })
-  rl.allow('a'); rl.allow('b')
-  t = 500
-  rl.allow('c')
-  assert.equal(rl.size(), 1)
+test('fieldFromMessage rejects hostile or malformed input', () => {
+  for (const m of ['<b>x</b>: bad', 'has space: x', 'Upper.case: x', 'a'.repeat(200) + ': x', '', ': x', 'no colon here', '1abc: x', 'a'.repeat(62) + ': x', null, undefined, 42]) {
+    assert.equal(fieldFromMessage(m), undefined, String(m))
+  }
 })
 
 const file = (name, content = 'x') => new File([content], name, { type: 'application/pdf' })

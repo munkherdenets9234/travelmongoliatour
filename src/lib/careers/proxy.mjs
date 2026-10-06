@@ -4,7 +4,6 @@ const FILE_KINDS = ['photo', 'id_card', 'driver_license', 'guide_certificate', '
 const FILE_FIELD = new RegExp(`^file_(?:${FILE_KINDS.join('|')}|guide_certificate_[1-3])$`)
 const MAX_DATA_CHARS = 256 * 1024
 const MAX_FILES = 8
-const IP_CHARS = /^[0-9a-fA-F:.]+$/
 
 // Unknown or malformed length is rejected: the proxy must not read a body it cannot bound.
 export function checkBodySize(contentLength, maxBytes) {
@@ -14,57 +13,14 @@ export function checkBodySize(contentLength, maxBytes) {
   return n <= maxBytes
 }
 
-function plausibleIp(value) {
-  if (typeof value !== 'string') return null
-  const v = value.trim()
-  if (v.length === 0 || v.length > 45) return null
-  if (!IP_CHARS.test(v)) return null
-  if (!v.includes('.') && !v.includes(':')) return null
-  return v
-}
-
-export function clientIp(headers) {
-  const xff = headers.get('x-forwarded-for')
-  if (xff) {
-    const first = plausibleIp(xff.split(',')[0])
-    if (first) return first
-  }
-  return plausibleIp(headers.get('x-real-ip'))
-}
-
-// Fixed window per key. The key map is capped; the oldest keys are evicted first.
-export function createRateLimiter({ max, windowMs, now = Date.now, maxKeys = 5000 }) {
-  const hits = new Map() // key -> { start, count }
-  let lastSweep = now()
-
-  function sweep(t) {
-    lastSweep = t
-    for (const [k, v] of hits) {
-      if (t - v.start >= windowMs) hits.delete(k)
-    }
-  }
-
-  return {
-    allow(key) {
-      const t = now()
-      if (t - lastSweep >= windowMs) sweep(t)
-      const cur = hits.get(key)
-      if (!cur || t - cur.start >= windowMs) {
-        hits.delete(key)
-        while (hits.size >= maxKeys) {
-          const oldest = hits.keys().next().value
-          hits.delete(oldest)
-        }
-        hits.set(key, { start: t, count: 1 })
-        return max >= 1
-      }
-      cur.count += 1
-      return cur.count <= max
-    },
-    size() {
-      return hits.size
-    },
-  }
+// Backend validation messages look like `<field.path>: <reason>`. Only the path is
+// returned, and only when it is a plain dotted identifier; the message text is dropped.
+export function fieldFromMessage(message) {
+  if (typeof message !== 'string') return undefined
+  const i = message.indexOf(':')
+  if (i < 1) return undefined
+  const head = message.slice(0, i)
+  return /^[a-z][a-z0-9_.]{0,60}$/.test(head) ? head : undefined
 }
 
 function isFile(v) {

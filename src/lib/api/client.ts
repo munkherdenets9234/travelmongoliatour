@@ -7,6 +7,8 @@ interface ApiEnvelope<T> {
   data?: T
   meta?: { total: number; page: number; limit: number }
   message?: string
+  // Error envelope of the guide-applications endpoints: {success:false, error:{code, message}}.
+  error?: { code?: string; message?: string }
 }
 
 export class ApiError extends Error {
@@ -43,7 +45,7 @@ async function request<T>(path: string, init: RequestInit = {}, token?: string, 
   const json = (await res.json().catch(() => null)) as ApiEnvelope<T> | null
 
   if (!res.ok || !json || !json.success) {
-    throw new ApiError(res.status, json?.message ?? `Request to ${path} failed with status ${res.status}`)
+    throw new ApiError(res.status, json?.message ?? json?.error?.message ?? `Request to ${path} failed with status ${res.status}`)
   }
 
   return { data: json.data as T, meta: json.meta }

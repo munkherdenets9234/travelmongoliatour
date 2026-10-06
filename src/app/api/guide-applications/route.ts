@@ -1,63 +1,75 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { apiPostForm, ApiError } from '@/lib/api/client'
-import { buildForwardForm, checkBodySize, clientIp, createRateLimiter } from '@/lib/careers/proxy.mjs'
+import { createRateLimiter, getVisitorIp, jsonError, fakeConfirmation, GENERIC_ERRORS } from '@/lib/api/guard'
+import { buildForwardForm, checkBodySize, fieldFromMessage } from '@/lib/careers/proxy.mjs'
 
 interface GuideApplicationResponse {
   id: string
   confirmation_id: string
 }
 
-// 8 files x 10 MiB plus 1 MiB for the JSON part and multipart framing.
+// 8 files x 10 MiB plus 1 MiB for the JSON part and multipart framing. Vercel
+// serverless bodies are capped near 4.5 MB, so this ceiling only matters when self-hosted.
 const MAX_BODY_BYTES = 8 * 10 * 1024 * 1024 + 1024 * 1024
 
-// Module-level, per server instance. 5 submissions per visitor per 10 minutes.
-const limiter = createRateLimiter({ max: 5, windowMs: 10 * 60 * 1000 })
+// Module-level, per server instance: 5 submissions per visitor, refilling over 10 minutes.
+const limiter = createRateLimiter({ capacity: 5, refillPerSec: 5 / 600 })
 
-// Generic, fixed bodies only: never relay backend text or the submitted data.
+// Fixed codes only. Backend message text is never relayed; the form shows its own copy.
 const PASSTHROUGH: Record<number, string> = {
-  400: 'bad_request',
+  400: GENERIC_ERRORS.invalid,
   409: 'duplicate',
-  413: 'too_large',
+  413: GENERIC_ERRORS.invalid,
   422: 'validation_failed',
-  429: 'rate_limited',
+  429: GENERIC_ERRORS.rateLimited,
   503: 'unavailable',
 }
 
-function fail(status: number, error: string) {
-  return NextResponse.json({ error }, { status })
-}
-
 export async function POST(request: NextRequest) {
-  const ip = clientIp(request.headers)
+  const ip = getVisitorIp(request)
 
-  if (!limiter.allow(ip ?? 'unknown')) return fail(429, 'too_many_requests')
+  const rl = limiter.take(`guide-applications:${ip}`)
+  if (!rl.allowed) {
+    return jsonError(429, GENERIC_ERRORS.rateLimited, { 'Retry-After': String(rl.retryAfterSec) })
+  }
 
   const contentType = request.headers.get('content-type') ?? ''
-  if (!contentType.toLowerCase().startsWith('multipart/form-data')) return fail(415, 'unsupported_media_type')
+  if (!contentType.toLowerCase().startsWith('multipart/form-data')) return jsonError(415, GENERIC_ERRORS.invalid)
 
-  if (!checkBodySize(request.headers.get('content-length'), MAX_BODY_BYTES)) return fail(413, 'too_large')
+  if (!checkBodySize(request.headers.get('content-length'), MAX_BODY_BYTES)) return jsonError(413, GENERIC_ERRORS.invalid)
 
   let incoming: FormData
   try {
     incoming = await request.formData()
   } catch {
-    return fail(400, 'bad_request')
+    return jsonError(400, GENERIC_ERRORS.invalid)
+  }
+
+  // Honeypot: a bot gets a plausible 201 and nothing is forwarded.
+  const trap = incoming.get('website')
+  if (typeof trap === 'string' && trap.trim() !== '') {
+    return NextResponse.json({ confirmationId: fakeConfirmation('GA') }, { status: 201 })
   }
 
   const built = buildForwardForm(incoming)
-  if (!built.ok) return fail(400, 'bad_request')
+  if (!built.ok) return jsonError(400, GENERIC_ERRORS.invalid)
+
+  // The Go backend's limiter keys on gin ClientIP, which honours X-Forwarded-For only
+  // from TRUSTED_PROXIES; X-Visitor-IP is the existing apiPost convention. Send both.
+  const headers = ip !== 'unknown' ? { 'X-Forwarded-For': ip, 'X-Visitor-IP': ip } : undefined
 
   try {
-    const { data } = await apiPostForm<GuideApplicationResponse>(
-      '/guide-applications',
-      built.form,
-      ip ? { 'X-Forwarded-For': ip } : undefined,
-    )
+    const { data } = await apiPostForm<GuideApplicationResponse>('/guide-applications', built.form, headers)
     return NextResponse.json({ confirmationId: data.confirmation_id }, { status: 201 })
   } catch (err) {
-    if (err instanceof ApiError && PASSTHROUGH[err.status]) {
-      return fail(err.status, PASSTHROUGH[err.status])
+    const status = err instanceof ApiError ? err.status : undefined
+    const code = status !== undefined ? PASSTHROUGH[status] : undefined
+    if (status !== undefined && code) {
+      const field = status === 400 || status === 422 ? fieldFromMessage((err as ApiError).message) : undefined
+      return NextResponse.json(field ? { error: code, field } : { error: code }, { status })
     }
-    return fail(502, 'upstream_failed')
+    // Status-only line: no message, body, key or IP.
+    console.error(`[api/guide-applications] upstream failure: ${status !== undefined ? `status ${status}` : 'non-api error'}`)
+    return jsonError(502, GENERIC_ERRORS.upstream)
   }
 }
