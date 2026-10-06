@@ -557,4 +557,10 @@ export interface Translation {
   sectionNav: {
     on_this_page: string
   }
+  guideBanner: {
+    eyebrow: string
+    heading: string
+    text: string
+    cta: string
+  }
 }
