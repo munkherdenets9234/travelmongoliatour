@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import { getCars } from '@/lib/data/cars'
 import FilterChips from '@/components/ui/FilterChips'
 import CarCard from '@/components/rentals/CarCard'
@@ -16,7 +17,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   if (!isValidLocale(locale)) return {}
-  const t = getTranslation(locale).rentACar
+  const t = (await getTranslation(locale)).rentACar
   return {
     title: t.meta_title,
     description: t.meta_description,
@@ -34,7 +35,7 @@ export default async function RentACarPage({ params, searchParams }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
   const sp = await searchParams
-  const t = getTranslation(locale).rentACar
+  const t = (await getTranslation(locale)).rentACar
 
   const type = one(sp.type)
   const mode: 'self-drive' | 'with-driver' = one(sp.mode) === 'self-drive' ? 'self-drive' : 'with-driver'

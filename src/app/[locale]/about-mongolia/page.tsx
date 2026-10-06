@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import { SectionNav } from '@/components/ui/SectionNav'
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   if (!isValidLocale(locale)) return {}
-  const t = getTranslation(locale).aboutMongolia
+  const t = (await getTranslation(locale)).aboutMongolia
   return {
     title: t.meta_title,
     description: t.meta_description,
@@ -23,8 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function AboutMongoliaPage({ params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
-  const t = getTranslation(locale).aboutMongolia
-  const nav = getTranslation(locale).sectionNav
+  const t = (await getTranslation(locale)).aboutMongolia
+  const nav = (await getTranslation(locale)).sectionNav
 
   return (
     <>

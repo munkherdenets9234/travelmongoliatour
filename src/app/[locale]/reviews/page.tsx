@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import { getReviews } from '@/lib/data/reviews'
 import { getAllTours } from '@/lib/data/tours'
 import { humanizeSlug } from '@/lib/format'
@@ -62,7 +63,7 @@ export default async function ReviewsPage({ params, searchParams }: Props) {
     return s ? `${base}?${s}` : base
   }
 
-  const t = getTranslation(locale)
+  const t = await getTranslation(locale)
   const r = t.reviewsPage
 
   return (

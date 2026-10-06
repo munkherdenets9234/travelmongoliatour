@@ -13,7 +13,8 @@ import { getAllArticles } from '@/lib/data/journal'
 import { getAllPartners } from '@/lib/data/partners'
 import { getAllReviews } from '@/lib/data/reviews'
 import { humanizeSlug } from '@/lib/format'
-import { getTranslation, isValidLocale } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import { notFound } from 'next/navigation'
 
 interface Props {
@@ -24,7 +25,7 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const t = getTranslation(locale)
+  const t = await getTranslation(locale)
   const tours = await getAllTours(locale)
   const articles = await getAllArticles(locale)
   const partners = await getAllPartners(locale)

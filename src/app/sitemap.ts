@@ -14,6 +14,8 @@ const STATIC_ROUTES = [
   '/about-mongolia',
   '/about',
   '/contact',
+  '/careers',
+  '/careers/guide',
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

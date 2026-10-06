@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getTours, type Tour } from '@/lib/data/tours'
-import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import JourneyCard from '@/components/ui/JourneyCard'
 import FilterChips from '@/components/ui/FilterChips'
 import { notFound } from 'next/navigation'
@@ -15,7 +16,8 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   if (!isValidLocale(locale)) return {}
-  const t = getTranslation(locale).toursPage
+  const tr = await getTranslation(locale)
+  const t = tr.toursPage
   const path = `/${locale}/tours`
   return {
     title: t.meta_title,
@@ -32,7 +34,8 @@ export default async function ToursPage({ params, searchParams }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
   const sp = await searchParams
-  const t = getTranslation(locale).toursPage
+  const tr = await getTranslation(locale)
+  const t = tr.toursPage
 
   const duration = one(sp.duration)
   const region = one(sp.region)
@@ -143,7 +146,7 @@ export default async function ToursPage({ params, searchParams }: Props) {
                 <JourneyCard
                   key={tour.slug}
                   item={{ id: tour.slug, days: tour.days, title: tour.title, description: tour.summary, badge: `${tour.region} · ${tour.type}`, rating: tour.rating, image: tour.image }}
-                  daysLabel={getTranslation(locale).journeys.days_label}
+                  daysLabel={tr.journeys.days_label}
                   price={`$${tour.price.toLocaleString()}`}
                   href={`/${locale}/tours/${tour.slug}`}
                 />

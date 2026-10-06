@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import { getAllTours } from '@/lib/data/tours'
 import BookingForm from '@/components/forms/BookingForm'
 
@@ -12,7 +13,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   if (!isValidLocale(locale)) return {}
-  const t = getTranslation(locale).bookPage
+  const t = (await getTranslation(locale)).bookPage
   return {
     title: t.meta_title,
     description: t.meta_description,
@@ -29,7 +30,7 @@ export default async function BookPage({ params, searchParams }: Props) {
   if (!isValidLocale(locale)) notFound()
   const sp = await searchParams
   const tours = await getAllTours(locale)
-  const t = getTranslation(locale).bookPage
+  const t = (await getTranslation(locale)).bookPage
 
   return (
     <>

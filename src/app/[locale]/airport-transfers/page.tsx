@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { isValidLocale, getTranslation } from '@/lib/i18n'
+import { isValidLocale } from '@/lib/i18n'
+import { getTranslation } from '@/lib/translations/server'
 import AirportTransferForm from '@/components/forms/AirportTransferForm'
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   if (!isValidLocale(locale)) return {}
-  const t = getTranslation(locale).airportTransfers
+  const t = (await getTranslation(locale)).airportTransfers
   return {
     title: t.meta_title,
     description: t.meta_description,
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function AirportTransfersPage({ params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
-  const t = getTranslation(locale).airportTransfers
+  const t = (await getTranslation(locale)).airportTransfers
 
   return (
     <>
