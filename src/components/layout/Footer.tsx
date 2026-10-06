@@ -20,6 +20,7 @@ export default function Footer({ t, locale }: { t: Translation; locale: Locale }
     { key: 'journal', href: `/${locale}/journal` },
     { key: 'contact', href: `/${locale}/contact` },
   ] as const
+  const careersLink = { href: `/${locale}/careers`, label: t.careers.nav }
 
   return (
     <footer className="bg-ink text-cream">
@@ -63,6 +64,11 @@ export default function Footer({ t, locale }: { t: Translation; locale: Locale }
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <Link href={careersLink.href} className="text-cream/80 hover:text-cream text-sm transition-colors">
+                    {careersLink.label}
+                  </Link>
+                </li>
               </ul>
             </div>
 
