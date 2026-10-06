@@ -8,6 +8,7 @@ import ReviewsSection from '@/components/sections/ReviewsSection'
 import PartnersSection from '@/components/sections/PartnersSection'
 import QuoteSection from '@/components/sections/QuoteSection'
 import JournalSection from '@/components/sections/JournalSection'
+import GuideBanner from '@/components/tours/GuideBanner'
 import { getAllTours } from '@/lib/data/tours'
 import { getAllArticles } from '@/lib/data/journal'
 import { getAllPartners } from '@/lib/data/partners'
@@ -54,6 +55,7 @@ export default async function HomePage({ params }: Props) {
     <>
       <HeroSection t={t} locale={locale} />
       <SearchBar tours={searchTours} />
+      <GuideBanner locale={locale} />
       <FeaturedJourneys items={featuredItems} />
       <TripAdvisorSection t={t} />
       <MapSection tours={mapTours} />
