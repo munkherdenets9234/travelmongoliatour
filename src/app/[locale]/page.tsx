@@ -55,7 +55,6 @@ export default async function HomePage({ params }: Props) {
     <>
       <HeroSection t={t} locale={locale} />
       <SearchBar tours={searchTours} />
-      <GuideBanner locale={locale} />
       <FeaturedJourneys items={featuredItems} />
       <TripAdvisorSection t={t} />
       <MapSection tours={mapTours} />
@@ -63,6 +62,7 @@ export default async function HomePage({ params }: Props) {
       <ReviewsSection reviews={reviewItems} t={t} locale={locale} />
       <PartnersSection partners={partners} />
       <QuoteSection t={t} />
+      <GuideBanner locale={locale} />
       <JournalSection items={latestArticles} t={t} locale={locale} />
     </>
   )
