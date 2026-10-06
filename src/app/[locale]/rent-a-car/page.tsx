@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { isValidLocale } from '@/lib/i18n'
 import { getTranslation } from '@/lib/translations/server'
 import { getCars } from '@/lib/data/cars'
+import { pickMode, supportsMode } from '@/lib/rentals/availability.mjs'
 import FilterChips from '@/components/ui/FilterChips'
 import CarCard from '@/components/rentals/CarCard'
 import CarSearchRail from '@/components/rentals/CarSearchRail'
@@ -38,10 +39,11 @@ export default async function RentACarPage({ params, searchParams }: Props) {
   const t = (await getTranslation(locale)).rentACar
 
   const type = one(sp.type)
-  const mode: 'self-drive' | 'with-driver' = one(sp.mode) === 'self-drive' ? 'self-drive' : 'with-driver'
   const pickupDate = one(sp.pickupDate)
   const returnDate = one(sp.returnDate)
-  const cars = await getCars({ type })
+  const allCars = await getCars({})
+  const mode = pickMode(one(sp.mode), allCars)
+  const cars = allCars.filter((c) => (!type || c.type === type) && supportsMode(c, mode))
 
   const base = `/${locale}/rent-a-car`
   const qs = (overrides: Record<string, string | undefined>) => {
@@ -73,12 +75,16 @@ export default async function RentACarPage({ params, searchParams }: Props) {
         <div className="bg-white rounded-md shadow-[0_20px_44px_rgba(30,27,22,0.14)] p-5 flex flex-wrap items-end gap-5">
           <CarSearchRail basePath={base} />
           <div className="flex border border-input-border rounded-sm overflow-hidden">
+            {allCars.some((c) => supportsMode(c, 'with-driver')) && (
             <Link href={qs({ mode: 'with-driver' })} className={`px-4 py-2.5 text-xs font-semibold tracking-wide ${mode === 'with-driver' ? 'bg-ink text-cream' : 'text-brown'}`}>
               {t.with_driver}
             </Link>
+            )}
+            {allCars.some((c) => supportsMode(c, 'self-drive')) && (
             <Link href={qs({ mode: 'self-drive' })} className={`px-4 py-2.5 text-xs font-semibold tracking-wide ${mode === 'self-drive' ? 'bg-ink text-cream' : 'text-brown'}`}>
               {t.self_drive}
             </Link>
+            )}
           </div>
         </div>
       </div>
