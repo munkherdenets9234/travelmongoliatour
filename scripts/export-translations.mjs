@@ -142,7 +142,6 @@ if (push) {
   fetchImpl = fetch
   headers = { 'X-API-Key': TENANT_API_KEY, Authorization: `Bearer ${ADMIN_TOKEN}` }
 }
-
 const total = Object.keys(pages).length
 let counts
 if (push && sync) {
@@ -159,6 +158,7 @@ if (push && sync) {
 
 if (sync) {
   const tail = `too large ${counts.tooLarge}, failed ${counts.failed}, skipped entries ${skippedEntries}`
+  
   console.log(
     dryRun
       ? `Dry run: ${total} pages, would sync ${counts.wouldSync}, unchanged ${counts.unchanged}, ${tail}`
