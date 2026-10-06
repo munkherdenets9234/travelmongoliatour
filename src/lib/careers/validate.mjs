@@ -1,6 +1,8 @@
 // Client-side validation for the guide application form. Pure: no I/O, no DOM.
-// Convenience only; the server validator is the authority. Keys are the
-// backend's field paths, values are message key codes.
+// Convenience only; the server validator is the authority. Keys are form-model
+// paths (the shape of the values object, e.g. personal.email), values are
+// message key codes. Server field hints go through normalizeServerField to land
+// on the same keys.
 
 export const MAX_FILE_BYTES = 10 * 1024 * 1024
 export const MAX_FILES = 8
@@ -36,6 +38,21 @@ export function visibleDrivingFields(hasLicense) {
   return hasLicense === true ? [...DRIVING_FIELDS] : ['has_license']
 }
 
+const PERSONAL_FIELDS = ['full_name', 'nickname', 'phone', 'email', 'birth_date', 'gender', 'address']
+
+// Maps a field name emitted by the backend onto the form key used here.
+export function normalizeServerField(hint) {
+  if (typeof hint !== 'string') return ''
+  const h = hint.trim()
+  if (PERSONAL_FIELDS.includes(h)) return `personal.${h}`
+  if (h === 'emergency_contact') return 'personal.emergency_contact'
+  if (h === 'emergency_contact.name' || h === 'emergency_contact.phone') return `personal.${h}`
+  if (h === 'consent_at') return 'consent'
+  if (h === 'languages.mn' || h === 'languages.en') return 'languages'
+  if (h === 'driving') return 'driving.has_license'
+  return h
+}
+
 const str = (v) => (typeof v === 'string' ? v : '')
 const blank = (v) => str(v).trim() === ''
 const len = (v) => [...str(v)].length
@@ -57,21 +74,16 @@ function emailOK(s) {
   return /^[^\s@<>(),;:"[\]\\]+@[^\s@<>(),;:"[\]\\]+$/.test(e) && !e.includes('..') && !e.startsWith('.')
 }
 
-// Returns [year, month, day] (UTC calendar parts) or null when unparseable.
+// Strict ISO YYYY-MM-DD only. Returns [year, month, day] or null.
 function dateParts(v) {
-  const s = str(v).trim()
-  const plain = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s)
-  if (plain) {
-    const y = Number(plain[1])
-    const m = Number(plain[2])
-    const d = Number(plain[3])
-    const t = new Date(Date.UTC(y, m - 1, d))
-    if (t.getUTCFullYear() !== y || t.getUTCMonth() !== m - 1 || t.getUTCDate() !== d) return null
-    return [y, m, d]
-  }
-  const t = new Date(s)
-  if (Number.isNaN(t.getTime())) return null
-  return [t.getUTCFullYear(), t.getUTCMonth() + 1, t.getUTCDate()]
+  const plain = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str(v).trim())
+  if (!plain) return null
+  const y = Number(plain[1])
+  const m = Number(plain[2])
+  const d = Number(plain[3])
+  const t = new Date(Date.UTC(y, m - 1, d))
+  if (t.getUTCFullYear() !== y || t.getUTCMonth() !== m - 1 || t.getUTCDate() !== d) return null
+  return [y, m, d]
 }
 
 // Calendar parts only (never AddDate-style arithmetic); time of day is ignored.
@@ -87,10 +99,12 @@ function ageOn(birth, now) {
 function extensionOf(name) {
   const base = str(name)
   const i = base.lastIndexOf('.')
-  return i < 0 ? '' : base.slice(i + 1).toLowerCase()
+  // No dot, or a leading-dot-only name such as ".pdf" (empty basename): no extension.
+  return i <= 0 ? '' : base.slice(i + 1).toLowerCase()
 }
 
-export function validateApplication(values, files, now) {
+export function validateApplication(values, files, now = new Date()) {
+  if (!(now instanceof Date) || Number.isNaN(now.getTime())) throw new TypeError('now must be a valid Date')
   const errors = {}
   const v = values ?? {}
   const p = v.personal ?? {}
@@ -157,6 +171,7 @@ export function validateApplication(values, files, now) {
 
   // driving: details are only accepted when has_license is true
   const d = v.driving ?? {}
+  if (typeof d.has_license !== 'boolean') set('driving.has_license', 'required')
   if (d.has_license !== true) {
     if (!blank(d.license_class)) set('driving.license_class', 'invalid_choice')
     if (typeof d.years_driving === 'number' && d.years_driving !== 0) set('driving.years_driving', 'invalid_choice')
@@ -202,14 +217,9 @@ export function validateApplication(values, files, now) {
     const key = `files.${f.kind}`
     counts[f.kind] = (counts[f.kind] ?? 0) + 1
     if (counts[f.kind] > (FILE_KIND_LIMITS[f.kind] ?? 1)) set(key, 'duplicate_kind')
-    const declared = str(f.type)
-    if (
-      !ALLOWED_FILE_EXTENSIONS.includes(extensionOf(f.name)) ||
-      (declared !== '' && !ALLOWED_FILE_TYPES.includes(declared))
-    ) {
-      set(key, 'file_type')
-    }
-    if (!(typeof f.size === 'number' && f.size >= 1 && f.size <= MAX_FILE_BYTES)) set(key, 'file_size')
+    // Extension only: browsers report odd MIME types; the server sniffs the bytes.
+    if (!ALLOWED_FILE_EXTENSIONS.includes(extensionOf(f.name))) set(key, 'file_type')
+    if (!(Number.isFinite(f.size) && f.size >= 1 && f.size <= MAX_FILE_BYTES)) set(key, 'file_size')
   }
   if (!counts.cv) set('files.cv', 'required')
 

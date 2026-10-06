@@ -9,6 +9,10 @@ import {
   ALLOWED_FILE_EXTENSIONS,
   FILE_KINDS,
   REGIONS,
+  TOUR_TYPES,
+  TRIP_LENGTHS,
+  LANGUAGE_CODES,
+  normalizeServerField,
   LANGUAGE_LEVELS_MN,
   LANGUAGE_LEVELS_OTHER,
 } from './validate.mjs'
@@ -219,7 +223,14 @@ test('files: .exe is file_type, 0 bytes and 11 MB are file_size, 10 MB is fine',
   const cv = (over) => [{ kind: 'cv', name: 'cv.pdf', size: 100, type: 'application/pdf', ...over }]
   assert.equal(validateApplication(validValues(), cv({ name: 'cv.exe', type: 'application/x-msdownload' }), NOW).errors['files.cv'], 'file_type')
   assert.equal(validateApplication(validValues(), cv({ name: 'cv' }), NOW).errors['files.cv'], 'file_type')
-  assert.equal(validateApplication(validValues(), cv({ type: 'text/plain' }), NOW).errors['files.cv'], 'file_type')
+  assert.equal(validateApplication(validValues(), cv({ name: 'cv.pdf.exe' }), NOW).errors['files.cv'], 'file_type')
+  assert.equal(validateApplication(validValues(), cv({ name: '.pdf' }), NOW).errors['files.cv'], 'file_type')
+  assert.equal(validateApplication(validValues(), cv({ name: 'CV.PDF' }), NOW).ok, true)
+  // declared MIME is ignored (browsers report odd types; the server sniffs bytes)
+  assert.equal(validateApplication(validValues(), cv({ name: 'cv.jpg', type: 'image/pjpeg' }), NOW).ok, true)
+  assert.equal(validateApplication(validValues(), cv({ type: '' }), NOW).ok, true)
+  assert.equal(validateApplication(validValues(), cv({ size: NaN }), NOW).errors['files.cv'], 'file_size')
+  assert.equal(validateApplication(validValues(), cv({ size: Infinity }), NOW).errors['files.cv'], 'file_size')
   assert.equal(validateApplication(validValues(), cv({ size: 0 }), NOW).errors['files.cv'], 'file_size')
   assert.equal(validateApplication(validValues(), cv({ size: 11 * 1024 * 1024 }), NOW).errors['files.cv'], 'file_size')
   assert.equal(validateApplication(validValues(), cv({ size: MAX_FILE_BYTES }), NOW).ok, true)
@@ -231,12 +242,87 @@ test('unknown file kind is invalid_choice on files.kind', () => {
   assert.equal(r.errors['files.kind'], 'invalid_choice')
 })
 
-test('exported constants match the backend', () => {
+test('driving.has_license is required until answered', () => {
+  for (const bad of [undefined, null, 'yes', 1]) {
+    const r = run((v) => { v.driving = { has_license: bad } })
+    assert.equal(r.errors['driving.has_license'], 'required', String(bad))
+  }
+  assert.equal(run((v) => { delete v.driving }).errors['driving.has_license'], 'required')
+  assert.equal('driving.has_license' in run((v) => { v.driving = { has_license: true } }).errors, false)
+  assert.equal('driving.has_license' in run((v) => { v.driving = { has_license: false } }).errors, false)
+})
+
+test('birth date accepts only strict ISO YYYY-MM-DD', () => {
+  for (const bad of ['1', '12/05/2000', '2000-5-1', '2000-02-31', '2000-13-01', '1995-05-20T00:00:00Z', '19950520']) {
+    assert.equal(run((v) => { v.personal.birth_date = bad }).errors['personal.birth_date'], 'invalid_choice', bad)
+  }
+  assert.equal(run((v) => { v.personal.birth_date = '2000-02-29' }).ok, true)
+})
+
+test('now defaults to the current time and an invalid Date throws', () => {
+  assert.equal(validateApplication(validValues(), validFiles()).ok, true)
+  assert.throws(() => validateApplication(validValues(), validFiles(), new Date('nope')), TypeError)
+  assert.throws(() => validateApplication(validValues(), validFiles(), '2026-10-06'), TypeError)
+})
+
+test('missing input and null array entries never throw', () => {
+  const r = validateApplication(undefined, undefined, NOW)
+  assert.equal(r.ok, false)
+  assert.equal(validateApplication(null, null, NOW).ok, false)
+  const v = validValues()
+  v.languages.push(null)
+  v.regions.push(null)
+  v.references.push(null)
+  v.experience.tour_types.push(null)
+  v.availability.months.push(null)
+  const res = validateApplication(v, [null, ...validFiles()], NOW)
+  assert.equal(res.ok, false)
+})
+
+test('normalizeServerField maps backend names onto form keys', () => {
+  const table = [
+    ['full_name', 'personal.full_name'], ['nickname', 'personal.nickname'], ['phone', 'personal.phone'],
+    ['email', 'personal.email'], ['birth_date', 'personal.birth_date'], ['gender', 'personal.gender'],
+    ['address', 'personal.address'],
+    ['emergency_contact', 'personal.emergency_contact'],
+    ['emergency_contact.name', 'personal.emergency_contact.name'],
+    ['emergency_contact.phone', 'personal.emergency_contact.phone'],
+    ['consent_at', 'consent'],
+    ['languages.mn', 'languages'], ['languages.en', 'languages'],
+    ['driving', 'driving.has_license'],
+    ['regions_other', 'regions_other'], ['regions', 'regions'], ['files', 'files'],
+    ['files.cv', 'files.cv'], ['files.guide_certificate', 'files.guide_certificate'],
+    ['references', 'references'], ['references.name', 'references.name'],
+    ['availability.months', 'availability.months'], ['experience.years', 'experience.years'],
+    ['driving.license_class', 'driving.license_class'],
+    ['languages.other_name', 'languages.other_name'],
+    ['personal.email', 'personal.email'], ['personal.emergency_contact.name', 'personal.emergency_contact.name'],
+    ['locale', 'locale'], ['something_unknown', 'something_unknown'],
+  ]
+  for (const [input, want] of table) assert.equal(normalizeServerField(input), want, input)
+})
+
+test('normalizeServerField tolerates hostile input', () => {
+  for (const bad of [undefined, null, 42, {}, [], true, Symbol('x')]) {
+    assert.equal(normalizeServerField(bad), '')
+  }
+  assert.doesNotThrow(() => normalizeServerField('__proto__'))
+  assert.doesNotThrow(() => normalizeServerField('a'.repeat(100000)))
+  assert.equal(normalizeServerField(''), '')
+})
+
+test('exported constants match the backend lists exactly', () => {
   assert.equal(MAX_FILE_BYTES, 10 * 1024 * 1024)
   assert.equal(MAX_FILES, 8)
   assert.deepEqual([...ALLOWED_FILE_EXTENSIONS], ['jpg', 'jpeg', 'png', 'pdf'])
-  assert.equal(FILE_KINDS.length, 6)
-  assert.equal(REGIONS.length, 7)
+  assert.deepEqual([...FILE_KINDS], ['photo', 'id_card', 'driver_license', 'guide_certificate', 'cv', 'first_aid'])
+  assert.deepEqual([...REGIONS], ['gobi', 'central', 'khuvsgul', 'western', 'eastern', 'ulaanbaatar_terelj', 'other'])
+  assert.deepEqual([...TOUR_TYPES], [
+    'private', 'group', 'vip', 'adventure_4x4', 'cultural',
+    'hiking_trekking', 'festival', 'business_corporate',
+  ])
+  assert.deepEqual([...TRIP_LENGTHS], ['d1_3', 'd4_7', 'd8_14', 'd15_plus'])
+  assert.deepEqual([...LANGUAGE_CODES], ['mn', 'en', 'ko', 'zh', 'ja', 'ru', 'fr', 'es', 'other'])
   assert.deepEqual([...LANGUAGE_LEVELS_MN], ['native', 'good', 'intermediate'])
   assert.deepEqual([...LANGUAGE_LEVELS_OTHER], ['native', 'fluent', 'intermediate', 'basic'])
 })

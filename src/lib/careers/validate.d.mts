@@ -84,9 +84,16 @@ export interface ValidationResult {
   errors: Record<string, ErrorCode>
 }
 
+/**
+ * Error keys are form-model paths (e.g. personal.email, files.cv), values are
+ * message key codes. `now` defaults to the current time; an invalid Date throws
+ * a TypeError.
+ */
 export function validateApplication(
   values: ApplicationValues | null | undefined,
-  files: ApplicationFile[] | null | undefined,
-  now: Date,
+  files: Array<ApplicationFile | null | undefined> | null | undefined,
+  now?: Date,
 ): ValidationResult
+/** Maps a backend field name (e.g. full_name, consent_at) onto the form key. Non-strings give ''. */
+export function normalizeServerField(hint: unknown): string
 export function visibleDrivingFields(hasLicense: boolean | undefined | null): string[]
