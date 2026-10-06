@@ -74,6 +74,11 @@ export function apiPost<T>(path: string, body: unknown, token?: string, visitorI
   return request<T>(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }, token, visitorIp)
 }
 
+// Multipart POST. No Content-Type header on purpose: fetch sets it with the boundary.
+export function apiPostForm<T>(path: string, body: FormData, extraHeaders?: Record<string, string>) {
+  return request<T>(path, { method: 'POST', headers: extraHeaders, body, cache: 'no-store' })
+}
+
 export function apiPut<T>(path: string, body: unknown, token?: string) {
   return request<T>(path, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }, token)
 }
