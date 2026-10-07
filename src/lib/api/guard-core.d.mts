@@ -18,5 +18,8 @@ export function createRateLimiter(opts?: {
 }
 export function visitorIp(getHeader: (name: string) => string | null | undefined): string
 export function fakeConfirmation(prefix: string): string
-export const GENERIC_ERRORS: { invalid: string; rateLimited: string; upstream: string; notFound: string }
+export const GENERIC_ERRORS: { invalid: string; rateLimited: string; upstream: string; notFound: string; unavailable: string }
 export function redactForLog(message: unknown): string
+export function isUnavailableResponse(status: unknown): boolean
+export function upstreamResponseFor(err: unknown, apiStatus?: number): { status: 400 | 502 | 503; error: string }
+export function isWakingResponse(status: unknown, body: unknown): boolean

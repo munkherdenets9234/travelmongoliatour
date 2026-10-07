@@ -81,6 +81,7 @@ export default function Footer({ t, locale }: { t: Translation; locale: Locale }
                 subscribeLabel={t.common.subscribe}
                 successMessage={f.newsletter.success}
                 errorMessage={t.common.error_generic}
+                unavailableMessage={t.serviceUnavailable.formMessage}
               />
             </div>
           </div>

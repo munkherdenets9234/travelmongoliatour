@@ -1,19 +1,22 @@
 'use client'
 
 import { useState } from 'react'
+import { isUnavailableResponse } from '@/lib/api/guard-core.mjs'
 
 export default function NewsletterForm({
   placeholder,
   subscribeLabel,
   successMessage,
   errorMessage,
+  unavailableMessage,
 }: {
   placeholder: string
   subscribeLabel: string
   successMessage: string
   errorMessage: string
+  unavailableMessage: string
 }) {
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error' | 'unavailable'>('idle')
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -27,6 +30,10 @@ export default function NewsletterForm({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       })
+      if (isUnavailableResponse(res.status)) {
+        setStatus('unavailable')
+        return
+      }
       if (!res.ok) throw new Error('failed')
       form.reset()
       setStatus('success')
@@ -57,6 +64,7 @@ export default function NewsletterForm({
       </form>
       {status === 'success' && <p className="text-cream/80 text-xs mt-2">{successMessage}</p>}
       {status === 'error' && <p className="text-cream/80 text-xs mt-2">{errorMessage}</p>}
+      {status === 'unavailable' && <p className="text-cream/80 text-xs mt-2">{unavailableMessage}</p>}
     </div>
   )
 }

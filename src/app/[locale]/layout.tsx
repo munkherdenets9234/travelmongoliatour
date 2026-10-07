@@ -2,9 +2,13 @@ import type { Metadata } from 'next'
 import { Manrope, Cormorant_Garamond } from 'next/font/google'
 import Script from 'next/script'
 import { notFound } from 'next/navigation'
+import { connection } from 'next/server'
 import { isValidLocale, locales, siteUrl } from '@/lib/i18n'
 import { getTranslation } from '@/lib/translations/server'
 import { organizationSchema } from '@/lib/seo'
+import { getSubscriptionState } from '@/lib/api/subscription'
+import SubscriptionNotice from '@/components/layout/SubscriptionNotice'
+import ServiceUnavailable from '@/components/layout/ServiceUnavailable'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import TranslationProvider from '@/components/TranslationProvider'
@@ -77,7 +81,14 @@ export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const t = await getTranslation(locale)
+  const [t, subscription] = await Promise.all([getTranslation(locale), getSubscriptionState()])
+
+  if (subscription === 'unavailable' || subscription === 'tenant_issue') {
+    // Opt this render out of prerendering/ISR: the waking-up screen must never be
+    // saved as a cached or build-time page (it would be served for a while after the
+    // backend recovers). At request time this is a no-op wait.
+    await connection()
+  }
 
   return (
     <html lang={locale} className={`${manrope.variable} ${cormorant.variable} scroll-smooth`}>
@@ -99,9 +110,16 @@ export default async function LocaleLayout({ children, params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
         />
         <TranslationProvider value={t}>
-          <Header />
-          <main>{children}</main>
-          <Footer t={t} locale={locale} />
+          {subscription === 'unavailable' ? (
+            <ServiceUnavailable t={t} />
+          ) : (
+            <>
+              {(subscription === 'expired' || subscription === 'tenant_issue') && <SubscriptionNotice t={t} />}
+              <Header />
+              <main>{children}</main>
+              <Footer t={t} locale={locale} />
+            </>
+          )}
         </TranslationProvider>
       </body>
     </html>

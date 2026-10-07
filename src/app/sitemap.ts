@@ -24,7 +24,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes: { path: string; lastModified?: Date }[] = [
     ...STATIC_ROUTES.map((path) => ({ path })),
     ...tours.map((t) => ({ path: `/tours/${t.slug}` })),
-    ...articles.map((a) => ({ path: `/journal/${a.slug}`, lastModified: new Date(a.date) })),
+    ...articles.map((a) => {
+      // An article with a missing or malformed date must not break the build:
+      // Date#toISOString throws on an invalid Date.
+      const modified = new Date(a.date)
+      return {
+        path: `/journal/${a.slug}`,
+        ...(Number.isNaN(modified.getTime()) ? {} : { lastModified: modified }),
+      }
+    }),
   ]
 
   const entries: MetadataRoute.Sitemap = []

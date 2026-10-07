@@ -5,6 +5,7 @@ import Image from 'next/image'
 import type { Tour } from '@/lib/data/tours'
 import { ADDONS } from '@/lib/data/addons'
 import { useTranslation } from '@/hooks/useTranslation'
+import { isUnavailableResponse } from '@/lib/api/guard-core.mjs'
 
 export default function BookingForm({ tours, initialSlug, initialDate, initialAddon }: { tours: Tour[]; initialSlug?: string; initialDate?: string; initialAddon?: string }) {
   const { t } = useTranslation()
@@ -18,7 +19,7 @@ export default function BookingForm({ tours, initialSlug, initialDate, initialAd
     }
     return defaults
   })
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error' | 'unavailable'>('idle')
   const [confirmationId, setConfirmationId] = useState<string | null>(null)
 
   const tour = tours.find((tr) => tr.slug === slug) ?? tours[0]
@@ -55,6 +56,10 @@ export default function BookingForm({ tours, initialSlug, initialDate, initialAd
           total,
         }),
       })
+      if (isUnavailableResponse(res.status)) {
+        setStatus('unavailable')
+        return
+      }
       if (!res.ok) throw new Error('failed')
       const data = await res.json()
       setConfirmationId(data.confirmationId)
@@ -178,6 +183,7 @@ export default function BookingForm({ tours, initialSlug, initialDate, initialAd
             <div className="text-xs text-warm-gray mb-4">{bf.deposit_label} · ${deposit.toLocaleString()}</div>
 
             {status === 'error' && <p className="text-xs text-red-600 mb-3">{t.common.error_generic}</p>}
+            {status === 'unavailable' && <p className="text-xs text-red-600 mb-3">{t.serviceUnavailable.formMessage}</p>}
 
             <button type="submit" disabled={status === 'submitting'} className="w-full bg-olive text-cream rounded-sm py-3.5 text-xs font-semibold tracking-widest uppercase disabled:opacity-60">
               {status === 'submitting' ? t.common.sending : bf.pay_deposit}
