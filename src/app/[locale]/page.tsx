@@ -17,6 +17,18 @@ import { humanizeSlug } from '@/lib/format'
 import { isValidLocale } from '@/lib/i18n'
 import { getTranslation } from '@/lib/translations/server'
 import { notFound } from 'next/navigation'
+import { failureInputFromError, isTenantLookupFailure } from '@/lib/service-state.mjs'
+
+// Home sections render empty while the backend cannot resolve the tenant (the layout
+// shows the notice); every other failure still throws.
+async function orEmptyOnTenantIssue<T>(load: Promise<T[]>): Promise<T[]> {
+  try {
+    return await load
+  } catch (err) {
+    if (isTenantLookupFailure(failureInputFromError(err))) return []
+    throw err
+  }
+}
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -27,10 +39,10 @@ export default async function HomePage({ params }: Props) {
   if (!isValidLocale(locale)) notFound()
 
   const t = await getTranslation(locale)
-  const tours = await getAllTours(locale)
-  const articles = await getAllArticles(locale)
-  const partners = await getAllPartners(locale)
-  const reviews = await getAllReviews(locale)
+  const tours = await orEmptyOnTenantIssue(getAllTours(locale))
+  const articles = await orEmptyOnTenantIssue(getAllArticles(locale))
+  const partners = await orEmptyOnTenantIssue(getAllPartners(locale))
+  const reviews = await orEmptyOnTenantIssue(getAllReviews(locale))
   const latestArticles = [...articles]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 3)

@@ -7,7 +7,7 @@
 // 200 responses, so the next request probes again.
 import { apiGet } from '@/lib/api/client'
 import { parseSubscriptionState } from '@/lib/subscription-state.mjs'
-import { classifyStatusFailure, failureInputFromError } from '@/lib/service-state.mjs'
+import { classifyStatusFailure, failureInputFromError, isTenantLookupFailure } from '@/lib/service-state.mjs'
 import type { ServiceState } from '@/lib/service-state.mjs'
 
 // Long enough for a sleeping backend to wake; the waking-up screen covers the wait
@@ -23,6 +23,9 @@ export async function getSubscriptionState(): Promise<ServiceState> {
     return parseSubscriptionState(data)
   } catch (err) {
     // A timeout while reading the body is swallowed by request() and fails open to 'active' (accepted).
-    return classifyStatusFailure(failureInputFromError(err))
+    const input = failureInputFromError(err)
+    // Tenant lookup refused: render the site with the notice, not the waking-up screen.
+    if (isTenantLookupFailure(input)) return 'tenant_issue'
+    return classifyStatusFailure(input)
   }
 }

@@ -27,3 +27,10 @@ export function failureInputFromError(err) {
   if (err?.name === 'AbortError' || err?.name === 'TimeoutError') return { timedOut: true }
   return {}
 }
+
+// The backend answered, but it cannot resolve this site's tenant (503 TENANT
+// FEATURE_UNAVAILABLE). Unlike a sleeping or unreachable backend, the site can still
+// render its shell with a notice on top.
+export function isTenantLookupFailure(f = {}) {
+  return f.status === 503 && f.domain === 'TENANT' && f.code === 'FEATURE_UNAVAILABLE'
+}

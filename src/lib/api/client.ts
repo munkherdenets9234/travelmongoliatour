@@ -40,7 +40,7 @@ function describeFailure(method: string, path: string, status: number, json: Api
 }
 
 function baseUrl() {
-  return process.env.API_BASE_URL ?? 'http://localhost:8080/api/v1'
+  return (process.env.API_BASE_URL ?? 'http://localhost:8080/api/v1').replace(/\/+$/, '')
 }
 
 function apiKey() {

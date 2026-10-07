@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { classifyStatusFailure, failureInputFromError } from './service-state.mjs'
+import { classifyStatusFailure, failureInputFromError, isTenantLookupFailure } from './service-state.mjs'
 
 test('503 TENANT FEATURE_UNAVAILABLE is unavailable', () => {
   assert.equal(classifyStatusFailure({ status: 503, domain: 'TENANT', code: 'FEATURE_UNAVAILABLE' }), 'unavailable')
@@ -102,4 +102,12 @@ test('a plain TypeError and a TypeError caused by ECONNREFUSED are still network
   assert.deepEqual(failureInputFromError(new TypeError('fetch failed')), { networkError: true })
   const err = new TypeError('fetch failed', { cause: { code: 'ECONNREFUSED' } })
   assert.deepEqual(failureInputFromError(err), { networkError: true })
+})
+
+test('isTenantLookupFailure: only 503 TENANT FEATURE_UNAVAILABLE', () => {
+  assert.equal(isTenantLookupFailure({ status: 503, domain: 'TENANT', code: 'FEATURE_UNAVAILABLE' }), true)
+  assert.equal(isTenantLookupFailure({ status: 503, domain: 'GENERAL', code: 'FEATURE_UNAVAILABLE' }), false)
+  assert.equal(isTenantLookupFailure({ status: 503 }), false)
+  assert.equal(isTenantLookupFailure({ networkError: true }), false)
+  assert.equal(isTenantLookupFailure(), false)
 })

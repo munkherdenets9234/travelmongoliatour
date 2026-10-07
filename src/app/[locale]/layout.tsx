@@ -83,7 +83,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   const [t, subscription] = await Promise.all([getTranslation(locale), getSubscriptionState()])
 
-  if (subscription === 'unavailable') {
+  if (subscription === 'unavailable' || subscription === 'tenant_issue') {
     // Opt this render out of prerendering/ISR: the waking-up screen must never be
     // saved as a cached or build-time page (it would be served for a while after the
     // backend recovers). At request time this is a no-op wait.
@@ -114,7 +114,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <ServiceUnavailable t={t} />
           ) : (
             <>
-              {subscription === 'expired' && <SubscriptionNotice t={t} />}
+              {(subscription === 'expired' || subscription === 'tenant_issue') && <SubscriptionNotice t={t} />}
               <Header />
               <main>{children}</main>
               <Footer t={t} locale={locale} />
