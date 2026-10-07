@@ -93,3 +93,13 @@ test('failureInputFromError maps a TimeoutError (DOMException when available) to
 test('a negative status is active', () => {
   assert.equal(classifyStatusFailure({ status: -1 }), 'active')
 })
+test('a TypeError caused by ERR_INVALID_URL (malformed base URL) is not an outage', () => {
+  const err = new TypeError('Failed to parse URL', { cause: { code: 'ERR_INVALID_URL' } })
+  assert.deepEqual(failureInputFromError(err), {})
+  assert.equal(classifyStatusFailure(failureInputFromError(err)), 'active')
+})
+test('a plain TypeError and a TypeError caused by ECONNREFUSED are still network failures', () => {
+  assert.deepEqual(failureInputFromError(new TypeError('fetch failed')), { networkError: true })
+  const err = new TypeError('fetch failed', { cause: { code: 'ECONNREFUSED' } })
+  assert.deepEqual(failureInputFromError(err), { networkError: true })
+})

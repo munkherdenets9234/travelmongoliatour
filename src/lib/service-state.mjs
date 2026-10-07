@@ -22,7 +22,8 @@ export function failureInputFromError(err) {
       domain: typeof err.domain === 'string' ? err.domain : undefined,
     }
   }
-  if (err instanceof TypeError) return { networkError: true }
+  // A malformed base URL is a misconfiguration, not an outage: it must fail loudly.
+  if (err instanceof TypeError) return err.cause?.code === 'ERR_INVALID_URL' ? {} : { networkError: true }
   if (err?.name === 'AbortError' || err?.name === 'TimeoutError') return { timedOut: true }
   return {}
 }

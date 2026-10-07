@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import StarRatingInput from '@/components/ui/StarRatingInput'
+import { isUnavailableResponse } from '@/lib/api/guard-core.mjs'
 
 export interface ReviewFormTourOption {
   slug: string
@@ -13,7 +14,7 @@ export default function ReviewForm({ tours }: { tours: ReviewFormTourOption[] })
   const { t, locale } = useTranslation()
   const rf = t.reviewForm
   const [star, setStar] = useState(0)
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error' | 'unavailable'>('idle')
   const [starError, setStarError] = useState(false)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -38,6 +39,10 @@ export default function ReviewForm({ tours }: { tours: ReviewFormTourOption[] })
           locale,
         }),
       })
+      if (isUnavailableResponse(res.status)) {
+        setStatus('unavailable')
+        return
+      }
       if (!res.ok) throw new Error('failed')
       setStatus('success')
     } catch {
@@ -92,6 +97,7 @@ export default function ReviewForm({ tours }: { tours: ReviewFormTourOption[] })
       />
 
       {status === 'error' && <p className="text-xs text-red-600">{t.common.error_generic}</p>}
+      {status === 'unavailable' && <p className="text-xs text-red-600">{t.serviceUnavailable.formMessage}</p>}
 
       <button type="submit" disabled={status === 'submitting'} className="bg-olive text-cream rounded-sm py-3.5 text-xs font-semibold tracking-widest uppercase disabled:opacity-60">
         {status === 'submitting' ? t.common.sending : rf.submit}
