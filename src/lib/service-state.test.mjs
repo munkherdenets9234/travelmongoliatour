@@ -80,3 +80,16 @@ for (const locale of ['en', 'mn', 'ko']) {
     }
   })
 }
+
+test('failureInputFromError ignores a string status and classifies active', () => {
+  const input = failureInputFromError({ status: '503' })
+  assert.deepEqual(input, {})
+  assert.equal(classifyStatusFailure(input), 'active')
+})
+test('failureInputFromError maps a TimeoutError (DOMException when available) to timedOut', () => {
+  const err = typeof DOMException === 'function' ? new DOMException('', 'TimeoutError') : { name: 'TimeoutError' }
+  assert.deepEqual(failureInputFromError(err), { timedOut: true })
+})
+test('a negative status is active', () => {
+  assert.equal(classifyStatusFailure({ status: -1 }), 'active')
+})

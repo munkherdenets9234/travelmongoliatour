@@ -22,6 +22,7 @@ export async function getSubscriptionState(): Promise<ServiceState> {
     })
     return parseSubscriptionState(data)
   } catch (err) {
+    // A timeout while reading the body is swallowed by request() and fails open to 'active' (accepted).
     return classifyStatusFailure(failureInputFromError(err))
   }
 }
