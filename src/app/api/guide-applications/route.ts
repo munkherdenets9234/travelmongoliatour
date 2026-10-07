@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     const mapped = upstreamResponseFor(err, status)
     if (mapped.status === 503) {
       console.error(`[api/guide-applications] upstream failure: ${status !== undefined ? `status ${status}` : 'unreachable'}`)
-      return jsonError(503, mapped.error)
+      return NextResponse.json({ error: mapped.error, reason: 'waking' }, { status: 503 })
     }
     const code = status !== undefined ? PASSTHROUGH[status] : undefined
     if (status !== undefined && code) {

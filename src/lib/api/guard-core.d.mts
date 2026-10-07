@@ -22,3 +22,4 @@ export const GENERIC_ERRORS: { invalid: string; rateLimited: string; upstream: s
 export function redactForLog(message: unknown): string
 export function isUnavailableResponse(status: unknown): boolean
 export function upstreamResponseFor(err: unknown, apiStatus?: number): { status: 400 | 502 | 503; error: string }
+export function isWakingResponse(status: unknown, body: unknown): boolean

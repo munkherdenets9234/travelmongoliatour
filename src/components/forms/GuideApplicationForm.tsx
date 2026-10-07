@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { validateApplication } from '@/lib/careers/validate.mjs'
-import { isUnavailableResponse } from '@/lib/api/guard-core.mjs'
+import { isWakingResponse } from '@/lib/api/guard-core.mjs'
 import {
   buildPayload,
   buildSubmitForm,
@@ -131,14 +131,16 @@ export default function GuideApplicationForm() {
         return
       }
       let hint: unknown
-      if (res.status === 400 || res.status === 422) {
+      let body: unknown
+      if (res.status === 400 || res.status === 422 || res.status === 503) {
         try {
-          hint = ((await res.json()) as { field?: unknown }).field
+          body = await res.json()
         } catch {
-          hint = undefined
+          body = undefined
         }
+        hint = (body as { field?: unknown } | null | undefined)?.field
       }
-      if (isUnavailableResponse(res.status)) {
+      if (isWakingResponse(res.status, body)) {
         showErrors({}, t.serviceUnavailable.formMessage)
         return
       }

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import {
   cleanString, cleanEmail, cleanPhone, cleanChoice, cleanInt, cleanDate,
   isHoneypotTripped, createRateLimiter, visitorIp, redactForLog, fakeConfirmation,
-  GENERIC_ERRORS, isUnavailableResponse, upstreamResponseFor,
+  GENERIC_ERRORS, isUnavailableResponse, upstreamResponseFor, isWakingResponse,
 } from './guard-core.mjs'
 
 test('cleanString trims, bounds length, rejects non-strings and control chars', () => {
@@ -175,4 +175,24 @@ test('upstreamResponseFor maps unavailable-class failures to 503 and keeps the o
   assert.deepEqual(upstreamResponseFor(api(503, 'OTHER', 'TENANT'), 503), { status: 502, error: GENERIC_ERRORS.upstream })
   assert.deepEqual(upstreamResponseFor(new Error('missing key')), { status: 502, error: GENERIC_ERRORS.upstream })
   assert.deepEqual(upstreamResponseFor(undefined), { status: 502, error: GENERIC_ERRORS.upstream })
+})
+
+test('isWakingResponse needs status 503 and reason waking in the body', () => {
+  assert.equal(isWakingResponse(503, { error: 'x', reason: 'waking' }), true)
+  assert.equal(isWakingResponse(503, { error: 'unavailable' }), false)
+  for (const b of [null, undefined, 'waking', 5, []]) assert.equal(isWakingResponse(503, b), false)
+  assert.equal(isWakingResponse(502, { reason: 'waking' }), false)
+  assert.equal(isWakingResponse(400, { reason: 'waking' }), false)
+})
+
+test('upstreamResponseFor: AbortError, status 0 and code-less 503 are unavailable; GENERAL FEATURE_UNAVAILABLE 503 is not', () => {
+  const U = { status: 503, error: GENERIC_ERRORS.unavailable }
+  const ab = new Error('a'); ab.name = 'AbortError'
+  assert.deepEqual(upstreamResponseFor(ab), U)
+  assert.deepEqual(upstreamResponseFor({ status: 0 }, 0), U)
+  assert.deepEqual(upstreamResponseFor({ status: 503 }, 503), U)
+  assert.deepEqual(
+    upstreamResponseFor({ status: 503, code: 'FEATURE_UNAVAILABLE', domain: 'GENERAL' }, 503),
+    { status: 502, error: GENERIC_ERRORS.upstream },
+  )
 })

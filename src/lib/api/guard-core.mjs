@@ -130,6 +130,12 @@ export function isUnavailableResponse(status) {
   return status === 503
 }
 
+// True only for a 503 whose JSON body carries reason 'waking' (the guide route's
+// classified branch). Other 503s (e.g. a config gap) must not read as "waking up".
+export function isWakingResponse(status, body) {
+  return status === 503 && body !== null && typeof body === 'object' && body.reason === 'waking'
+}
+
 // Picks the HTTP status and fixed message for a failed backend call. `apiStatus` is
 // the ApiError status when the caller knows `err` is one (guard.ts passes it), so a
 // stray object with a status field is never treated as a backend 4xx.
