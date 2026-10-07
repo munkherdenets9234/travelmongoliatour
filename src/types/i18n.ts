@@ -563,4 +563,7 @@ export interface Translation {
     text: string
     cta: string
   }
+  subscription: {
+    expiredNotice: string
+  }
 }

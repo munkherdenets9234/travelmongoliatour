@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation'
 import { isValidLocale, locales, siteUrl } from '@/lib/i18n'
 import { getTranslation } from '@/lib/translations/server'
 import { organizationSchema } from '@/lib/seo'
+import { getSubscriptionState } from '@/lib/api/subscription'
+import SubscriptionNotice from '@/components/layout/SubscriptionNotice'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import TranslationProvider from '@/components/TranslationProvider'
@@ -77,7 +79,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
   if (!isValidLocale(locale)) notFound()
 
-  const t = await getTranslation(locale)
+  const [t, subscription] = await Promise.all([getTranslation(locale), getSubscriptionState()])
 
   return (
     <html lang={locale} className={`${manrope.variable} ${cormorant.variable} scroll-smooth`}>
@@ -99,6 +101,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
         />
         <TranslationProvider value={t}>
+          {subscription === 'expired' && <SubscriptionNotice t={t} />}
           <Header />
           <main>{children}</main>
           <Footer t={t} locale={locale} />

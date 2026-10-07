@@ -99,9 +99,10 @@ function toQueryString(searchParams?: Record<string, string | number | undefined
 export function apiGet<T>(
   path: string,
   searchParams?: Record<string, string | number | undefined>,
-  init?: { signal?: AbortSignal },
+  init?: { signal?: AbortSignal; revalidate?: number },
 ) {
-  return request<T>(`${path}${toQueryString(searchParams)}`, { ...init, method: 'GET', next: { revalidate: 300 } })
+  const { revalidate = 300, ...rest } = init ?? {}
+  return request<T>(`${path}${toQueryString(searchParams)}`, { ...rest, method: 'GET', next: { revalidate } })
 }
 
 export function apiPost<T>(path: string, body: unknown, token?: string, visitorIp?: string) {
