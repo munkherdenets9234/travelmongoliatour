@@ -7,6 +7,7 @@ import { getTranslation } from '@/lib/translations/server'
 import { organizationSchema } from '@/lib/seo'
 import { getSubscriptionState } from '@/lib/api/subscription'
 import SubscriptionNotice from '@/components/layout/SubscriptionNotice'
+import ServiceUnavailable from '@/components/layout/ServiceUnavailable'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import TranslationProvider from '@/components/TranslationProvider'
@@ -101,10 +102,16 @@ export default async function LocaleLayout({ children, params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema()) }}
         />
         <TranslationProvider value={t}>
-          {subscription === 'expired' && <SubscriptionNotice t={t} />}
-          <Header />
-          <main>{children}</main>
-          <Footer t={t} locale={locale} />
+          {subscription === 'unavailable' ? (
+            <ServiceUnavailable t={t} />
+          ) : (
+            <>
+              {subscription === 'expired' && <SubscriptionNotice t={t} />}
+              <Header />
+              <main>{children}</main>
+              <Footer t={t} locale={locale} />
+            </>
+          )}
         </TranslationProvider>
       </body>
     </html>

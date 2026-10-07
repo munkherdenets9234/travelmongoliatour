@@ -566,4 +566,10 @@ export interface Translation {
   subscription: {
     expiredNotice: string
   }
+  serviceUnavailable: {
+    title: string
+    body: string
+    retry: string
+    formMessage: string
+  }
 }

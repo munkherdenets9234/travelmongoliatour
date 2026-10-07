@@ -812,5 +812,11 @@
   },
   "subscription": {
     "expiredNotice": "This site's subscription has expired. Some features may stop working."
+  },
+  "serviceUnavailable": {
+    "title": "We're waking our service up",
+    "body": "This page will retry on its own in a few seconds.",
+    "retry": "Try again now",
+    "formMessage": "Our service is waking up. Please try again in a minute."
   }
 }
