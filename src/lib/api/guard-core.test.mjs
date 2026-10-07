@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import {
   cleanString, cleanEmail, cleanPhone, cleanChoice, cleanInt, cleanDate,
   isHoneypotTripped, createRateLimiter, visitorIp, redactForLog, fakeConfirmation,
+  GENERIC_ERRORS, isUnavailableResponse, upstreamResponseFor,
 } from './guard-core.mjs'
 
 test('cleanString trims, bounds length, rejects non-strings and control chars', () => {
@@ -144,4 +145,34 @@ test('fakeConfirmation looks like a real id: prefix plus 6 uppercase hex chars',
   }
   assert.ok(seen.size > 1)
   assert.match(fakeConfirmation('CT'), /^CT-[0-9A-F]{6}$/)
+})
+
+test('GENERIC_ERRORS.unavailable is a non-empty string', () => {
+  assert.equal(typeof GENERIC_ERRORS.unavailable, 'string')
+  assert.ok(GENERIC_ERRORS.unavailable.length > 0)
+})
+
+test('isUnavailableResponse is true only for 503', () => {
+  assert.equal(isUnavailableResponse(503), true)
+  for (const s of [502, 400, 429, 500, 201, 504, 0]) assert.equal(isUnavailableResponse(s), false, String(s))
+  for (const s of ['503', null, undefined, NaN, {}, [503]]) assert.equal(isUnavailableResponse(s), false)
+})
+
+test('upstreamResponseFor maps unavailable-class failures to 503 and keeps the old mapping otherwise', () => {
+  const api = (status, code, domain) => Object.assign(new Error('x'), { status, code, domain })
+  const U = { status: 503, error: GENERIC_ERRORS.unavailable }
+  assert.deepEqual(upstreamResponseFor(api(503, 'FEATURE_UNAVAILABLE', 'TENANT'), 503), U)
+  assert.deepEqual(upstreamResponseFor(api(502), 502), U)
+  assert.deepEqual(upstreamResponseFor(api(504), 504), U)
+  assert.deepEqual(upstreamResponseFor(new TypeError('fetch failed')), U)
+  const te = new Error('t'); te.name = 'TimeoutError'
+  assert.deepEqual(upstreamResponseFor(te), U)
+  // today's mapping
+  assert.deepEqual(upstreamResponseFor(api(422, 'X', 'Y'), 422), { status: 400, error: GENERIC_ERRORS.invalid })
+  assert.deepEqual(upstreamResponseFor(api(400, 'X', 'Y'), 400), { status: 400, error: GENERIC_ERRORS.invalid })
+  for (const s of [401, 403, 429]) assert.deepEqual(upstreamResponseFor(api(s, 'X', 'Y'), s), { status: 502, error: GENERIC_ERRORS.upstream })
+  assert.deepEqual(upstreamResponseFor(api(500, 'X', 'Y'), 500), { status: 502, error: GENERIC_ERRORS.upstream })
+  assert.deepEqual(upstreamResponseFor(api(503, 'OTHER', 'TENANT'), 503), { status: 502, error: GENERIC_ERRORS.upstream })
+  assert.deepEqual(upstreamResponseFor(new Error('missing key')), { status: 502, error: GENERIC_ERRORS.upstream })
+  assert.deepEqual(upstreamResponseFor(undefined), { status: 502, error: GENERIC_ERRORS.upstream })
 })

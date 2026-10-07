@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import type { Car } from '@/lib/data/cars'
 import { useTranslation } from '@/hooks/useTranslation'
+import { isUnavailableResponse } from '@/lib/api/guard-core.mjs'
 import { dateBounds, withinBounds } from '@/lib/rentals/availability.mjs'
 
 interface Props {
@@ -16,7 +17,7 @@ interface Props {
 export default function ReservationDialog({ car, mode, pickupDate, returnDate, onClose }: Props) {
   const { t } = useTranslation()
   const rd = t.reservationDialog
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error' | 'unavailable'>('idle')
   const bounds = dateBounds(car, mode)
   const [confirmationId, setConfirmationId] = useState<string | null>(null)
 
@@ -43,6 +44,10 @@ export default function ReservationDialog({ car, mode, pickupDate, returnDate, o
           returnDate: form.get('returnDate'),
         }),
       })
+      if (isUnavailableResponse(res.status)) {
+        setStatus('unavailable')
+        return
+      }
       if (!res.ok) throw new Error('failed')
       const data = await res.json()
       setConfirmationId(data.confirmationId)
@@ -105,6 +110,7 @@ export default function ReservationDialog({ car, mode, pickupDate, returnDate, o
               <input name="phone" type="tel" placeholder={rd.phone_placeholder} className="border border-input-border rounded-sm px-3 py-2.5 text-sm bg-white" />
 
               {status === 'error' && <p className="text-xs text-red-600">{t.common.error_generic}</p>}
+              {status === 'unavailable' && <p className="text-xs text-red-600">{t.serviceUnavailable.formMessage}</p>}
 
               <button
                 type="submit"

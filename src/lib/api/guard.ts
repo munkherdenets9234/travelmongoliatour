@@ -2,7 +2,7 @@
 // and generic error responses. Server-only. Validation lives in guard-core.mjs.
 import { NextRequest, NextResponse } from 'next/server'
 import { ApiError } from '@/lib/api/client'
-import { createRateLimiter, visitorIp, isHoneypotTripped, GENERIC_ERRORS, redactForLog } from './guard-core.mjs'
+import { createRateLimiter, visitorIp, isHoneypotTripped, GENERIC_ERRORS, redactForLog, upstreamResponseFor } from './guard-core.mjs'
 
 export * from './guard-core.mjs'
 
@@ -49,9 +49,6 @@ export function upstreamFailure(route: string, err: unknown) {
     ? `status ${err.status}: ${redactForLog(err.message)}`
     : redactForLog(err instanceof Error ? err.message : err)
   console.error(`[api/${route}] upstream failure: ${detail}`)
-  // Backend validation rejections (4xx) are about the visitor's input; the rest is ours.
-  if (err instanceof ApiError && err.status >= 400 && err.status < 500 && ![401, 403, 429].includes(err.status)) {
-    return jsonError(400, GENERIC_ERRORS.invalid)
-  }
-  return jsonError(502, GENERIC_ERRORS.upstream)
+  const { status, error } = upstreamResponseFor(err, err instanceof ApiError ? err.status : undefined)
+  return jsonError(status, error)
 }

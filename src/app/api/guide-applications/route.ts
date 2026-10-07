@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { apiPostForm, ApiError } from '@/lib/api/client'
-import { createRateLimiter, getVisitorIp, jsonError, fakeConfirmation, GENERIC_ERRORS } from '@/lib/api/guard'
+import { createRateLimiter, getVisitorIp, jsonError, fakeConfirmation, GENERIC_ERRORS, upstreamResponseFor } from '@/lib/api/guard'
 import { buildForwardForm, checkBodySize, fieldFromMessage } from '@/lib/careers/proxy.mjs'
 
 interface GuideApplicationResponse {
@@ -65,6 +65,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ confirmationId: data.confirmation_id }, { status: 201 })
   } catch (err) {
     const status = err instanceof ApiError ? err.status : undefined
+    // Asleep/unreachable backend (network, timeout, 502/503/504 proxy page): the form
+    // shows its "waking up" message for the 503.
+    const mapped = upstreamResponseFor(err, status)
+    if (mapped.status === 503) {
+      console.error(`[api/guide-applications] upstream failure: ${status !== undefined ? `status ${status}` : 'unreachable'}`)
+      return jsonError(503, mapped.error)
+    }
     const code = status !== undefined ? PASSTHROUGH[status] : undefined
     if (status !== undefined && code) {
       const field = status === 400 || status === 422 ? fieldFromMessage((err as ApiError).message) : undefined

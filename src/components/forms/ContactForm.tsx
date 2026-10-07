@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { isUnavailableResponse } from '@/lib/api/guard-core.mjs'
 
 export default function ContactForm() {
   const { t } = useTranslation()
   const cf = t.contactForm
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error' | 'unavailable'>('idle')
   const [confirmationId, setConfirmationId] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -26,6 +27,10 @@ export default function ContactForm() {
           message: form.get('message'),
         }),
       })
+      if (isUnavailableResponse(res.status)) {
+        setStatus('unavailable')
+        return
+      }
       if (!res.ok) throw new Error('failed')
       const data = await res.json()
       setConfirmationId(data.confirmationId)
@@ -67,6 +72,7 @@ export default function ContactForm() {
       />
 
       {status === 'error' && <p className="text-xs text-red-600">{t.common.error_generic}</p>}
+      {status === 'unavailable' && <p className="text-xs text-red-600">{t.serviceUnavailable.formMessage}</p>}
 
       <button type="submit" disabled={status === 'submitting'} className="bg-olive text-cream rounded-sm py-3.5 text-xs font-semibold tracking-widest uppercase disabled:opacity-60">
         {status === 'submitting' ? t.common.sending : cf.send_message}

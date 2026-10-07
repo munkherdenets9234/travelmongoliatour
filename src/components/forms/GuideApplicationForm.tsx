@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { validateApplication } from '@/lib/careers/validate.mjs'
+import { isUnavailableResponse } from '@/lib/api/guard-core.mjs'
 import {
   buildPayload,
   buildSubmitForm,
@@ -136,6 +137,10 @@ export default function GuideApplicationForm() {
         } catch {
           hint = undefined
         }
+      }
+      if (isUnavailableResponse(res.status)) {
+        showErrors({}, t.serviceUnavailable.formMessage)
+        return
       }
       const { code, field } = mapSubmitFailure(res.status, hint)
       showErrors(field ? { [field]: msg(code) } : {}, msg(code))

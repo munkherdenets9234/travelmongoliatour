@@ -1,5 +1,6 @@
 // Pure helpers for the public write routes under src/app/api. No Next.js or
 // network imports, so they run under `node --test` (see guard-core.test.mjs).
+import { classifyStatusFailure, failureInputFromError } from '../service-state.mjs'
 
 const EMAIL_RE = /^[^\s@<>()[\]\\,;:"]+@[^\s@<>()[\]\\,;:"]+\.[^\s@<>()[\]\\,;:"]{2,}$/
 const CONTROL_RE = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/
@@ -120,6 +121,27 @@ export const GENERIC_ERRORS = {
   rateLimited: 'Too many requests. Please wait a moment and try again.',
   upstream: 'We could not complete your request right now. Please try again later.',
   notFound: 'The requested item was not found.',
+  unavailable: 'Our service is waking up. Please try again in a minute.',
+}
+
+// True only for the 503 the routes return for an unavailable-class failure. Used by
+// the client forms to show the "waking up" message instead of the generic error.
+export function isUnavailableResponse(status) {
+  return status === 503
+}
+
+// Picks the HTTP status and fixed message for a failed backend call. `apiStatus` is
+// the ApiError status when the caller knows `err` is one (guard.ts passes it), so a
+// stray object with a status field is never treated as a backend 4xx.
+export function upstreamResponseFor(err, apiStatus) {
+  if (classifyStatusFailure(failureInputFromError(err)) === 'unavailable') {
+    return { status: 503, error: GENERIC_ERRORS.unavailable }
+  }
+  // Backend validation rejections (4xx) are about the visitor's input; the rest is ours.
+  if (typeof apiStatus === 'number' && apiStatus >= 400 && apiStatus < 500 && ![401, 403, 429].includes(apiStatus)) {
+    return { status: 400, error: GENERIC_ERRORS.invalid }
+  }
+  return { status: 502, error: GENERIC_ERRORS.upstream }
 }
 
 // Strip things that must not reach logs: emails, long token-like runs, long digit runs.

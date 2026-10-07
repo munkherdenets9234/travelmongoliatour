@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { isUnavailableResponse } from '@/lib/api/guard-core.mjs'
 
 const TIER_IDS = ['standard', 'meet-greet', 'vip']
 const TIER_PRICES = [25, 45, 120]
@@ -17,7 +18,7 @@ export default function AirportTransferForm() {
     ...atf.tiers[i],
   }))
   const [tier, setTier] = useState('meet-greet')
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error' | 'unavailable'>('idle')
   const [confirmationId, setConfirmationId] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -38,6 +39,10 @@ export default function AirportTransferForm() {
           passengers: form.get('passengers'),
         }),
       })
+      if (isUnavailableResponse(res.status)) {
+        setStatus('unavailable')
+        return
+      }
       if (!res.ok) throw new Error('failed')
       const data = await res.json()
       setConfirmationId(data.confirmationId)
@@ -134,6 +139,7 @@ export default function AirportTransferForm() {
       </div>
 
       {status === 'error' && <p className="text-center text-sm text-red-600 mb-3">{t.common.error_generic}</p>}
+      {status === 'unavailable' && <p className="text-center text-sm text-red-600 mb-3">{t.serviceUnavailable.formMessage}</p>}
 
       <div className="flex justify-center pb-14">
         <button
