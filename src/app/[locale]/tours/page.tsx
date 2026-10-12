@@ -102,8 +102,6 @@ export default async function ToursPage({ params, searchParams }: Props) {
         </div>
       </div>
 
-      <GuideBanner locale={locale} />
-
       {/* BODY */}
       <div className="flex flex-col lg:flex-row gap-10 container mx-auto px-6 sm:px-14 py-8">
         <aside className="lg:w-56 flex-none flex flex-col gap-7">
@@ -187,6 +185,8 @@ export default async function ToursPage({ params, searchParams }: Props) {
           {t.cta_button}
         </Link>
       </section>
+
+      <GuideBanner locale={locale} />
     </>
   )
 }
