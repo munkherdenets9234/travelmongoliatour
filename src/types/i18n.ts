@@ -363,6 +363,7 @@ export interface Translation {
     email_placeholder: string
     country_placeholder: string
     phone_placeholder: string
+    phone_hint: string
     section3: string
     section4: string
     notes_placeholder: string
@@ -528,6 +529,7 @@ export interface Translation {
     name_placeholder: string
     email_placeholder: string
     phone_placeholder: string
+    phone_hint: string
     subjects: string[]
     message_placeholder: string
     send_message: string
