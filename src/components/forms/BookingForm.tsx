@@ -21,6 +21,7 @@ export default function BookingForm({ tours, initialSlug, initialDate, initialAd
   })
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error' | 'unavailable'>('idle')
   const [confirmationId, setConfirmationId] = useState<string | null>(null)
+  const [debugInfo, setDebugInfo] = useState<string | null>(null)
 
   const tour = tours.find((tr) => tr.slug === slug) ?? tours[0]
 
@@ -37,6 +38,7 @@ export default function BookingForm({ tours, initialSlug, initialDate, initialAd
     e.preventDefault()
     if (!tour) return
     setStatus('submitting')
+    setDebugInfo(null)
     const form = new FormData(e.currentTarget)
 
     try {
@@ -60,7 +62,13 @@ export default function BookingForm({ tours, initialSlug, initialDate, initialAd
         setStatus('unavailable')
         return
       }
-      if (!res.ok) throw new Error('failed')
+      if (!res.ok) {
+        if (process.env.NODE_ENV !== 'production') {
+          const body = await res.json().catch(() => null)
+          setDebugInfo(`HTTP ${res.status}${body?.debug ? ` - ${body.debug}` : body?.error ? ` - ${body.error}` : ''}`)
+        }
+        throw new Error('failed')
+      }
       const data = await res.json()
       setConfirmationId(data.confirmationId)
       setStatus('success')
@@ -102,6 +110,8 @@ export default function BookingForm({ tours, initialSlug, initialDate, initialAd
               <input
                 name="date"
                 type="date"
+                required
+                min={new Date().toISOString().slice(0, 10)}
                 defaultValue={initialDate}
                 onClick={(e) => e.currentTarget.showPicker?.()}
                 className="w-full border border-input-border rounded-sm px-3 py-3 text-sm bg-white cursor-pointer"
@@ -124,7 +134,7 @@ export default function BookingForm({ tours, initialSlug, initialDate, initialAd
             <input name="name" required type="text" placeholder={bf.name_placeholder} className="border border-input-border rounded-sm px-3 py-3 text-sm" />
             <input name="email" required type="email" placeholder={bf.email_placeholder} className="border border-input-border rounded-sm px-3 py-3 text-sm" />
             <input name="country" type="text" placeholder={bf.country_placeholder} className="border border-input-border rounded-sm px-3 py-3 text-sm" />
-            <input name="phone" type="tel" placeholder={bf.phone_placeholder} className="border border-input-border rounded-sm px-3 py-3 text-sm" />
+            <input name="phone" type="tel" inputMode="tel" maxLength={30} pattern="\+?[0-9 ()\-.]{5,30}" title={bf.phone_hint} placeholder={bf.phone_placeholder} className="border border-input-border rounded-sm px-3 py-3 text-sm" />
           </div>
         </div>
 
@@ -183,6 +193,7 @@ export default function BookingForm({ tours, initialSlug, initialDate, initialAd
             <div className="text-xs text-warm-gray mb-4">{bf.deposit_label} · ${deposit.toLocaleString()}</div>
 
             {status === 'error' && <p className="text-xs text-red-600 mb-3">{t.common.error_generic}</p>}
+            {status === 'error' && debugInfo && <p className="text-xs text-red-600 mb-3 font-mono">[dev] {debugInfo}</p>}
             {status === 'unavailable' && <p className="text-xs text-red-600 mb-3">{t.serviceUnavailable.formMessage}</p>}
 
             <button type="submit" disabled={status === 'submitting'} className="w-full bg-olive text-cream rounded-sm py-3.5 text-xs font-semibold tracking-widest uppercase disabled:opacity-60">

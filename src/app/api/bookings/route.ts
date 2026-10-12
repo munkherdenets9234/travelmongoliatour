@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { apiPost } from '@/lib/api/client'
+import { apiPost, ApiError } from '@/lib/api/client'
 import {
-  guardPost, jsonError, upstreamFailure, fakeConfirmation, cleanString, cleanEmail, cleanPhone, cleanDate, GENERIC_ERRORS,
+  guardPost, jsonError, upstreamFailure, fakeConfirmation, cleanString, cleanEmail, cleanPhone, cleanDate, GENERIC_ERRORS, redactForLog,
 } from '@/lib/api/guard'
 import { getTourBySlug } from '@/lib/data/tours'
 import { ADDONS } from '@/lib/data/addons'
@@ -29,7 +29,15 @@ export async function POST(request: NextRequest) {
   const notes = cleanString(body.notes, { max: 2000, multiline: true })
   const slug = cleanString(body.tourSlug, { min: 1, max: 120 })
   const date = cleanDate(body.date)
-  if (![name, email, phone, country, notes, slug, date].every((f) => f.ok)) {
+  const fields = { name, email, phone, country, notes, tourSlug: slug, date }
+  const rejected = Object.entries(fields).filter(([, f]) => !f.ok).map(([k]) => k)
+  if (rejected.length > 0) {
+    // Dev only: say WHICH fields failed (names, never values) so a rejected form
+    // is debuggable. Production keeps the generic message.
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(`[api/bookings] rejected fields: ${rejected.join(', ')}`)
+      return NextResponse.json({ error: GENERIC_ERRORS.invalid, debug: `Rejected fields: ${rejected.join(', ')}` }, { status: 400 })
+    }
     return jsonError(400, GENERIC_ERRORS.invalid)
   }
 
@@ -78,6 +86,12 @@ export async function POST(request: NextRequest) {
     const confirmationId = `BK-${data.id.slice(-6).toUpperCase()}`
     return NextResponse.json({ confirmationId }, { status: 201 })
   } catch (err) {
-    return upstreamFailure('bookings', err)
+    const res = upstreamFailure('bookings', err)
+    if (process.env.NODE_ENV !== 'production') {
+      // Dev only: surface the upstream status/message (already redacted for the log).
+      const debug = err instanceof ApiError ? `upstream ${err.status}: ${redactForLog(err.message)}` : 'upstream request failed'
+      return NextResponse.json({ error: GENERIC_ERRORS.invalid, debug }, { status: res.status })
+    }
+    return res
   }
 }

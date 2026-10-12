@@ -57,7 +57,7 @@ export default function ContactForm() {
         <input name="name" required type="text" placeholder={cf.name_placeholder} className="border border-input-border rounded-sm px-3.5 py-3 text-sm" />
         <input name="email" required type="email" placeholder={cf.email_placeholder} className="border border-input-border rounded-sm px-3.5 py-3 text-sm" />
       </div>
-      <input name="phone" type="tel" placeholder={cf.phone_placeholder} className="border border-input-border rounded-sm px-3.5 py-3 text-sm" />
+      <input name="phone" type="tel" inputMode="tel" maxLength={30} pattern="\+?[0-9 ()\-.]{5,30}" title={cf.phone_hint} placeholder={cf.phone_placeholder} className="border border-input-border rounded-sm px-3.5 py-3 text-sm" />
       <select name="subject" defaultValue={cf.subjects[0]} className="border border-input-border rounded-sm px-3.5 py-3 text-sm bg-white">
         {cf.subjects.map((s) => (
           <option key={s} value={s}>{s}</option>
